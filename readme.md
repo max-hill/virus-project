@@ -24,3 +24,5 @@ navigate to the directory `scripts/splitstree5/` and then run the commmand
 Then using the file menu, open the datafile `BHV1_plus BHV5
 outgroup_alignment.txt` in the `data` directory.
 
+## Using IQ-TREE to construct explicit tree
+Here we use IQ-TREE to construct an explicit tree with the BHV1 data. 
