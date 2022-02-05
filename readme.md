@@ -77,6 +77,7 @@ This should take a few minutes to run; when it is done, the output files will be
 
 	```
 
+Then move all output files to the `data` directory.
 
 ### Visualizing the Tree
 Here we attempt to visualize the tree made by IQ-TREE, which is located in the file `BHV1-plus-BHV5-outgroup-alignment.fasta.treefile`
@@ -113,11 +114,28 @@ We can now run Figtree by running the following command from the `scripts/` dire
 
 `bash FigTree_v1.4.4/bin/figtree`
 
-FigTree has a GUI. Using the File menu, open the treefile
-`iqtree2 -nt AUTO -s BHV1-plus-BHV5-outgroup-alignment.fasta.treefile`
+FigTree has a GUI. Using the File menu, open the treefile 
+`BHV1-plus-BHV5-outgroup-alignment.fasta.treefile`
+from the `data/` directory.
 
 And there you have a tree!
 
+One problem with the tree here is that the evolutionary distance of our outgroup
+BHV5 is so great that the other parts of the tree are too small. Indeed, going
+in to the file `BHV1-plus-BHV5-outgroup-alignment.fasta.treefile` we see the
+edge length for BHV5 is 0.3570603406 whereas we have many other edges on the
+order of 0.00001. In order to clearly show these we will edite the treefile to
+change the edge length of BHV5 from 0.3570603406 to .01. This can be done manually. Save the edited treefile as 
+
+`BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` 
+
+Also we could use the following command [EDIT: Doesn't work]:
+
+`sed --regexp-extended 's/BHV5:0.[0-9]+/BHV5:0.01/' BHV1-plus-BHV5-outgroup-alignment.fasta.treefile > BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile`
+
+
+Next, we open this edited file with FigTree. We expor the file in svg and pdf format to the `analysis` directory.
+ 
 # Appendix: Help with IQ-TREE
 This material is copied from  [here](https://github.com/UWMadison-computingtools-2020/fp-group-6/blob/master/stepsinstructions.md#install-iq-tree).
 
