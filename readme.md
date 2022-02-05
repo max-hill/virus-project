@@ -83,7 +83,6 @@ Then move all output files to the `data` directory.
 Here we attempt to visualize the tree made by IQ-TREE, which is located in the file `BHV1-plus-BHV5-outgroup-alignment.fasta.treefile`
 
 #### Attempt 1: FigTree
-
 For our first attempt at data visualization, we will use a program called
 [FigTree](https://github.com/rambaut/figtree/).
 
@@ -125,7 +124,8 @@ BHV5 is so great that the other parts of the tree are too small. Indeed, going
 in to the file `BHV1-plus-BHV5-outgroup-alignment.fasta.treefile` we see the
 edge length for BHV5 is 0.3570603406 whereas we have many other edges on the
 order of 0.00001. In order to clearly show these we will edite the treefile to
-change the edge length of BHV5 from 0.3570603406 to .01.  To do this run the following command from the `data/` directory:
+change the edge length of BHV5 from 0.3570603406 to .01. To do this run the
+following command from the `data/` directory:
 
 `sed --regexp-extended 's/BHV5:0.[0-9]+/BHV5:0.01/' BHV1-plus-BHV5-outgroup-alignment.fasta.treefile > BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile`
 
@@ -134,8 +134,24 @@ Alternatively, this edit can be done manually, but make sure to save the edited 
 `BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` 
 
 
-Next, we open this edited file with FigTree. We expor the file in svg and pdf format to the `analysis` directory.
- 
+Next, we open this edited file with FigTree. We export the file in svg and pdf
+format to the `analysis/figtree/` directory with the following names:
+
+	```
+	BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile.pdf
+	BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile.svg
+	BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile-unrooted.pdf
+	BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile-unrooted.svg
+	```
+
+
+#### Attempt 2: IcyTree
+Our second attempt at data visualization used the online tool
+[IcyTree](https://icytree.org/). This tool has a GUI, so we just load the file
+`BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` and then can play
+around with the options. Trees produced using this tool are found in the
+directory `analysis/icytree/`.
+
 # Appendix: Help with IQ-TREE
 This material is copied from  [here](https://github.com/UWMadison-computingtools-2020/fp-group-6/blob/master/stepsinstructions.md#install-iq-tree).
 
