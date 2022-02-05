@@ -125,13 +125,13 @@ BHV5 is so great that the other parts of the tree are too small. Indeed, going
 in to the file `BHV1-plus-BHV5-outgroup-alignment.fasta.treefile` we see the
 edge length for BHV5 is 0.3570603406 whereas we have many other edges on the
 order of 0.00001. In order to clearly show these we will edite the treefile to
-change the edge length of BHV5 from 0.3570603406 to .01. This can be done manually. Save the edited treefile as 
-
-`BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` 
-
-Also we could use the following command [EDIT: Doesn't work]:
+change the edge length of BHV5 from 0.3570603406 to .01.  To do this run the following command from the `data/` directory:
 
 `sed --regexp-extended 's/BHV5:0.[0-9]+/BHV5:0.01/' BHV1-plus-BHV5-outgroup-alignment.fasta.treefile > BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile`
+
+Alternatively, this edit can be done manually, but make sure to save the edited treefile as 
+
+`BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` 
 
 
 Next, we open this edited file with FigTree. We expor the file in svg and pdf format to the `analysis` directory.
