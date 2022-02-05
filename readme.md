@@ -60,6 +60,8 @@ outgroup_alignment.txt](https://uwmadison.box.com/s/phga81fq7jacu80cc42m0e4866wf
 (7mb fasta file). Download this file to the `data/` directory. Rename the file to 
 `BHV1-plus-BHV5-outgroup-alignment.fasta`.
 
+This is a fasta file without any linebreaks within the sequences.
+
 ### Running IQ-TREE
 
 From the `data/` directory, run the command
@@ -167,8 +169,16 @@ NetRax analysis:
 	BoviShield_MLV
 	```
 ## Data Processing
-Here we describe how to restrict the large dataset `BHV1-plus-BHV5-outgroup-alignment.fasta` to just the strains that we are intersted in. 
+Here we describe how to restrict the large dataset
+`BHV1-plus-BHV5-outgroup-alignment.fasta` to just the six strains that we are
+intersted in. This can be done in the following way. First, check that you have
+the file `BHV1-plus-BHV5-outgroup-alignment.fasta` saved in the `data/`
+directory. Second, running the following command from the `data/` directory:
 
+`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > BHV1-6-clinical-isolates.fasta`
+
+This command saves the restricted dataset to the `data/` directory as
+`BHV1-6-clinical-isolates.fasta`.
 
 # Appendix: Help with IQ-TREE
 This material is copied from  [here](https://github.com/UWMadison-computingtools-2020/fp-group-6/blob/master/stepsinstructions.md#install-iq-tree).
