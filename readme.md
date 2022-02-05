@@ -152,6 +152,24 @@ Our second attempt at data visualization used the online tool
 around with the options. Trees produced using this tool are found in the
 directory `analysis/icytree/`.
 
+# SnappNet and NetRax
+Next we will try to obtain a tree for a few select virus strains chosen from the
+BHV1 dataset. The following are the strains chosen for the initial SnappNet and
+NetRax analysis:
+
+    ```
+	C14_CSU_034_10640
+	C33
+	MN5
+	MN12
+	MN3
+	C46
+	BoviShield_MLV
+	```
+## Data Processing
+Here we describe how to restrict the large dataset `BHV1-plus-BHV5-outgroup-alignment.fasta` to just the strains that we are intersted in. 
+
+
 # Appendix: Help with IQ-TREE
 This material is copied from  [here](https://github.com/UWMadison-computingtools-2020/fp-group-6/blob/master/stepsinstructions.md#install-iq-tree).
 
