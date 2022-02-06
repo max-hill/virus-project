@@ -1,4 +1,4 @@
-# analysis of herpesvirus DNA data
+# Analysis of Herpesvirus DNA Data
 
 with "explicit" network methods to look for evidence of reticulation.  
 data source: files from Aaron in [box](https://uwmadison.app.box.com/folder/147319895420)
@@ -8,13 +8,52 @@ first focus: BHV1.1 because
 2. question about recombination between vaccines and natural infections.
 
 
-# Reproducible Script (Using Debian 10)
-## 1. SplitsTree
+
+# Obtaining the Data
+
+#### Downloading the Full BHV1 Dataset
+We used the datafile [BHV1\_plus\ BHV5\
+outgroup\_alignment.txt](https://uwmadison.box.com/s/phga81fq7jacu80cc42m0e4866wfnzbg)
+(7mb fasta file). Download this file to the `data/` directory. Rename the file to 
+
+`BHV1-plus-BHV5-outgroup-alignment.fasta`
+
+Throughout this document, this file will be referred to as the *BHV1 Dataset*.
+This is a fasta file without any linebreaks within the sequences. We will work
+with this full BHV1 dataset directly as well as with subsets of it.
+
+#### Subsetting the BHV1 Dataset
+In general, to construct a dataset using only a subset of the taxa from the BHV1
+dataset, there are two options:
+
+First, use the R code in [this file](scripts/Rutilies.Rmd).
+
+Alternatively, one can use the following shell command. To build a dataset with
+three specified sequences with names "SEQ1" "SEQ2" and "SEQ3", run the following
+shell command from the `data/` directory:
+
+`grep -A1 -E '>SEQ1|>SEQ2|>SEQ3' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > OUTPUT.fasta`
+
+This will output the dataset as `OUTPUT.fasta` to the `data/` directory.
+
+
+
+# Reproducible Script
+Unless otherwise noted, the following instructions are for Debian 10 Buster
+(Stable). The project (so far) is divided into three parts:
+
+- In Part 1, we use SplitsTree to obtain an implicit tree for the BHV1 dataset. 
+- In Part 2, we use IQ-Tree in combination with data visualization software to
+  obtain an explicit tree for the BHV1 dataset.
+- In Part 3, we will use SnappNet or NetRax to obtain a phylogeny for a subset
+  of six taxa taken from the BHV1 dataset.
+
+## Part 1. SplitsTree
 Here we show how to use SplitsTree to create an implicit tree (a splits tree)
 for the bovine herpes virus. Our goal in this section is to reproduce Aaron's
 tree.
 
-These instructions are for Debian 10. First install SplitsTree5, available
+First install SplitsTree5, available
 [here](https://software-ab.informatik.uni-tuebingen.de/download/splitstree5/welcome.html).
 To open splitstree 5, which has a GUI, navigate to the directory
 `scripts/splitstree5/` and then run the commmand
@@ -24,11 +63,11 @@ To open splitstree 5, which has a GUI, navigate to the directory
 ```
 
 Then using the file menu, open the datafile `BHV1_plus BHV5
-outgroup_alignment.txt` in the `data` directory.
+outgroup_alignment.txt` in the `data` directory. Then fiddle around with the GUI
+until you are satisfied.
 
 
-
-## 2. IQ-TREE
+## Part 2. IQ-TREE
 Here we use IQ-TREE to construct an explicit tree with the BHV1 data. In
 addition to the detailed instructions below, additional material for help and options
 when using IQ-TREE can be found
@@ -36,14 +75,14 @@ when using IQ-TREE can be found
 
 ### Install IQ-TREE
 Download IQ-TREE [here](http://www.iqtree.org/) and save it to the `scripts/`
-directory. We used the COVID-19 release 2.1.3 (April 21, 2021) for linux, and
-are using Debian 10 Buster stable. For other operating systems, see
-[here](http://www.iqtree.org/doc/Quickstart). Step-by-step instruction for Mac
-can also be found
-[here](https://github.com/UWMadison-computingtools-2020/fp-group-6/blob/master/stepsinstructions.md#install-iq-tree).
+directory. We used the COVID-19 release 2.1.3 (April 21, 2021) for Linux.
+Instructions for downloading and using IQ-TREE on other operatins systems can be
+found [here](http://www.iqtree.org/doc/Quickstart) (general instructions) and
+[here](https://github.com/UWMadison-computingtools-2020/fp-group-6/blob/master/stepsinstructions.md#install-iq-tree)
+(for Mac OS).
 
-Navigate to the scripts directory. To extract IQ-TREE from the archive, run the
-command 
+Once you have downloaded IQ-TREE, it needs to be extract. To do this, run the
+following command from the `scripts/` directory:
 
 `tar -xf iqtree-2.1.3-Linux.tar.gz`
 
@@ -59,17 +98,9 @@ We are now able to run IQ-TREE by running the command `iqtree2` in any directory
 
 
 
-### Download Data
-We used the datafile [BHV1_plus BHV5
-outgroup_alignment.txt](https://uwmadison.box.com/s/phga81fq7jacu80cc42m0e4866wfnzbg)
-(7mb fasta file). Download this file to the `data/` directory. Rename the file to 
-`BHV1-plus-BHV5-outgroup-alignment.fasta`.
-
-This is a fasta file without any linebreaks within the sequences.
-
 ### Running IQ-TREE
-
-From the `data/` directory, run the command
+To run IQ-TREE with the full BHV1 dataset, run the following command from the `data/`
+directory:
 
 `iqtree2 -nt AUTO -s BHV1-plus-BHV5-outgroup-alignment.fasta`
 
@@ -84,16 +115,18 @@ This should take a few minutes to run; when it is done, the output files will be
 
 	```
 
-Then move all output files to the `data` directory.
+Then move all of the output files to the `data/` directory.
 
-### Visualizing the Tree
-Here we attempt to visualize the tree made by IQ-TREE, which is located in the file `BHV1-plus-BHV5-outgroup-alignment.fasta.treefile`
+### Visualizing the IQ-Tree Output
+Here we show how to visualize the tree made by IQ-TREE, which is located in the
+file `BHV1-plus-BHV5-outgroup-alignment.fasta.treefile`. So far we have
+considered two methods: FigTree and IcyTree ("I see tree", get it? Heh..).
 
-#### Attempt 1: FigTree
+#### Method 1: FigTree
 For our first attempt at data visualization, we will use a program called
 [FigTree](https://github.com/rambaut/figtree/).
 
-##### Installing FigTree
+##### Installing and Patching FigTree
 Download
 [FigTree_v1.4.4.tgz](https://github.com/rambaut/figtree/releases/download/v1.4.4/FigTree_v1.4.4.tgz)
 to the `scripts/` directory. Next, navigate to the `scripts/` directory and
@@ -101,13 +134,13 @@ extract the archive by running the command
 
 `tar -xf FigTree_v1.4.4.tgz`
 
-There is an error with this version of FigTree, so we will follow the steps
-found
+Unfortunately there is an error with this version of FigTree (possibly only on
+Linux?), so we will follow the steps found
 [here](http://labsergen.langebio.cinvestav.mx/bioinformatics/jacob/?p=1200) to
-patch the figtree shell script in order to get it to run. The script we need to
-edit is a shell script called `figtree` located in `scripts/FigTree_v1.4.4/bin`.
-Navigate to the directory `scripts/FigTree_v1.4.4/bin` and run the following to
-edit the file automatically:
+get it to work. We will need to edit the shell script
+`scripts/FigTree_v1.4.4/bin/figtree`. To do this, navigate to the directory
+`scripts/FigTree_v1.4.4/bin` and run the following to edit the file
+automatically:
 
     ```
 	echo '#!/bin/sh' > FigTree_v1.4.4/bin/figtree
@@ -130,16 +163,22 @@ One problem with the tree here is that the evolutionary distance of our outgroup
 BHV5 is so great that the other parts of the tree are too small. Indeed, going
 in to the file `BHV1-plus-BHV5-outgroup-alignment.fasta.treefile` we see the
 edge length for BHV5 is 0.3570603406 whereas we have many other edges on the
-order of 0.00001. In order to clearly show these we will edite the treefile to
+order of 0.00001. In order to clearly show these we will edit the treefile to
 change the edge length of BHV5 from 0.3570603406 to .01. To do this run the
 following command from the `data/` directory:
 
 `sed --regexp-extended 's/BHV5:0.[0-9]+/BHV5:0.01/' BHV1-plus-BHV5-outgroup-alignment.fasta.treefile > BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile`
 
-Alternatively, this edit can be done manually, but make sure to save the edited treefile as 
+This will produce a new file, called
+
+`BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile`
+
+that will be sufficient for now. Alternatively, this edit can be done manually,
+but make sure to save the edited treefile as
 
 `BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` 
 
+so you don't overwrite the original treefile.
 
 Next, we open this edited file with FigTree. We export the file in svg and pdf
 format to the `analysis/figtree/` directory with the following names:
@@ -151,18 +190,18 @@ format to the `analysis/figtree/` directory with the following names:
 	BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile-unrooted.svg
 	```
 
-
-#### Attempt 2: IcyTree
+#### Method 2: IcyTree
 Our second attempt at data visualization used the online tool
-[IcyTree](https://icytree.org/). This tool has a GUI, so we just load the file
-`BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` and then can play
-around with the options. Trees produced using this tool are found in the
-directory `analysis/icytree/`.
+[IcyTree](https://icytree.org/). This browser-based tool has a GUI, so we just
+load the file `BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` and then
+can play around with the options. Trees produced using this tool are found in
+the directory `analysis/icytree/`.
 
-# SnappNet and NetRax
-Next we will try to obtain a tree for a few select virus strains chosen from the
-BHV1 dataset. The following are the strains chosen for the initial SnappNet and
-NetRax analysis:
+# Part 3. SnappNet and NetRax
+
+## Obtain the Dataset
+The following are the strains chosen for the initial SnappNet and NetRax
+analysis:
 
     ```
 	C14_CSU_034_10640
@@ -173,12 +212,15 @@ NetRax analysis:
 	C46
 	BoviShield_MLV
 	```
-## Data Processing
-Here we describe how to restrict the large dataset
-`BHV1-plus-BHV5-outgroup-alignment.fasta` to just the six strains that we are
-intersted in. This can be done in the following way. First, check that you have
-the file `BHV1-plus-BHV5-outgroup-alignment.fasta` saved in the `data/`
-directory. Second, running the following command from the `data/` directory:
+
+To restrict the large dataset `BHV1-plus-BHV5-outgroup-alignment.fasta` to just
+these six strains, do the following:
+
+First, check that you have the file
+`BHV1-plus-BHV5-outgroup-alignment.fasta` saved in the `data/` directory.
+
+
+Second, running the following command from the `data/` directory:
 
 `grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > BHV1-6-clinical-isolates.fasta`
 
