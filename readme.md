@@ -9,9 +9,24 @@ first focus: BHV1.1 because
 
 
 
-# Obtaining the Data
 
-#### Downloading the Full BHV1 Dataset
+
+
+# Reproducible Script
+Unless otherwise noted, the following instructions are for Debian 10 Buster
+(Stable). The project (so far) is divided into four parts:
+
+- In Part 0, we describe how to obtain the main dataset and how to construct
+  subset datasets from it.
+- In Part 1, we use SplitsTree to obtain an implicit tree for the BHV1 dataset. 
+- In Part 2, we use IQ-Tree in combination with data visualization software to
+  obtain an explicit tree for the BHV1 dataset.
+- In Part 3, we will use SnappNet or NetRax to obtain a phylogeny for a subset
+  of six taxa taken from the BHV1 dataset.
+
+## Part 0. Obtaining the Data
+
+### Downloading the Full BHV1 Dataset
 We used the datafile [BHV1\_plus\ BHV5\
 outgroup\_alignment.txt](https://uwmadison.box.com/s/phga81fq7jacu80cc42m0e4866wfnzbg)
 (7mb fasta file). Download this file to the `data/` directory. Rename the file to 
@@ -22,7 +37,7 @@ Throughout this document, this file will be referred to as the *BHV1 Dataset*.
 This is a fasta file without any linebreaks within the sequences. We will work
 with this full BHV1 dataset directly as well as with subsets of it.
 
-#### Subsetting the BHV1 Dataset
+### Subsetting the BHV1 Dataset
 In general, to construct a dataset using only a subset of the taxa from the BHV1
 dataset, there are two options:
 
@@ -35,18 +50,6 @@ shell command from the `data/` directory:
 `grep -A1 -E '>SEQ1|>SEQ2|>SEQ3' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > OUTPUT.fasta`
 
 This will output the dataset as `OUTPUT.fasta` to the `data/` directory.
-
-
-
-# Reproducible Script
-Unless otherwise noted, the following instructions are for Debian 10 Buster
-(Stable). The project (so far) is divided into three parts:
-
-- In Part 1, we use SplitsTree to obtain an implicit tree for the BHV1 dataset. 
-- In Part 2, we use IQ-Tree in combination with data visualization software to
-  obtain an explicit tree for the BHV1 dataset.
-- In Part 3, we will use SnappNet or NetRax to obtain a phylogeny for a subset
-  of six taxa taken from the BHV1 dataset.
 
 ## Part 1. SplitsTree
 Here we show how to use SplitsTree to create an implicit tree (a splits tree)
