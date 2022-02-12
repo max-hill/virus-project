@@ -230,3 +230,104 @@ Second, running the following command from the `data/` directory:
 This command saves the restricted dataset to the `data/` directory as
 `BHV1-6-clinical-isolates.fasta`.
 
+
+## Installing SnappNet
+
+1. Download Beast2 for Linux from [this website](https://www.beast2.org/) to the `scripts/` directory. 
+
+2. Extract the downloaded archive by running the following command from the `scripts/` directory:
+
+`tar -xf BEAST_with_JRE.v2.6.6.Linux.tgz`
+
+3. Beast requires Java, so check that you have java by running
+
+`java -version`
+
+If you don't have java, you will need to install it. Our results indicate that we do have it:
+
+```
+openjdk version "11.0.14" 2022-01-18
+OpenJDK Runtime Environment (build 11.0.14+9-post-Debian-1deb10u1)
+OpenJDK 64-Bit Server VM (build 11.0.14+9-post-Debian-1deb10u1, mixed mode, sharing)
+```
+
+4. Next we will follow the instructions for installing SnappNet from [this tutorial file](scripts/MySnappNet/workspace-Package-Beast/SnappNet/doc/TutoSnappNet). Navigate to your home directory `~/` by running the command `cd`. 
+
+5. From the `~/` directory, run 
+
+`mkdir .beast/2.6/SnappNet`
+
+You should check your version of Beast2. We used version 2.6.6, so that in the above command we put the subdirectory 2.6. If you have a different version of beast, use 2.X where X is the major version of Beast. 
+
+6. Next we need to copy the file `SnappNet.addon.zip` to the directory we just created in the previous step. To do this, navigate back to `scripts/` and run the command
+
+`cp MySnappNet/workspace-Package-Beast/SnappNet/tmp/SnappNet.addon.zip ~/.beast/2.6/SnappNet/`
+
+
+7. Unzip the file by running
+
+`unzip ~/.beast/2.6/SnappNet/SnappNet.addon.zip`
+
+8. Copy the snappnet version file to the beast directory by running the following command from `scripts/`
+
+`cp MySnappNet/workspace-Package-Beast/SnappNet/release/package/version.xml ~/.beast/2.6/SnappNet/`
+
+
+9. Navigate to `scripts/beast/` and run the command `./bin/beauti`. This will run Beauti.
+
+10. In the GUI the pops up,
+
+```
+   File ---> Clear Class Paths
+   File ---> Exit
+```
+
+
+10. Run Beauti again (by repeating the previous step). The in the GUI check the following:
+
+```
+File ----> Template 
+You should now see SnappNetTemplate
+
+File ----> Manage Packages
+You should now see SnappNet
+```
+
+
+11. Read [A Rough Guide to SnappNet](scripts/MySnappNet/workspace-Package-Beast/SnappNet/doc/SnappNet.pdf). (This link will work if you've downloaded SnappNet to the correct directory in the previous steps.
+
+
+## Running SnappNet with Our Data
+
+
+### Convert to Nexus Format
+
+We'll need to convert our file `BHV1-6-clinical-isolates.fasta` Nexus format. We will use seqmagick.
+1. Install seqmagick by running the following command from `scripts/`
+
+`git clone https://github.com/fhcrc/seqmagick.git`
+
+2. Run
+
+`pip install seqmagick`
+
+3. Do the converstion by running the following command from `data/`,=
+
+`seqmagick convert --output-format nexus --alphabet dna BHV1-6-clinical-isolates.fasta BHV1-6-clinical-isolates.nex`
+
+
+### Prepare xml file with Beauti
+
+1. Run Beauti. To do this, navigate to `scripts/beast/` and run the command `./bin/beauti`. This will run Beauti.
+
+2. File --> Template -- choose snappnet
+
+3. File --> Add Alignment -- choose the file `data/BHV1-6-clinical-isolates`
+
+4.  Simply go to File --> Save as -- and save the file as `BHV1-6-clinical-isolates.xml` in the `data/` directory.
+
+### Run the SnapNet thing with beast
+
+1. Navigate to `scripts/beast/bin/` and run `./beast` (you should pipe the standard output to a file because this produces millions of lines of output)
+
+2. Select the file `data/BHV1-6--clinical-isolates`
