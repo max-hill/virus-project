@@ -45,7 +45,7 @@ Note that `-overwrite` means that the entire analysis is restarted and the
 log/state files generated from a previous analysis will be overwritten. If
 `-resume` is used instead
 ```
-/workspace/bteo/beast/bin/beast -seed 123 -resume snapp_default.xml |
+/workspace/bteo/beast/bin/beast -seed 123 -resume snapp_default.xml >
 snapp_default_fg.log
 ```
 then the analysis will start from the end state of the previous analysis,
