@@ -21,8 +21,9 @@ Unless otherwise noted, the following instructions are for Debian 10 Buster
 - In Part 1, we use SplitsTree to obtain an implicit tree for the BHV1 dataset. 
 - In Part 2, we use IQ-Tree in combination with data visualization software to
   obtain an explicit tree for the BHV1 dataset.
-- In Part 3, we will use SnappNet or NetRax to obtain a phylogeny for a subset
-  of six taxa taken from the BHV1 dataset.
+- In Part 3, we will use SnappNet or NetRax to obtain a phylogenetic network for
+  a subset of six taxa taken from the BHV1 dataset.
+- In Part 4, we attempt to use TriLoNet to obtain a phylogenetic network.
 
 ## Part 0. Obtaining the Data
 
@@ -375,7 +376,7 @@ At sample 80000
 Likelihood incorrectly calculated: -43723.29599458741 != -43781.59053304736(58.29453845995158) Operator: snappNetProject.operators.ChangeGamma(ChangeGamma)
 ```
 
-# Part 4. Using Trilonet
+## Part 4. Using TriLoNet
 
 https://www.uea.ac.uk/groups-and-centres/computational-biology/software/trilonet
 
