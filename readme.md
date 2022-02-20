@@ -313,21 +313,102 @@ We'll need to convert our file `BHV1-6-clinical-isolates.fasta` Nexus format. We
 
 3. Do the converstion by running the following command from `data/`,=
 
-`seqmagick convert --output-format nexus --alphabet dna BHV1-6-clinical-isolates.fasta BHV1-6-clinical-isolates.nex`
+`seqmagick convert --output-format nexus --alphabet dna BHV1-6-clinical-isolates.fasta bhv1-6-clinical-isolates.nex`
 
 
 ### Prepare xml file with Beauti
+Beauti creates an .xml file that will be used as input by BEAST. Beauti provides
+a GUI interface which allows the user to set parameters for the BEAST run.
 
-1. Run Beauti. To do this, navigate to `scripts/beast/` and run the command `./bin/beauti`. This will run Beauti.
+1. To open Beauti, navigate to `scripts/beast/` and run the command
+   `./bin/beauti`. This will run Beauti.
 
-2. File --> Template -- choose snappnet
+2. File --> Template -- choose SnappNetTemplate
 
-3. File --> Add Alignment -- choose the file `data/BHV1-6-clinical-isolates`
+3. File --> Add Alignment -- choose the file
+   `data/BHV1-6-clinical-isolates.nex`. (Update: Or you could choose the file
+   `data/BHV1-6-clinical-isolates.fasta`, it loads just fine.)
 
-4.  Simply go to File --> Save as -- and save the file as `BHV1-6-clinical-isolates.xml` in the `data/` directory.
+(It will take a moment to load the nexus file.)
 
-### Run the SnapNet thing with beast
+4. Click the 'Model Parameters' tab, and then press the button 'Calc mutation
+   rates'. Click the MCMC tab. Set "Chain Length" to 400000. Set "Store Every"
+   to 10000. Under 'screenlog', 'tracelog', and 'specieslog', set "Log Every"
+   to 10000. Actually, set 'screenlog' to 10000. Set the file name of tracelog
+   to 'bhv1-6-clinical-isolates.trace.log' and set the file name of specieslog
+   to 'bhv1-6-clinical-isolates.species.trees'
 
-1. Navigate to `scripts/beast/bin/` and run `./beast` (you should pipe the standard output to a file because this produces millions of lines of output)
+5. File --> Save as -- and save the file as `bhv1-6-clinical-isolates.xml` in
+   the `data/` directory.
 
-2. Select the file `data/BHV1-6--clinical-isolates`
+6. Close Beauti.
+
+### Run the SnapNet with Beast
+This does not work. Produces likelihood calculation errors. Don't know how to
+fix this issue.
+
+1. Navigate to `scripts/beast/bin/` and run `./beast >screen-output.txt` (or
+   `./beast -overwrite >screen-output.txt`). This will run BEAST, keep track of
+   time, and pipe screen output to the file 'screen-output.txt'.
+
+2. You will be promted to select an XML input file. Select the file we just
+   created in Beauti: `data/bhv1-6-clinical-isolates.xml`.
+
+3. Output: Unfortunately, we get output
+
+```
+At sample 10000
+Likelihood incorrectly calculated: -38522.29225573676 != -43958.14044651774(5435.848190780984) Operator: snappNetProject.operators.ChangeGamma(ChangeGamma)
+At sample 20000
+Likelihood incorrectly calculated: -41492.85106857587 != -43973.661745134435(2480.810676558569) Operator: snappNetProject.operators.ChangeAllGamma(ChangeAllGamma)
+At sample 30000
+Likelihood incorrectly calculated: -41346.937857411365 != -43914.57251333519(2567.6346559238227) Operator: snappNetProject.operators.ChangeGamma(ChangeGamma)
+At sample 40000
+Likelihood incorrectly calculated: -39491.49321965366 != -43845.896530480604(4354.403310826943) Operator: snappNetProject.operators.ChangeAllGamma(ChangeAllGamma)
+At sample 50000
+Likelihood incorrectly calculated: -40549.58602114914 != -43918.23198724979(3368.645966100652) Operator: snappNetProject.operators.NodeUniform(NodeUniform:species)
+At sample 60000
+Likelihood incorrectly calculated: -40581.94689045801 != -43925.31812409661(3343.3712336385943) Operator: snappNetProject.operators.ChangeGamma(ChangeGamma)
+At sample 70000
+Likelihood incorrectly calculated: -36914.30121048426 != -43994.82679086487(7080.525580380614) Operator: snappNetProject.operators.ChangeGamma(ChangeGamma)
+At sample 80000
+Likelihood incorrectly calculated: -43723.29599458741 != -43781.59053304736(58.29453845995158) Operator: snappNetProject.operators.ChangeGamma(ChangeGamma)
+```
+
+# Part 4. Using Trilonet
+
+https://www.uea.ac.uk/groups-and-centres/computational-biology/software/trilonet
+
+1. Download trilonet from
+https://www.uea.ac.uk/documents/96135/3673668/TriLoNet3.zip/be80ee73-f11b-b2e0-565f-773efeaabdfc?t=1605188054795
+
+and save it to the `scripts/` directory.
+
+2. Extract trilonet into the `scripts/` directory
+
+3. To run TriLoNet, we next want to follow instructons in the [TriLoNet
+   Manual](scripts/TriLoNet3/TriLoNet/manual.pdf). Unfortunately, this returns a
+   "file not found" error if we use an input file with any capital letters. To
+   avoid this, navigate to the directory `scripts/TriLoNet3/TriLoNet/TriLoNet`
+   and run
+
+```
+cp ../../../../data/BHV1-6-clinical-isolates.nex bhv1-6-clinical-isolates.nex
+```
+
+which will copy the data to the TriLoNet directory, using a name that has only
+lowecase letters. Then we run the command
+
+
+```
+java -jar TriLoNet.jar bhv1-6-clinical-isolates.nex
+```
+
+Unfortunately, this return an error
+
+```
+Exception in thread "main" java.lang.NullPointerException
+        at trilonet.ReadInput.readNEXUS(ReadInput.java:88)
+        at trilonet.Main.main(Main.java:176)
+```
+
