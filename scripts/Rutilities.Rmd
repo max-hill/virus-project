@@ -8,6 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(magrittr) # for: %>%
 library(ape) # for: read.tree, plot.phylo
 library(seqinr) # for: read.fasta, write.fasta
+library(PopGenome)
 ```
 
 ## Reading and plotting trees
@@ -49,7 +50,7 @@ subset.fasta <- full.fasta[match(subset,names(full.fasta))]
 # subset.fasta$C14_CSU_034_10640 %>% length # 144551 sites
 
 write.fasta(sequences=subset.fasta,names=names(subset.fasta),
-            file.out="../Data/BHV1-6-clinical-isolates-R.fasta")
+            file.out="../Data/BHV1-6-clinical-isolates-1-vaccine-R.fasta")
 # subset.fasta <- read.fasta(file="../Data/BHV1-6-clinical-isolates-R.fasta")
 # length(subset.fasta) # 7 taxa
 # subset.fasta$BoviShield_Gold_FP5_MLV_vaccine %>% length # 144551 sites
@@ -63,6 +64,59 @@ write.nexus.data(x=subset.fasta,
                  file="../Data/BHV1-6-clinical-isolates-1-vaccine-R.nexus",
                  format="dna")
 ```
+
+## Permute taxa order within NEXUS format
+```{r}
+# E.g. Want to check how sensitive SNAPP results are to taxa ordering, assuming
+# that DNA sequences are supplied and SNAPP's default SNP calling algorithm is
+# used.
+set.seed(3)
+perm1 <- sample(1:7) # 5 2 4 3 6 7 1
+perm2 <- sample(1:7) # 7 4 2 3 1 5 6
+perm3 <- sample(1:7) # 4 5 6 7 1 3 2
+perm4 <- sample(1:7) # 6 2 1 4 7 3 5
+
+write.nexus.data(x=subset.fasta[perm1],
+      file="../Data/BHV1-6-clinical-isolates-1-vaccine-R-perm1.nexus",
+      format="dna")
+write.nexus.data(x=subset.fasta[perm2],
+      file="../Data/BHV1-6-clinical-isolates-1-vaccine-R-perm2.nexus",
+      format="dna")
+write.nexus.data(x=subset.fasta[perm3],
+      file="../Data/BHV1-6-clinical-isolates-1-vaccine-R-perm3.nexus",
+      format="dna")
+write.nexus.data(x=subset.fasta[perm4],
+      file="../Data/BHV1-6-clinical-isolates-1-vaccine-R-perm4.nexus",
+      format="dna")
+
+# pdf("../analysis/r/BHV1-6-clinical-isolates-1-vaccine-snapp-notscaled-cladogram-perms.pdf",
+#     width=12,height=10)
+# par(mfrow=c(2,2))
+# snapp.mcc.tree <- read.nexus("../analysis/bteo/perm1_mcc")
+# plot.phylo(snapp.mcc.tree,type="cladogram",use.edge.length=F)
+# title("perm 1")
+# snapp.mcc.tree <- read.nexus("../analysis/bteo/perm2_mcc")
+# plot.phylo(snapp.mcc.tree,type="cladogram",use.edge.length=F)
+# title("perm 2")
+# snapp.mcc.tree <- read.nexus("../analysis/bteo/perm3_mcc")
+# plot.phylo(snapp.mcc.tree,type="cladogram",use.edge.length=F)
+# title("perm 3")
+# snapp.mcc.tree <- read.nexus("../analysis/bteo/perm4_mcc")
+# plot.phylo(snapp.mcc.tree,type="cladogram",use.edge.length=F)
+# title("perm 4")
+# dev.off()
+```
+
+## Extract binary SNPs from FASTA alignment
+```{r}
+library(adegenet)
+obj <- fasta2genlight("../Data/BHV1-6-clinical-isolates-1-vaccine-R.fasta")
+obj # 7 genotypes, 275 binary SNPs
+obj %>% position # integer vector indicating the position of the SNPs
+obj %>% alleles # char vector indicating the alleles of each SNP
+```
+
+
 
 
 
