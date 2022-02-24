@@ -201,7 +201,7 @@ load the file `BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` and then
 can play around with the options. Trees produced using this tool are found in
 the directory `analysis/icytree/`.
 
-# Part 3. SnappNet and NetRax
+# Part 3A. SnappNet
 
 ## Obtain the Dataset
 The following are the strains chosen for the initial SnappNet and NetRax
@@ -375,6 +375,42 @@ Likelihood incorrectly calculated: -36914.30121048426 != -43994.82679086487(7080
 At sample 80000
 Likelihood incorrectly calculated: -43723.29599458741 != -43781.59053304736(58.29453845995158) Operator: snappNetProject.operators.ChangeGamma(ChangeGamma)
 ```
+
+## Part 3B. NetRAX
+### Installing NetRAX
+To install NetRAX, we follow the instruction in [the NetRAX
+github](https://github.com/lutteropp/NetRAX) with a small modification.
+
+1. Install dependencies (same as github instructions)
+
+`sudo apt-get install flex bison libgmp3-dev cmake doxygen libmpfrc++-dev libopenmpi-dev`
+
+2. Build Instructions (this part is different from the github instructions)
+
+```
+git clone --recurse-submodules https://github.com/lutteropp/NetRAX.git
+cd NetRAX
+sed -i 's/master/main/' CMakeLists.txt.in
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MPI=ON ..
+make
+```
+
+The modification was that we needed to change the word "master" to "main" in the
+file `CMakeLists.txt.in` (otherwise an error was obtained).
+
+3. Manage permissions To give permission to run `netrax.py` as an executable,
+navigate to the `NetRAX/` directory and run the command
+
+`sudo chmod a+rx netrax.py`
+
+Actually that didn't work
+
+4. For help running NetRAX, run the following command from the `NetRAX/` directory:
+
+`python3 netrax.py --help`
+
 
 ## Part 4. Using TriLoNet
 
