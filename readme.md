@@ -378,8 +378,8 @@ Likelihood incorrectly calculated: -43723.29599458741 != -43781.59053304736(58.2
 
 ## Part 3B. NetRAX
 ### Installing NetRAX
-To install NetRAX, we follow the instruction in [the NetRAX
-github](https://github.com/lutteropp/NetRAX) with a small modification.
+To install NetRAX, we will mostly follow the instruction in [the NetRAX
+github](https://github.com/lutteropp/NetRAX) but with some modifications.
 
 1. Install dependencies (same as github instructions)
 
@@ -396,28 +396,10 @@ cd build
 make
 cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MPI=ON ..
 ```
+(The modification was that we needed to change the word "master" to "main" in the
+file `CMakeLists.txt.in` to avoid an error, and we also had to run the command `make`).
 
-one of the following commands works
-cmake --build .
-make
-makeinstall
-cmake -P cmake_install.cmake
-
-Unfortunately, this did not create an executable file `netrax`. So I ran the additional command:
-I then had to run the command 
-`cmake --build .`
-
-The modification was that we needed to change the word "master" to "main" in the
-file `CMakeLists.txt.in` (otherwise an error was obtained).
-
-<!-- 3. Manage permissions To give permission to run `netrax.py` as an executable, -->
-<!-- navigate to the `NetRAX/` directory and run the command -->
-
-<!-- `sudo chmod a+rx netrax.py` -->
-
-<!-- Actually that didn't work -->
-
-2. Open the file `netrax.py` and edit the line
+3. Set the correct binary path: Open the file `netrax.py` and edit the line
 
 `NETRAX_CORE_PATH = "/home/luttersh/NetRAX/bin/netrax"`
 
@@ -429,7 +411,7 @@ where `...` is replaced by the appropriate path on your computer. For me, I used
 
 `NETRAX_CORE_PATH = "/home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax"`
 
-3. For help running NetRAX, run the following command from the `NetRAX/` directory:
+4. For help running NetRAX, run the following command from the `NetRAX/` directory:
 
 `python3 netrax.py --help`
 
@@ -441,12 +423,14 @@ from the directory `NetRAX/bin`
 
 ### Running NetRAX
 The input of NetRAX consists of:
-fasta file
-newick format initial network
+- fasta file
+- newick format initial network(s)
+- some other stuff which I don't understand yet
 
-We aim to build a network consisting of the six clinical isolates plus the BHV5 outgroup. Before running NetRAX, we need to obtain the necessary inputs (a .fasta alignmnet file, a newick format initial network, etc?):
+We aim to build a network consisting of the six clinical isolates plus the BHV5 outgroup. Before running NetRAX, we need to obtain the necessary inputs files:
 
 1. Generate alignment: from the `data/` directory, run the command
+ 
 `grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BHV5|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta`
 
 2. Generate an initial tree with iqtree: from the `data/` directory, run the command
@@ -455,9 +439,7 @@ We aim to build a network consisting of the six clinical isolates plus the BHV5 
 
 here the `-o BHV5` option tells iqtree to root the tree with BHV5.
 
-
 3. Cleanup; first copy the resulting files to an appropriate location: from the `data/` directory run the comman
-
 
 `mkdir ../analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup`
 
@@ -469,14 +451,11 @@ to copy the output of iqtree to the newly-created directory. To delete the remai
 
 `rm bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.*`
 
-
-4. Run NetRAX with the input files we just generated: First navigate to your NetRAX directory `/scripts/NetRAX`
-
-then run the command
+4. Run NetRAX with the input files we just generated: First navigate to your NetRAX directory `/scripts/NetRAX` and then run the command
 
 `mpiexec /home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax --start_network ~/research/virus-project/analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.treefile --msa ~/research/virus-project/data/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta  --output ./bhv1-6-clinical-isolates-plus-bhv5-outgroup-netrax-network.txt`
 
-and it works!
+and it works! Sort of. We get a network with no reticulations. Maybe I need to generate multiple gene trees with raxml. 
 
 ## Part 4. Using TriLoNet
 
