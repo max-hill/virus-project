@@ -385,7 +385,7 @@ github](https://github.com/lutteropp/NetRAX) with a small modification.
 
 `sudo apt-get install flex bison libgmp3-dev cmake doxygen libmpfrc++-dev libopenmpi-dev`
 
-2. Build Instructions (this part is different from the github instructions)
+2. Build Instructions (this part is different from the github instructions). Run the following commands from the `scripts` directory:
 
 ```
 git clone --recurse-submodules https://github.com/lutteropp/NetRAX.git
@@ -393,24 +393,90 @@ cd NetRAX
 sed -i 's/master/main/' CMakeLists.txt.in
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MPI=ON ..
 make
+cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MPI=ON ..
 ```
+
+one of the following commands works
+cmake --build .
+make
+makeinstall
+cmake -P cmake_install.cmake
+
+Unfortunately, this did not create an executable file `netrax`. So I ran the additional command:
+I then had to run the command 
+`cmake --build .`
 
 The modification was that we needed to change the word "master" to "main" in the
 file `CMakeLists.txt.in` (otherwise an error was obtained).
 
-3. Manage permissions To give permission to run `netrax.py` as an executable,
-navigate to the `NetRAX/` directory and run the command
+<!-- 3. Manage permissions To give permission to run `netrax.py` as an executable, -->
+<!-- navigate to the `NetRAX/` directory and run the command -->
 
-`sudo chmod a+rx netrax.py`
+<!-- `sudo chmod a+rx netrax.py` -->
 
-Actually that didn't work
+<!-- Actually that didn't work -->
 
-4. For help running NetRAX, run the following command from the `NetRAX/` directory:
+2. Open the file `netrax.py` and edit the line
+
+`NETRAX_CORE_PATH = "/home/luttersh/NetRAX/bin/netrax"`
+
+so that it gives the correct path for your NetRAX installation. Since we installed NetRAX in the `scripts` directory, you should change the path to something like 
+
+`NETRAX_CORE_PATH = "/.../virus-project/scripts/NetRAX/bin/netrax"`
+
+where `...` is replaced by the appropriate path on your computer. For me, I used
+
+`NETRAX_CORE_PATH = "/home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax"`
+
+3. For help running NetRAX, run the following command from the `NetRAX/` directory:
 
 `python3 netrax.py --help`
 
+or run 
+
+`./netrax --help`
+
+from the directory `NetRAX/bin`
+
+### Running NetRAX
+The input of NetRAX consists of:
+fasta file
+newick format initial network
+
+We aim to build a network consisting of the six clinical isolates plus the BHV5 outgroup. Before running NetRAX, we need to obtain the necessary inputs (a .fasta alignmnet file, a newick format initial network, etc?):
+
+1. Generate alignment: from the `data/` directory, run the command
+`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BHV5|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta`
+
+2. Generate an initial tree with iqtree: from the `data/` directory, run the command
+
+`iqtree2 -nt AUTO -s  bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta -o BHV5`
+
+here the `-o BHV5` option tells iqtree to root the tree with BHV5.
+
+
+3. Cleanup; first copy the resulting files to an appropriate location: from the `data/` directory run the comman
+
+
+`mkdir ../analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup`
+
+and then run
+
+`cp bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.iqtree bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.treefile bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.mldist bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.log ../analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup/`
+
+to copy the output of iqtree to the newly-created directory. To delete the remaining files produced by iqtree which we will not use, run the command
+
+`rm bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.*`
+
+
+4. Run NetRAX with the input files we just generated: First navigate to your NetRAX directory `/scripts/NetRAX`
+
+then run the command
+
+`mpiexec /home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax --start_network ~/research/virus-project/analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.treefile --msa ~/research/virus-project/data/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta  --output ./bhv1-6-clinical-isolates-plus-bhv5-outgroup-netrax-network.txt`
+
+and it works!
 
 ## Part 4. Using TriLoNet
 
