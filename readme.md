@@ -276,7 +276,7 @@ You should check your version of Beast2. We used version 2.6.6, so that in the a
 
 9. Navigate to `scripts/beast/` and run the command `./bin/beauti`. This will run Beauti.
 
-10. In the GUI the pops up,
+10. In the GUI that pops up,
 
 ```
    File ---> Clear Class Paths
