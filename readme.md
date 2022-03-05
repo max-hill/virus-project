@@ -3,7 +3,7 @@
 with "explicit" network methods to look for evidence of reticulation.  
 data source: files from Aaron in [box](https://uwmadison.app.box.com/folder/147319895420)
 
-first focus: BHV1.1 because
+cd scfirst focus: BHV1.1 because
 1. fairly closely related: avoid heterogeneity of GC content (base frequencies)
 2. question about recombination between vaccines and natural infections.
 
@@ -456,6 +456,40 @@ to copy the output of iqtree to the newly-created directory. To delete the remai
 `mpiexec /home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax --start_network ~/research/virus-project/analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.treefile --msa ~/research/virus-project/data/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta  --output ./bhv1-6-clinical-isolates-plus-bhv5-outgroup-netrax-network.txt`
 
 and it works! Sort of. We get a network with no reticulations. Maybe I need to generate multiple gene trees with raxml. 
+
+### Running NetRAX on partitioned data
+
+Netrax requires partitioned MSA data in order to generate a network. That means
+we need a parition file in addition to our full MSA. We will try using partitionfinder. But first, as a test, let's try something more basic: creating a simple (arbitrary) partition file by hand.
+
+Running the command from the /data/ directory 
+
+`awk '{print length}' bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta`
+
+and the output tells us that the length of our gene sequences are 144552 each. We will make a dummy file
+
+`dummy-partition-file-for-bhv1-6.txt`
+
+```
+DNA, gene_59=1-10000
+DNA, gene_281=10001-20000
+DNA, gene_281=20001-30000
+DNA, gene_281=30001-40000
+DNA, gene_281=40001-50000
+DNA, gene_281=50001-60000
+DNA, gene_281=60001-70000
+DNA, gene_281=70001-80000
+DNA, gene_281=80001-90000
+DNA, gene_281=90001-100000
+DNA, gene_281=100001-110000
+DNA, gene_281=110001-120000
+DNA, gene_281=120001-130000
+DNA, gene_281=130001-140000
+DNA, gene_281=140001-144551
+```
+Now we try runinng the following command from 
+
+`mpiexec /home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax --start_network ~/research/virus-project/analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.treefile --msa ~/research/virus-project/data/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta  --output ./bhv1-6-clinical-isolates-plus-bhv5-outgroup-netrax-network.txt --model ~/research/virus-project/data/dummy-partition-file-for-bhv1-6.txt`
 
 ## Part 4. Using TriLoNet
 
