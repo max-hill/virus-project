@@ -487,9 +487,12 @@ DNA, gene_281=120001-130000
 DNA, gene_281=130001-140000
 DNA, gene_281=140001-144551
 ```
-Now we try runinng the following command from 
+Now we try runinng the following command from `scripts/NetRAX/`
 
 `mpiexec /home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax --start_network ~/research/virus-project/analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.treefile --msa ~/research/virus-project/data/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta  --output ./bhv1-6-clinical-isolates-plus-bhv5-outgroup-netrax-network.txt --model ~/research/virus-project/data/dummy-partition-file-for-bhv1-6.txt`
+
+and we get a network! But the outgroup is making visualization difficut. We should try running this on the six clinical isolates without the outgroup, We should also try using a partition with uniform lengths 500 or 1000. Also we can try using partitionfinder to get a network. 
+
 
 ## Part 4. Using TriLoNet
 
