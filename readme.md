@@ -29,7 +29,7 @@ Unless otherwise noted, the following instructions are for Debian 10 Buster
 
 ### Downloading the Full BHV1 Dataset
 We used the datafile [BHV1\_plus\ BHV5\
-outgroup\_alignment.txt](https://uwmadison.box.com/s/phga81fq7jacu80cc42m0e4866wfnzbg)
+
 (7mb fasta file). Download this file to the `data/` directory. Rename the file to 
 
 `BHV1-plus-BHV5-outgroup-alignment.fasta`
@@ -38,19 +38,37 @@ Throughout this document, this file will be referred to as the *BHV1 Dataset*.
 This is a fasta file without any linebreaks within the sequences. We will work
 with this full BHV1 dataset directly as well as with subsets of it.
 
-### Subsetting the BHV1 Dataset
-In general, to construct a dataset using only a subset of the taxa from the BHV1
-dataset, there are two options:
+### Subsetting the Dataset (Required for SnappNet and NetRAX)
+The following are the strains chosen for SnappNet and NetRax analysis:
 
-First, use the R code in [this file](scripts/Rutilies.Rmd).
+    ```
+	C14_CSU_034_10640
+	C33
+	MN5
+	MN12
+	MN3
+	C46
+	BoviShield_MLV
+	```
 
-Alternatively, one can use the following shell command. To build a dataset with
-three specified sequences with names "SEQ1" "SEQ2" and "SEQ3", run the following
-shell command from the `data/` directory:
+To restrict the large dataset `BHV1-plus-BHV5-outgroup-alignment.fasta` to just
+these six strains, do the following:
 
-`grep -A1 -E '>SEQ1|>SEQ2|>SEQ3' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > OUTPUT.fasta`
+First, check that you have the file
+`BHV1-plus-BHV5-outgroup-alignment.fasta` saved in the `data/` directory.
 
-This will output the dataset as `OUTPUT.fasta` to the `data/` directory.
+
+Second, running the following command from the `data/` directory:
+
+`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > BHV1-6-clinical-isolates.fasta`
+
+The output is the file `data/BHV1-6-clinical-isolates.fasta` which consists of
+the six clinical isolates and one vaccine strain listed above.
+
+If this does not work, an alternative method is to use the R code in [this
+file](scripts/Rutilies.Rmd).
+
+
 
 ## Part 1. SplitsTree
 Here we show how to use SplitsTree to create an implicit tree (a splits tree)
@@ -202,35 +220,6 @@ can play around with the options. Trees produced using this tool are found in
 the directory `analysis/icytree/`.
 
 # Part 3A. SnappNet
-
-## Obtain the Dataset
-The following are the strains chosen for the initial SnappNet and NetRax
-analysis:
-
-    ```
-	C14_CSU_034_10640
-	C33
-	MN5
-	MN12
-	MN3
-	C46
-	BoviShield_MLV
-	```
-
-To restrict the large dataset `BHV1-plus-BHV5-outgroup-alignment.fasta` to just
-these six strains, do the following:
-
-First, check that you have the file
-`BHV1-plus-BHV5-outgroup-alignment.fasta` saved in the `data/` directory.
-
-
-Second, running the following command from the `data/` directory:
-
-`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > BHV1-6-clinical-isolates.fasta`
-
-This command saves the restricted dataset to the `data/` directory as
-`BHV1-6-clinical-isolates.fasta`.
-
 
 ## Installing SnappNet
 
