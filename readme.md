@@ -418,9 +418,9 @@ from the directory `NetRAX/bin`
 ### Running NetRAX
 
 The input of NetRAX consists of:
-- fasta file
+- a fasta file (the MSA)
 - newick format initial network(s)
-- some other stuff which I don't understand yet
+- optionally, a .txt partition file for the MSA
 
 We aim to build a network consisting of the six clinical isolates plus the BHV5
 outgroup. Before running NetRAX, we need to obtain the necessary inputs files:
