@@ -48,8 +48,3 @@ sbcl --noinform --eval '
 # standard error into the black hole of /dev/null.
 
 ################################################################################
-
-### ---Script ends here---
-###~*position-padding*,'0d
-
-
