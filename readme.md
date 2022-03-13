@@ -96,29 +96,29 @@ when using IQ-TREE can be found
 [here](https://github.com/UWMadison-computingtools-2020/fp-group-6/blob/master/stepsinstructions.md#install-iq-tree).
 
 ### Install IQ-TREE
-Download IQ-TREE [here](http://www.iqtree.org/) and save it to the `scripts/`
-directory. We used the COVID-19 release 2.1.3 (April 21, 2021) for Linux.
-Instructions for downloading and using IQ-TREE on other operatins systems can be
+1. Download IQ-TREE [here](http://www.iqtree.org/) and save it to the `scripts/`
+directory. 
+
+Note: we used the COVID-19 release 2.1.3 (April 21, 2021) for Linux.
+Instructions for downloading and using IQ-TREE on other operating systems can be
 found [here](http://www.iqtree.org/doc/Quickstart) (general instructions) and
 [here](https://github.com/UWMadison-computingtools-2020/fp-group-6/blob/master/stepsinstructions.md#install-iq-tree)
 (for Mac OS).
 
-Once you have downloaded IQ-TREE, it needs to be extract. To do this, run the
-following command from the `scripts/` directory:
+2. Extract IQ-TREE: from `scripts/`, run
 
 `tar -xf iqtree-2.1.3-Linux.tar.gz`
 
-Run the following command to give the iqtree2 file executable permission:
+3. Give the file `iqtree2` executable permission: from `scripts/`, run
 
 `sudo chmod a+rx iqtree-2.1.3-Linux/bin/iqtree2`
 
-Then copy the file iqtree2 to `/usr/local/bin` with the command:
+4. Copy the file `iqtree2` to `/usr/local/bin` with the command:
 
 `sudo cp iqtree-2.1.3-Linux/bin/iqtree2 /usr/local/bin`
 
-We are now able to run IQ-TREE by running the command `iqtree2` in any directory.
-
-
+We are now able to run IQ-TREE by running the command `iqtree2` in any
+directory.
 
 ### Running IQ-TREE
 To run IQ-TREE with the full BHV1 dataset, run the following command from the `data/`
@@ -219,9 +219,9 @@ load the file `BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` and then
 can play around with the options. Trees produced using this tool are found in
 the directory `analysis/icytree/`.
 
-# Part 3A. SnappNet
+## Part 3A. SnappNet
 
-## Installing SnappNet
+### Installing SnappNet
 
 1. Download Beast2 for Linux from [this website](https://www.beast2.org/) to the `scripts/` directory. 
 
@@ -287,10 +287,10 @@ You should now see SnappNet
 11. Read [A Rough Guide to SnappNet](scripts/MySnappNet/workspace-Package-Beast/SnappNet/doc/SnappNet.pdf). (This link will work if you've downloaded SnappNet to the correct directory in the previous steps.
 
 
-## Running SnappNet with Our Data
+### Running SnappNet with Our Data
 
 
-### Convert to Nexus Format
+#### Convert to Nexus Format
 
 We'll need to convert our file `BHV1-6-clinical-isolates.fasta` Nexus format. We will use seqmagick.
 1. Install seqmagick by running the following command from `scripts/`
@@ -306,7 +306,7 @@ We'll need to convert our file `BHV1-6-clinical-isolates.fasta` Nexus format. We
 `seqmagick convert --output-format nexus --alphabet dna BHV1-6-clinical-isolates.fasta bhv1-6-clinical-isolates.nex`
 
 
-### Prepare xml file with Beauti
+#### Prepare xml file with Beauti
 Beauti creates an .xml file that will be used as input by BEAST. Beauti provides
 a GUI interface which allows the user to set parameters for the BEAST run.
 
@@ -333,7 +333,7 @@ a GUI interface which allows the user to set parameters for the BEAST run.
 
 6. Close Beauti.
 
-### Run the SnapNet with Beast
+#### Run the SnapNet with Beast
 This does not work. Produces likelihood calculation errors. Don't know how to
 fix this issue.
 
@@ -374,7 +374,8 @@ github](https://github.com/lutteropp/NetRAX) but with some modifications.
 
 `sudo apt-get install flex bison libgmp3-dev cmake doxygen libmpfrc++-dev libopenmpi-dev`
 
-2. Build Instructions (this part is different from the github instructions). Run the following commands from the `scripts` directory:
+2. Build Instructions (this part is different from the github instructions). Run
+   the following commands from the `scripts` directory:
 
 ```
 git clone --recurse-submodules https://github.com/lutteropp/NetRAX.git
@@ -382,80 +383,90 @@ cd NetRAX
 sed -i 's/master/main/' CMakeLists.txt.in
 mkdir build
 cd build
-make
 cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MPI=ON ..
+make
 ```
-(The modification was that we needed to change the word "master" to "main" in the
-file `CMakeLists.txt.in` to avoid an error, and we also had to run the command `make`).
 
-3. Set the correct binary path: Open the file `netrax.py` and edit the line
+(The modification was that we needed to change the word "master" to "main" in
+the file `CMakeLists.txt.in` to avoid an error, and for some reason we also had
+to run the command `make`).
+
+3. Set binary path: Open the file `/scripts/NetRAX/netrax.py` and edit the line
 
 `NETRAX_CORE_PATH = "/home/luttersh/NetRAX/bin/netrax"`
 
-so that it gives the correct path for your NetRAX installation. Since we installed NetRAX in the `scripts` directory, you should change the path to something like 
+so that it gives the correct path for your NetRAX installation. Since we
+installed NetRAX in the `scripts` directory, you should change the path to
+something like
 
 `NETRAX_CORE_PATH = "/.../virus-project/scripts/NetRAX/bin/netrax"`
 
-where `...` is replaced by the appropriate path on your computer. For me, I used
+where `...` is replaced by the appropriate absolute path on your computer. (I
+used `NETRAX_CORE_PATH =
+"/home/mutalisk/virus-project/scripts/NetRAX/bin/netrax"`)
 
-`NETRAX_CORE_PATH = "/home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax"`
-
-4. For help running NetRAX, run the following command from the `NetRAX/` directory:
+4. Check that you can run Netrax: from `NetRAX/`, run
 
 `python3 netrax.py --help`
 
-or run 
+or run
 
 `./netrax --help`
 
 from the directory `NetRAX/bin`
 
 ### Running NetRAX
+
 The input of NetRAX consists of:
 - fasta file
 - newick format initial network(s)
 - some other stuff which I don't understand yet
 
-We aim to build a network consisting of the six clinical isolates plus the BHV5 outgroup. Before running NetRAX, we need to obtain the necessary inputs files:
+We aim to build a network consisting of the six clinical isolates plus the BHV5
+outgroup. Before running NetRAX, we need to obtain the necessary inputs files:
 
 1. Generate alignment: from the `data/` directory, run the command
  
-`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BHV5|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta`
+`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > bhv1-6-clinical-isolates.fasta`
 
-2. Generate an initial tree with iqtree: from the `data/` directory, run the command
+2. Install IQ-TREE using the instructions in Part 2.
 
-`iqtree2 -nt AUTO -s  bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta -o BHV5`
+3. Generate an initial tree with iqtree: from the `data/` directory, run the command
 
-here the `-o BHV5` option tells iqtree to root the tree with BHV5.
+`iqtree2 -nt AUTO -s  bhv1-6-clinical-isolates.fasta`
 
-3. Cleanup; first copy the resulting files to an appropriate location: from the `data/` directory run the comman
+4. Cleanup: create a folder for this analysis by running the following command from `data/`
 
-`mkdir ../analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup`
+`mkdir -p ../analysis/iqtree-output/6-clinical-isolates`
 
-and then run
+and then move the iqtree output to that directory by running
 
-`cp bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.iqtree bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.treefile bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.mldist bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.log ../analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup/`
+`mv bhv1-6-clinical-isolates.fasta.* ../analysis/iqtree-output/6-clinical-isolates/`
 
-to copy the output of iqtree to the newly-created directory. To delete the remaining files produced by iqtree which we will not use, run the command
+5. To test NetRAX, run it with the input files we just generated: from `/scripts/NetRAX` run
 
-`rm bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.*`
+`mpiexec /home/mutalisk/virus-project/scripts/NetRAX/bin/netrax --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --msa ~/virus-project/data/bhv1-6-clinical-isolates.fasta  --output ./bhv1-6-clinical-isolates-netrax-network.txt`
 
-4. Run NetRAX with the input files we just generated: First navigate to your NetRAX directory `/scripts/NetRAX` and then run the command
+and it works, the get a network with no reticulations. 
 
-`mpiexec /home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax --start_network ~/research/virus-project/analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.treefile --msa ~/research/virus-project/data/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta  --output ./bhv1-6-clinical-isolates-plus-bhv5-outgroup-netrax-network.txt`
+6. Cleanup: delete the output files from our test run. From `/scripts/NetRAX/` run
 
-and it works! Sort of. We get a network with no reticulations. Maybe I need to generate multiple gene trees with raxml. 
+`rm bhv1-6-clinical-isolates-netrax-network.*`
+
 
 ### Running NetRAX on partitioned data
 
 Netrax requires partitioned MSA data in order to generate a network. That means
-we need a parition file in addition to our full MSA. We will try using partitionfinder. But first, as a test, let's try something more basic: creating a simple (arbitrary) partition file by hand.
+we need a parition file in addition to our full MSA. We will partition our MSA
+into uniform blocks of length 500 base pairs. [Todo: we can also try using
+partitionfinder.]
 
-Running the command from the /data/ directory 
+1. From `data`, run
 
-`awk '{print length}' bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta`
+`awk '{print length}' bhv1-6-clinical-isolates.fasta`
 
-and the output tells us that the length of our gene sequences are 144552 each. We will make a dummy file
+and the output tells us that the length of the gene sequences are 144552 each
+(144551 base pairs + 1 newline character). We will make a dummy file
 
 `dummy-partition-file-for-bhv1-6.txt`
 
