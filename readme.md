@@ -443,7 +443,8 @@ and then move the iqtree output to that directory by running
 
 `mv bhv1-6-clinical-isolates.fasta.* ../analysis/iqtree-output/6-clinical-isolates/`
 
-5. To test NetRAX, run it with the input files we just generated: from `/scripts/NetRAX` run
+5. To test NetRAX on unpartitioned data, run it with the input files we just
+   generated: from `/scripts/NetRAX` run
 
 `mpiexec /home/mutalisk/virus-project/scripts/NetRAX/bin/netrax --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --msa ~/virus-project/data/bhv1-6-clinical-isolates.fasta  --output ./bhv1-6-clinical-isolates-netrax-network.txt`
 
@@ -453,6 +454,9 @@ and it works, the get a network with no reticulations.
 
 `rm bhv1-6-clinical-isolates-netrax-network.*`
 
+and 
+
+`rm bhv1-6-clinical-isolates.fasta.raxml.reduced.phy`
 
 ### Running NetRAX on partitioned data
 
@@ -461,37 +465,119 @@ we need a parition file in addition to our full MSA. We will partition our MSA
 into uniform blocks of length 500 base pairs. [Todo: we can also try using
 partitionfinder.]
 
-1. From `data`, run
+#### Dummy Partition
+In this section, we test whether we can get netrax running with a dummy partition.
+
+1. From `data/`, run     
 
 `awk '{print length}' bhv1-6-clinical-isolates.fasta`
 
-and the output tells us that the length of the gene sequences are 144552 each
-(144551 base pairs + 1 newline character). We will make a dummy file
+The output tells us that the length of the gene sequences are 144552 each (144551 base pairs + 1 newline character). 
+
+2. Make a dummy partition file
 
 `dummy-partition-file-for-bhv1-6.txt`
 
-```
-DNA, gene_59=1-10000
-DNA, gene_281=10001-20000
-DNA, gene_281=20001-30000
-DNA, gene_281=30001-40000
-DNA, gene_281=40001-50000
-DNA, gene_281=50001-60000
-DNA, gene_281=60001-70000
-DNA, gene_281=70001-80000
-DNA, gene_281=80001-90000
-DNA, gene_281=90001-100000
-DNA, gene_281=100001-110000
-DNA, gene_281=110001-120000
-DNA, gene_281=120001-130000
-DNA, gene_281=130001-140000
-DNA, gene_281=140001-144551
-```
-Now we try runinng the following command from `scripts/NetRAX/`
+with contents
 
-`mpiexec /home/mutalisk/research/virus-project/scripts/NetRAX/bin/netrax --start_network ~/research/virus-project/analysis/iqtree-output/6-clinical-isolates-plus-bhv5-outgroup/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta.treefile --msa ~/research/virus-project/data/bhv1-6-clinical-isolates-plus-bhv5-outgroup.fasta  --output ./bhv1-6-clinical-isolates-plus-bhv5-outgroup-netrax-network.txt --model ~/research/virus-project/data/dummy-partition-file-for-bhv1-6.txt`
+```
+DNA, gene_1=1-10000
+DNA, gene_2=10001-20000
+DNA, gene_3=20001-30000
+DNA, gene_4=30001-40000
+DNA, gene_5=40001-50000
+DNA, gene_6=50001-60000
+DNA, gene_7=60001-70000
+DNA, gene_8=70001-80000
+DNA, gene_9=80001-90000
+DNA, gene_10=90001-100000
+DNA, gene_11=100001-110000
+DNA, gene_12=110001-120000
+DNA, gene_13=120001-130000
+DNA, gene_14=130001-140000
+DNA, gene_15=140001-144551
+```
 
-and we get a network! But the outgroup is making visualization difficut. We should try running this on the six clinical isolates without the outgroup, We should also try using a partition with uniform lengths 500 or 1000. Also we can try using partitionfinder to get a network. 
+3. From `data/` run 
+
+`mpiexec /home/mutalisk/virus-project/scripts/NetRAX/bin/netrax --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --msa ~/virus-project/data/bhv1-6-clinical-isolates.fasta --output ./OUTPUT-bhv1-6-clinical-isolates-netrax-network.txt --model ~/virus-project/data/dummy-partition-file-for-bhv1-6.txt`
+
+And indeed we get a network, though one with no reticulations.
+
+4. Cleanup: from `data/` run
+
+`rm dummy-partition-file-for-bhv1-6.txt bhv1-6-clinical-isolates.fasta.raxml.reduced.partition bhv1-6-clinical-isolates.fasta.raxml.reduced.phy`
+
+and
+
+`rm OUTUPT-*`
+
+
+#### Partition into blocks of length 500
+In this section, we build a network using a partition of the MSA into blocks of lengths 500 base pairs.
+
+1. Make a directory for the NetRAX output of this experiment. We will call it
+   experiment-A. From `scripts/`, run
+
+`mkdir -p ../analysis/netrax/experiment-A`
+
+2. Determine the length of our data: from `data/`, run
+
+`awk '{print length}' bhv1-6-clinical-isolates.fasta`
+
+The output tells us that the length of the gene sequences are 144552 each
+(144551 base pairs + 1 newline character).
+
+3. Make a partition file: from `scripts/`, run
+
+`bash generate-partition-file.sh 144551 500 > ../analysis/netrax/experiment-A/partition.txt`
+
+This is simply a file with contents of the form: 
+
+```
+DNA, gene_1 1-500
+DNA, gene_2 501-1000
+DNA, gene_3 1001-1500
+DNA, gene_4 1501-2000
+DNA, gene_5 2001-2500
+DNA, gene_6 2501-3000
+DNA, gene_7 3001-3500
+...
+```
+
+4. Run NetRAX on the partitioned data: from `scripts/NetRAX/`, run
+
+`mpiexec /home/mutalisk/virus-project/scripts/NetRAX/bin/netrax --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --msa ~/virus-project/data/bhv1-6-clinical-isolates.fasta --output ./OUTPUT-bhv1-6-clinical-isolates-netrax-network.txt --model ~/virus-project/analysis/netrax/experiment-A/partition.txt`
+
+This returns an error 
+
+```
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  ERROR computing MSA stats (LIBPLL-114): Cannot encode character \240 at sequence 1 position 1.
+[mutalisk:16109] *** Process received signal ***
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  ERROR computing MSA stats (LIBPLL-114): Cannot encode character \240 at sequence 1 position 1.
+```
+
+I have no idea why this error occurs on the this run and not the dummy run. I
+also have no idea where the \240 character is, as I have been unable to locate
+any such characters in any of our data files. I have noticed that If I replace
+the contents of `experiment-A/partition.txt` with the contents of the dummy
+partition, the code works. So there is some problem with the partition I
+created?
+
+I managed to fix this error by manually deleting the last line of the
+`experiment-A/partition.txt` and replacing the number `144500` with `144551`.
+Why does this work? I have no idea. Possibly a ghost in the shell?
+
+The best inferred network is 
+
+`((((C46:0.000252871,(C33:0.000178982,C14_CSU_034_10640:0.000711396):3.37489e-05):0.00021293,MN12:0.000229396):2.22407e-05,MN3:0.000393618):4.09311e-05,MN5:0.000135916)`
+
+which we note has no reticulations. It is also very similar to the starting network
+
+`(MN3:0.0004242398,MN5:0.0001893780,(MN12:0.0002484560,((C14_CSU_034_10640:0.0008219414,C33:0.0002005949):0.0000194678,C46:0.0002720532):0.0002387777):0.0000164886);`
+
 
 
 ## Part 4. Using TriLoNet
