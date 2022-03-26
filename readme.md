@@ -48,7 +48,7 @@ The following are the strains chosen for SnappNet and NetRax analysis:
 	MN12
 	MN3
 	C46
-	BoviShield_MLV
+	BoviShield_Gold_FP5_MLV_vaccine
 	```
 
 To restrict the large dataset `BHV1-plus-BHV5-outgroup-alignment.fasta` to just
@@ -60,7 +60,7 @@ First, check that you have the file
 
 Second, running the following command from the `data/` directory:
 
-`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > BHV1-6-clinical-isolates.fasta`
+`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_Gold_FP5_MLV_vaccine' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > BHV1-6-clinical-isolates.fasta`
 
 The output is the file `data/BHV1-6-clinical-isolates.fasta` which consists of
 the six clinical isolates and one vaccine strain listed above.
@@ -405,7 +405,7 @@ where `...` is replaced by the appropriate absolute path on your computer. (I
 used `NETRAX_CORE_PATH =
 "/home/mutalisk/virus-project/scripts/NetRAX/bin/netrax"`)
 
-4. Check that you can run Netrax: from `NetRAX/`, run
+4. Check that you can run Netrax: from `/scripts/NetRAX/`, run
 
 `python3 netrax.py --help`
 
@@ -413,7 +413,7 @@ or run
 
 `./netrax --help`
 
-from the directory `NetRAX/bin`
+from the directory `/scripts/NetRAX/bin`
 
 ### Running NetRAX
 
@@ -426,14 +426,14 @@ We aim to build a network consisting of the six clinical isolates plus the BHV5
 outgroup. Before running NetRAX, we need to obtain the necessary inputs files:
 
 1. Generate alignment: from the `data/` directory, run the command
- 
-`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_MLV' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > bhv1-6-clinical-isolates.fasta`
+
+`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_Gold_FP5_MLV_vaccine' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > bhv1-6-clinical-isolates.fasta`
 
 2. Install IQ-TREE using the instructions in Part 2.
 
 3. Generate an initial tree with iqtree: from the `data/` directory, run the command
 
-`iqtree2 -nt AUTO -s  bhv1-6-clinical-isolates.fasta`
+`iqtree2 -nt AUTO -s bhv1-6-clinical-isolates.fasta`
 
 4. Cleanup: create a folder for this analysis by running the following command from `data/`
 
@@ -566,11 +566,13 @@ the contents of `experiment-A/partition.txt` with the contents of the dummy
 partition, the code works. So there is some problem with the partition I
 created?
 
-I managed to fix this error by manually deleting the last line of the
-`experiment-A/partition.txt` and replacing the number `144500` with `144551`.
-Why does this work? I have no idea. Possibly a ghost in the shell?
+I managed to fix this error by manually deleting the last several lines of the
+`experiment-A/partition.txt` and retyping them manually. Why does this work? I
+have no idea. Possibly a ghost in the shell?
 
 The best inferred network is 
+`((MN12:0.000229147,((C33:0.000164582,(BoviShield_Gold_FP5_MLV_vaccine:0.000126829,(C46:0.000218167,C14_CSU_034_10640:0.000727933):3.29291e-05):4.64888e-05):0.000249571,MN5:0.000154334):4.47895e-05):1e-06,MN3:0.000389343)`
+
 
 `((((C46:0.000252871,(C33:0.000178982,C14_CSU_034_10640:0.000711396):3.37489e-05):0.00021293,MN12:0.000229396):2.22407e-05,MN3:0.000393618):4.09311e-05,MN5:0.000135916)`
 
