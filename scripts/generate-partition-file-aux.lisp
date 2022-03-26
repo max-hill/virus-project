@@ -12,7 +12,7 @@
 (defparameter *gene-number-padding* 0)
 
 (defun pad-zeros (n k)
-  "left-pad n with k zeros"
+  "Left-pad n with k zeros. If k=0 do not pad."
   (format nil (format nil "~a~a,'0d"  "~" k) n))
 
 (defun generate-partition-file (alignment-length block-length &optional (block-starting-position 1) (gene-number 1))
