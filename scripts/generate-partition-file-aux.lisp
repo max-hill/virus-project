@@ -20,7 +20,7 @@
 partition file. USAGE: (make-partition-file 14125 500). The optional variables are internal (dummy) variables and are
 not to be specified by the user. 2022-03-07 max-hill"
     (if (> (+ block-starting-position block-length) alignment-length)
-        (format t "DNA, gene_~a=~a-~a~%"
+        (format t "DNA, gene_~a=~a-~a "
 		(pad-zeros gene-number *gene-number-padding*)
 		(pad-zeros block-starting-position *position-padding*)
 		alignment-length)
