@@ -513,7 +513,7 @@ and
 `rm OUTUPT-*`
 
 
-#### Partition into blocks of length 500
+#### Experiment A: Partition into blocks of length 500
 In this section, we build a network using a partition of the MSA into blocks of lengths 500 base pairs.
 
 1. Make a directory for the NetRAX output of this experiment. We will call it
@@ -576,9 +576,23 @@ The best inferred network is
 which we note has no reticulations. It is also very similar to the starting network obtained by iqtree:
 `((MN12:0.000229243,((C33:0.000164204,(BoviShield_Gold_FP5_MLV_vaccine:0.000125444,(C46:0.00021833,C14_CSU_034_10640:0.000724591):3.38004e-05):4.7022e-05):0.000250691,MN5:0.000153854):4.50286e-05):1e-06,MN3:0.000387796)`
 
+It is possible that we are not running NetRAX correctly.
+
 5. Cleanup. Move the netrax output files to the appropriate directory: from `/scripts/NetRAX` run
 
 `mv OUTPUT-bhv1-6-clinical-isolates-netrax-network.* ../../analysis/netrax/experiment-A/`
+
+#### Experiment B: Partition using PartitionFinder
+These instructions assume that experiment A has been run already.
+
+1. Make a directory for the NetRAX output of this experiment. We will call it
+   experiment-A. From `scripts/`, run
+
+`mkdir -p ../analysis/netrax/experiment-B`
+
+
+2. Make a partition file: from `scripts/`, run
+
 
 
 ## Part 4. Using TriLoNet
