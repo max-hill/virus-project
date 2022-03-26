@@ -573,13 +573,12 @@ have no idea. Possibly a ghost in the shell?
 The best inferred network is 
 `((MN12:0.000229147,((C33:0.000164582,(BoviShield_Gold_FP5_MLV_vaccine:0.000126829,(C46:0.000218167,C14_CSU_034_10640:0.000727933):3.29291e-05):4.64888e-05):0.000249571,MN5:0.000154334):4.47895e-05):1e-06,MN3:0.000389343)`
 
+which we note has no reticulations. It is also very similar to the starting network obtained by iqtree:
+`((MN12:0.000229243,((C33:0.000164204,(BoviShield_Gold_FP5_MLV_vaccine:0.000125444,(C46:0.00021833,C14_CSU_034_10640:0.000724591):3.38004e-05):4.7022e-05):0.000250691,MN5:0.000153854):4.50286e-05):1e-06,MN3:0.000387796)`
 
-`((((C46:0.000252871,(C33:0.000178982,C14_CSU_034_10640:0.000711396):3.37489e-05):0.00021293,MN12:0.000229396):2.22407e-05,MN3:0.000393618):4.09311e-05,MN5:0.000135916)`
+5. Cleanup. Move the netrax output files to the appropriate directory: from `/scripts/NetRAX` run
 
-which we note has no reticulations. It is also very similar to the starting network
-
-`(MN3:0.0004242398,MN5:0.0001893780,(MN12:0.0002484560,((C14_CSU_034_10640:0.0008219414,C33:0.0002005949):0.0000194678,C46:0.0002720532):0.0002387777):0.0000164886);`
-
+`mv OUTPUT-bhv1-6-clinical-isolates-netrax-network.* ../../analysis/netrax/experiment-A/`
 
 
 ## Part 4. Using TriLoNet
