@@ -1,3 +1,26 @@
+# 2022-03-31
+
+IQ-Tree on all BHV1.1 strains + MN2
+on the 7-taxon:
+- full alignment: 140,000 sites. Only 231 are biallelic, on the 7-taxon subset.
+- NetRax: was given blocks of 500 sites. Ran very fast.
+- SnappNet: MCMC for 8 million generations, took ~8h, 1 core. Max of h=2.
+- both SnappNet and NetRax returned a tree.
+  SnappNet: there may be an influence from the prior on the # of reticulations.
+  The set of 7 strains may have been chosen as well "separated" on the
+  splitstree graph. If so, the true phylogeny for these 7 may well be a tree.
+
+Next steps:
+- use larger blocks of 5kb, to increase the average # of SNPs / block
+- get gene trees from these blocks: to be used as input to NetRax, or to SNaQ
+- increase number of strains with NetRax: progressively?
+- try [RF-Net-2](https://github.com/flu-crew/rf-net-2)?
+  [They](https://doi.org/10.1093/bioinformatics/btac075)
+  analyzed 200 flu strains, which has 8 genes. It takes gene trees as input.
+- Curtis & Aaron: look for data with more variability.
+  ex: HCMV (Human cytomegalovirus, a beta-herpesvirus).
+  Large variation, even within a host: higher substitution & recombination rates.
+
 # 2022-01-27
 
 - focus on BHV1.1 + MN2 as outgroup (from BHV1.2)
