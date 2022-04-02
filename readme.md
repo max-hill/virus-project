@@ -605,6 +605,38 @@ The output is the tree (not network)
 
 `mv OUTPUT-bhv1-6-clinical-isolates-netrax-network.* ../../analysis/netrax/experiment-B/`
 
+
+#### Experiment C: Partition using into blocks of 5kb -- modified attempt
+These instructions assume that experiment A has been run already. Here we closely mimic the usage example provided in [here](https://github.com/lutteropp/NetRAX) for running a NetRAX network inference, starting from a single start network (or tree), using LhModel.AVERAGE.
+
+1. Make a directory for the NetRAX output of this experiment. We will call it
+   experiment-C. From `scripts/`, run
+
+`mkdir -p ../analysis/netrax/experiment-C`
+
+
+2. Make a partition file: from `scripts/`, run 
+
+`bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-B/partition.txt`
+
+3. Run NetRAX with the following command from `scripts/NetRAX/bin/`:
+
+`mpiexec ./netrax --name experiment-C --msa ~/virus-project/data/bhv1-6-clinical-isolates.fasta --model ~/virus-project/analysis/netrax/experiment-C/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --output ./OUTPUT-experiment-C.txt --seed 42
+`
+
+Total runtime is 0 seconds. The output is the tree (not network)
+`
+((MN12:0.000229047,((C33:0.000164399,(BoviShield_Gold_FP5_MLV_vaccine:0.000125669,(C46:0.000218961,C14_CSU_034_10640:0.000726084):3.34469e-05):4.67627e-05):0.000250193,MN5:0.000154562):4.48323e-05):1e-06,MN3:0.00038894);
+`
+which is identical to the output of experiment-B.
+
+4. Cleanup. Move the netrax output files to the appropriate directory: from `/scripts/NetRAX/bin/` run
+
+`
+mv OUTPUT-experiment-C.* ../../../analysis/netrax/experiment-C/
+`
+
+
 ## Part 4. Using TriLoNet
 
 https://www.uea.ac.uk/groups-and-centres/computational-biology/software/trilonet
