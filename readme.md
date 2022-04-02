@@ -582,18 +582,28 @@ It is possible that we are not running NetRAX correctly.
 
 `mv OUTPUT-bhv1-6-clinical-isolates-netrax-network.* ../../analysis/netrax/experiment-A/`
 
-#### Experiment B: Partition using PartitionFinder
+#### Experiment B: Partition using into blocks of 5kb
 These instructions assume that experiment A has been run already.
 
 1. Make a directory for the NetRAX output of this experiment. We will call it
-   experiment-A. From `scripts/`, run
+   experiment-B. From `scripts/`, run
 
 `mkdir -p ../analysis/netrax/experiment-B`
 
 
-2. Make a partition file: from `scripts/`, run
+2. Make a partition file: from `scripts/`, run 
+
+`bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-B/partition.txt`
+3. Run NetRAX with the following command from `scripts`:
+`mpiexec /home/mutalisk/virus-project/scripts/NetRAX/bin/netrax --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --msa ~/virus-project/data/bhv1-6-clinical-isolates.fasta --output ./OUTPUT-bhv1-6-clinical-isolates-netrax-network.txt --model ~/virus-project/analysis/netrax/experiment-B/partition.txt`
 
 
+The output is the tree (not network)
+`((MN12:0.000229047,((C33:0.000164399,(BoviShield_Gold_FP5_MLV_vaccine:0.000125669,(C46:0.000218961,C14_CSU_034_10640:0.000726084):3.34469e-05):4.67627e-05):0.000250193,MN5:0.000154562):4.48323e-05):1e-06,MN3:0.00038894)`
+
+4. Cleanup. Move the netrax output files to the appropriate directory: from `/scripts` run
+
+`mv OUTPUT-bhv1-6-clinical-isolates-netrax-network.* ../../analysis/netrax/experiment-B/`
 
 ## Part 4. Using TriLoNet
 
