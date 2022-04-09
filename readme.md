@@ -496,7 +496,7 @@ outgroup. Before running NetRAX, we need to obtain the necessary inputs files:
 
 1. Generate alignment: from the `data/` directory, run the command
 
-`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_Gold_FP5_MLV_vaccine' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > bhv1-6-clinical-isolates.fasta`
+`grep -A1 -E '>C14_CSU_034_10640$|>C33$|>MN5$|>MN12$|>MN3$|>C46$|>BoviShield_Gold_FP5_MLV_vaccine$' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > bhv1-6-clinical-isolates.fasta`
 
 2. Install IQ-TREE using the instructions in Part 2.
 
