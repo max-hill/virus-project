@@ -69,10 +69,16 @@ First, check that you have the file
 
 Second, running the following command from the `data/` directory:
 
-`grep -A1 -E '>C14_CSU_034_10640|>C33|>MN5|>MN12|>MN3|>C46|>BoviShield_Gold_FP5_MLV_vaccine' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > BHV1-6-clinical-isolates.fasta`
+`grep -A1 -E '>C14_CSU_034_10640$|>C33$|>MN5$|>MN12$|>MN3$|>C46$|>BoviShield_Gold_FP5_MLV_vaccine$' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > BHV1-6-clinical-isolates.fasta`
 
 The output is the file `data/BHV1-6-clinical-isolates.fasta` which consists of
 the six clinical isolates and one vaccine strain listed above.
+
+Here, the option `-A1` instructs grep to also print one line following each
+matched line (i.e. so it also prints the line containing the DNA sequence, not
+just the line containing the virus name). The option `-E` tells grep to use
+regular-expressions. The dollar signs are for matching end of lines. The second
+grep command is for removing excess newlines introduced by the first grep command.
 
 If this does not work, an alternative method is to use the R code in [this
 file](scripts/Rutilies.Rmd).
