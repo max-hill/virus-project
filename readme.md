@@ -37,6 +37,15 @@ We used the datafile [BHV1\_plus\ BHV5\
 Throughout this document, this file will be referred to as the *BHV1 Dataset*.
 This is a fasta file without any linebreaks within the sequences. We will work
 with this full BHV1 dataset directly as well as with subsets of it.
+### Formatting the dataset
+
+We have to remove some invisible control characters from the dataset in order
+for the dataset to play nice with some of the regular expressions we use. To do
+this, navigate to `data/` and run
+
+```
+sed -i 's/[[:cntrl:]]//' BHV1-plus-BHV5-outgroup-alignment.fasta
+```
 
 ### Subsetting the Dataset (Required for SnappNet and NetRAX)
 The following are the strains chosen for SnappNet and NetRax analysis:
@@ -68,7 +77,61 @@ the six clinical isolates and one vaccine strain listed above.
 If this does not work, an alternative method is to use the R code in [this
 file](scripts/Rutilies.Rmd).
 
+There are 50 taxa in the dataset. The full list of names of strains in the datasets is 
 
+```
+>BHV5
+>MN1
+>MN2
+>MN3
+>MN4
+>MN5
+>MN6
+>MN7
+>MN8
+>MN9
+>MN10
+>MN11
+>MN12
+>MN13
+>MN14
+>MN15
+>PA1
+>PA2
+>PA3
+>C14_CSU_034_10640
+>C18
+>C26
+>C28_55771
+>C29
+>C33
+>C35_1839_9847
+>C36_876_459
+>C42
+>C43
+>C44
+>C45
+>C46
+>C47
+>Nasalgen_IP_MLV_vaccine
+>TSV-2_Nasal_MLV_vaccine
+>BoviShield_Gold_FP5_MLV_vaccine
+>BovSh_IBR_MLV_vaccine
+>Vista_IBR_MLV_vaccine
+>Pyramid_IBR_MLV_vaccine
+>Express1_IBR_MLV_vaccine
+>Titanium_IBR_MLV_vaccine
+>Arsenal_IBR_MLV_vaccine
+>VR188_Los_Angeles
+>NVSL_challenge_97_11
+>216_II
+>SP1777
+>SM023
+>K22
+>B589
+>Cooper
+
+```
 
 ## Part 1. SplitsTree
 Here we show how to use SplitsTree to create an implicit tree (a splits tree)
@@ -640,6 +703,23 @@ tree (not network):
 
 which is identical to the output of experiment-B.
 
+#### Experiment D: Partition using into blocks of 5kb -- force 1 reticulation
+These instructions assume that experiment A has ben run already. Here we will attempt to force NetRAX to return a network with exactly one reticulation.
+
+1. Make a directory for the NetRAX output of this experiment. We will call it experiment-D. From `scripts/` run
+`
+mkdir -p ../analysis/netrax/experiment-D
+`
+2. Make a partition file: from `scripts/`, run 
+
+`
+bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-D/partition.txt
+`
+
+3. Run Netrax: from `NetRAX/bin/` run
+`rm
+mpiexec ./netrax --msa ~/virus-project/data/bhv1-6-clinical-isolates.fasta --model ~/virus-project/analysis/netrax/experiment-D/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --output ../../../analysis/netrax/experiment-D/ --generate_random_network_only --max_reticulations 1 --seed 42
+`
 
 
 ## Part 4. Using TriLoNet
