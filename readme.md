@@ -723,10 +723,58 @@ bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-D/pa
 `
 
 3. Run Netrax: from `NetRAX/bin/` run
-`rm
+
+`
 mpiexec ./netrax --msa ~/virus-project/data/bhv1-6-clinical-isolates.fasta --model ~/virus-project/analysis/netrax/experiment-D/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --output ../../../analysis/netrax/experiment-D/ --generate_random_network_only --max_reticulations 1 --seed 42
 `
 
+#### Experiment E
+Partition into blocks of 5kb. Similar approach as experiment C. However, we will
+consider the following taxa:
+
+```
+MN1
+MN10
+MN4
+MN11
+MN13
+MN14
+PA3
+MN12
+C18
+C33
+MN15
+BoviShield_Gold_FP5_MLV_vaccine
+
+```
+
+1. To subset the full dataset into just these 12 taxa, do the following: from
+`data/`, run
+
+`grep -A1 -E '>MN1$|>MN10$|>MN4$|>MN11$|>MN13$|>MN14$|>PA3$|>MN12$|>C18$|>C33$|>MN15$|>BoviShield_Gold_FP5_MLV_vaccine$' BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > experiment-e-dataset.fasta`
+
+
+2. Make a directory for the NetRAX output of this experiment. We will call it experiment-E. From `scripts/` run
+`
+mkdir -p ../analysis/netrax/experiment-E
+`
+
+3. Maka a partition file: from `scripts/`, run
+`
+bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-E/partition.txt
+`
+
+4. Make a start network with IQ-tree. From `data/`, run [LEFT OFF HERE]
+`
+iqtree2 -nt AUTO -s
+`
+
+
+5. Run Netrax: from `NetRAX/bin/` run
+
+`
+mpiexec ./netrax --name experiment-E--msa ~/virus-project/data/experiment-e-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-E/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --output ../../../analysis/netrax/experiment-E/output-experiment-E --seed 42
+`
 
 ## Part 4. Using TriLoNet
 
