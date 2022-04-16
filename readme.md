@@ -728,7 +728,7 @@ bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-D/pa
 mpiexec ./netrax --msa ~/virus-project/data/bhv1-6-clinical-isolates.fasta --model ~/virus-project/analysis/netrax/experiment-D/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --output ../../../analysis/netrax/experiment-D/ --generate_random_network_only --max_reticulations 1 --seed 42
 `
 
-#### Experiment E
+#### Experiment E: Similar to experiment C but with different taxa
 Partition into blocks of 5kb. Similar approach as experiment C. However, we will
 consider the following taxa:
 
@@ -759,22 +759,94 @@ BoviShield_Gold_FP5_MLV_vaccine
 mkdir -p ../analysis/netrax/experiment-E
 `
 
-3. Maka a partition file: from `scripts/`, run
+3. Make a partition file: from `scripts/` run
 `
 bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-E/partition.txt
 `
 
-4. Make a start network with IQ-tree. From `data/`, run [LEFT OFF HERE]
+4. Make a start network with IQ-tree. From `data/` run
 `
-iqtree2 -nt AUTO -s
+iqtree2 -nt AUTO -s experiment-e-dataset.fasta 
 `
 
-
-5. Run Netrax: from `NetRAX/bin/` run
+5. Move the IQ-tree output to `/analysis/netrax/experiment-E`: run 
 
 `
-mpiexec ./netrax --name experiment-E--msa ~/virus-project/data/experiment-e-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-E/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/iqtree-output/6-clinical-isolates/bhv1-6-clinical-isolates.fasta.treefile --output ../../../analysis/netrax/experiment-E/output-experiment-E --seed 42
+mv experiment-e-dataset.*  ../analysis/netrax/experiment-E
 `
+
+6. Run Netrax: from `scripts/NetRAX/bin/` run
+
+`
+dir="~/virus-project/analysis/netrax/experiment-E"
+`
+and then 
+
+`
+echo mpiexec ./netrax --name experiment-E --msa "$dir/experiment-e-dataset.fasta" --model "$dir/partition.txt" --average_displayed_tree_variant --start_network "$dir/experiment-e-dataset.fasta.treefile" --output "$dir/experiment-e-netrax-output" --seed 42
+`
+which will produce this code, which you should run from `/scripts/NetRAX/bin/`:
+
+`
+mpiexec ./netrax --name experiment-E --msa ~/virus-project/analysis/netrax/experiment-E/experiment-e-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-E/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-E/experiment-e-dataset.fasta.treefile --output ~/virus-project/analysis/netrax/experiment-E/experiment-e-netrax-output --seed 42
+`
+
+The output: 
+
+Total runtime is 1 second. Best inferred network is: 
+`
+((MN1:3.78677e-05,(((MN13:3.65215e-05,(MN15:1.94766e-05,(MN14:1e-06,(PA3:4.45212e-05,MN12:8.94247e-05):4.45957e-05):9.20028e-05):2.68514e-05):4.80489e-05,MN11:3.65287e-05):7.19346e-05,MN4:1.15295e-05):9.44161e-05):2.45759e-06,((BoviShield_Gold_FP5_MLV_vaccine:0.000104386,(C33:0.000201194,C18:0.000230935):2.16495e-05):0.000188219,MN10:9.56704e-05):6.72109e-05);
+`
+which is a tree with no reticulations. Comparing the netrax output with the iqtree starting tree, which is:
+
+`
+(MN1:0.0000396919,(MN4:0.0000073656,(MN11:0.0000361207,((((MN12:0.0000929804,PA3:0.0000455748):0.0000450407,MN14:0.0000006918):0.0000935782,MN15:0.0000184991):0.0000268514,MN13:0.0000373935):0.0000486425):0.0000773581):0.0000979086,(MN10:0.0001036129,((C18:0.0002820638,C33:0.0002432458):0.0000014009,BoviShield_Gold_FP5_MLV_vaccine:0.0001042942):0.0002186907):0.0000676116);
+`
+we see the topology is unchanged, but some branch lengths changed slightly.
+
+#### Experiment F: Similar to experiment-E but with all the taxa
+Since experiment E took only 1 second to run, we will try it with all 50 taxa in `BHV1-plus-BHV5-outgroup-alignment.fasta`, not just a subset of taxa.
+
+1. Make a directory for this experiment: from `scripts/` run
+`
+mkdir -p ../analysis/netrax/experiment-F
+`
+
+2. Make a partition file: from `scripts/` run
+`
+bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-F/partition.txt
+`
+
+3. Make a start network with IQ-tree: from `data/` run
+
+`
+iqtree2 -nt AUTO -s BHV1-plus-BHV5-outgroup-alignment.fasta -pre experiment-F
+`
+
+4. Move the IQ-tree output to `/analysis/netrax/experiment-E`: run 
+
+`
+mv experiment-F.* ../analysis/netrax/experiment-F
+`
+
+5. Run netrax. From `scripts/NetRAX/bin/` run
+
+`
+dir="~/virus-project/analysis/netrax/experiment-F"
+`
+then
+
+`
+echo mpiexec ./netrax --name experiment-F --msa "~/virus-project/data/BHV1-plus-BHV5-outgroup-alignment.fasta" --model "$dir/partition.txt" --average_displayed_tree_variant --start_network "$dir/experiment-F-dataset.fasta.treefile" --output "$dir/experiment-F-netrax-output" --seed 42
+`
+which will produce the following code, we we run from `/scripts/NetRAX/bin/`
+
+`
+mpiexec ./netrax --name experiment-F --msa ~/virus-project/data/BHV1-plus-BHV5-outgroup-alignment.fasta --model ~/virus-project/analysis/netrax/experiment-F/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-F/experiment-F-dataset.fasta.treefile --output ~/virus-project/analysis/netrax/experiment-F/experiment-F-netrax-output --seed 42
+`
+
+errros
+
 
 ## Part 4. Using TriLoNet
 
