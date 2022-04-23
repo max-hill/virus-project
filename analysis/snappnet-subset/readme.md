@@ -1,2 +1,2 @@
-There are three subsets, where DataSet0 ann DataSetA return the networks, and DataSetB returns trees.
+There are three subsets, where DataSet0 and DataSetA return the networks, and DataSetB returns trees.
 
