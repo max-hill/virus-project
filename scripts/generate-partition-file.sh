@@ -24,7 +24,7 @@
 #
 # EXAMPLE USAGE:
 # 'bash generate-partition-file.sh 144551 500 >../data/partition-A144551-B500.txt'
-
+# Needs to be run from the directory virus-analysis/scripts/
 
 ### ---Begin script---
 

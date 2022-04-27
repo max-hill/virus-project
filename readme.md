@@ -823,7 +823,7 @@ bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-F/pa
 iqtree2 -nt AUTO -s BHV1-plus-BHV5-outgroup-alignment.fasta -pre experiment-F
 `
 
-4. Move the IQ-tree output to `/analysis/netrax/experiment-E`: run 
+4. Move the IQ-tree output to `/analysis/netrax/experiment-F`: run 
 
 `
 mv experiment-F.* ../analysis/netrax/experiment-F
@@ -837,15 +837,114 @@ dir="~/virus-project/analysis/netrax/experiment-F"
 then
 
 `
-echo mpiexec ./netrax --name experiment-F --msa "~/virus-project/data/BHV1-plus-BHV5-outgroup-alignment.fasta" --model "$dir/partition.txt" --average_displayed_tree_variant --start_network "$dir/experiment-F-dataset.fasta.treefile" --output "$dir/experiment-F-netrax-output" --seed 42
+echo mpiexec ./netrax --name experiment-F --msa "~/virus-project/data/BHV1-plus-BHV5-outgroup-alignment.fasta" --model "$dir/partition.txt" --average_displayed_tree_variant --start_network "$dir/experiment-F.treefile" --output "$dir/experiment-F-netrax-output" --seed 42
 `
 which will produce the following code, we we run from `/scripts/NetRAX/bin/`
 
 `
-mpiexec ./netrax --name experiment-F --msa ~/virus-project/data/BHV1-plus-BHV5-outgroup-alignment.fasta --model ~/virus-project/analysis/netrax/experiment-F/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-F/experiment-F-dataset.fasta.treefile --output ~/virus-project/analysis/netrax/experiment-F/experiment-F-netrax-output --seed 42
+mpiexec ./netrax --name experiment-F --msa ~/virus-project/data/BHV1-plus-BHV5-outgroup-alignment.fasta --model ~/virus-project/analysis/netrax/experiment-F/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-F/experiment-F.treefile --output ~/virus-project/analysis/netrax/experiment-F/experiment-F-netrax-output --seed 42
 `
 
-errros
+#### Experiment G: Similar to experiment-E but with fewer taxa
+
+We ran Experiment-F for an hour, but were unsure how long it would take, so we
+decided to try again with a smaller dataset. We excluded some taxa from the full
+dataset. Criteria for removal: (1) if there are two very closely related sister
+taxa, remove one of them; (2) don't remove taxa that (unfinisehd) experiment-F
+suggested might have a introgression.
+
+```
+>BHV5
+>MN2
+>MN3
+>MN5
+>MN6
+>MN7
+>MN12
+>MN14
+>PA1
+>PA3
+>C14_CSU_034_10640
+>C18
+>C26
+>C28_55771
+>C29
+>C33
+>C36_876_459
+>C42
+>C43
+>C44
+>C46
+>C47
+>Nasalgen_IP_MLV_vaccine
+>TSV-2_Nasal_MLV_vaccine
+>BoviShield_Gold_FP5_MLV_vaccine
+>Express1_IBR_MLV_vaccine
+>Titanium_IBR_MLV_vaccine
+>VR188_Los_Angeles
+>216_II
+>SP1777
+>SM023
+>K22
+>B589
+>Cooper
+```
+
+
+1. Make a directory for this experiment: from `scripts/` run
+`
+mkdir -p ../analysis/netrax/experiment-G
+`
+
+2. Make a partition file: from `scripts/` run
+`
+bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-G/partition.txt
+`
+
+3. To subset the full dataset into just the above 34 taxa, do the following: from `data/`, run
+
+`
+grep -A1 -E ">BHV5$|>MN2$|>MN3$|>MN5$|>MN6$|>MN7$|>MN12$|>MN14$|>PA1$|>PA3$|>C14_CSU_034_10640$|>C18$|>C26$|>C28_55771$|>C29$|>C33$|>C36_876_459$|>C42$|>C43$|>C44$|>C46$|>C47$|>Nasalgen_IP_MLV_vaccine$|>TSV-2_Nasal_MLV_vaccine$|>BoviShield_Gold_FP5_MLV_vaccine$|>Express1_IBR_MLV_vaccine$|>Titanium_IBR_MLV_vaccine$|>VR188_Los_Angeles$|>216_II$|>SP1777$|>SM023$|>K22$|>B589$|>Cooper$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-G/experiment-G-dataset.fasta
+`
+
+4. Make a start network with IQ-tree: from `/analysis/netrax/experiment-G/` run
+
+`
+iqtree2 -nt AUTO -s experiment-G-dataset.fasta -pre experiment-G
+`
+
+
+5. Run netrax. From `scripts/NetRAX/bin/` run
+
+`
+mpiexec ./netrax --name experiment-G --msa ~/virus-project/analysis/netrax/experiment-G/experiment-G-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-G/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-G/experiment-G.treefile --output ~/virus-project/analysis/netrax/experiment-G/experiment-G-netrax-output --seed 42
+`
+
+This appeared to terminate with an error, so we will try again in the next experiment, experiment-H
+
+
+#### Experiment H: Try experiment G again.
+Same parameters and everything as experiment G.
+
+1. Setup: Run the code
+
+`
+mkdir analysis/netrax/experiment-H
+cd scripts/
+bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-H/partition.txt
+cd ../data/
+grep -A1 -E ">BHV5$|>MN2$|>MN3$|>MN5$|>MN6$|>MN7$|>MN12$|>MN14$|>PA1$|>PA3$|>C14_CSU_034_10640$|>C18$|>C26$|>C28_55771$|>C29$|>C33$|>C36_876_459$|>C42$|>C43$|>C44$|>C46$|>C47$|>Nasalgen_IP_MLV_vaccine$|>TSV-2_Nasal_MLV_vaccine$|>BoviShield_Gold_FP5_MLV_vaccine$|>Express1_IBR_MLV_vaccine$|>Titanium_IBR_MLV_vaccine$|>VR188_Los_Angeles$|>216_II$|>SP1777$|>SM023$|>K22$|>B589$|>Cooper$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-H/experiment-H-dataset.fasta
+cd ../analysis/netrax/experiment-H/
+iqtree2 -nt AUTO -s experiment-H-dataset.fasta -pre experiment-H
+cd ../../../scripts/NetRAX/bin/
+
+`
+
+2. Run netrax. From `scripts/NetRAX/bin/` run
+
+`
+mpiexec ./netrax --name experiment-H --msa ~/virus-project/analysis/netrax/experiment-H/experiment-H-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-H/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-H/experiment-H.treefile --output ~/virus-project/analysis/netrax/experiment-H/experiment-H-netrax-output --seed 42
+`
 
 
 ## Part 4. Using TriLoNet

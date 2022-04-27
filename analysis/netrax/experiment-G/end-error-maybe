@@ -1,0 +1,57 @@
+ Took RNNIMove
+IMPROVED GLOBAL BEST SCORE FOUND SO FAR (10 reticulations): 545745.0623
+((((((K22:0.00117769)#8:0.000697803::0.278324,(((SM023:0.00035983,(MN2:0.000455241)#6:1e-06::0.717459):0.000412367,SP1777:0.000749654):0.000775403,(B589:0.00303349,(((((216_II:0.00220562,((((((C42:4.11219e-05,(C47:0.000102842)#3:9.35401e-05::0.753785):4.56703e-05,C43:0.000448954):7.61758e-05,(C36_876_459:0.000728256,C28_55771:0.000262659):9.17297e-06):0.000260071,C14_CSU_034_10640:0.000402429):0.000221211,((Titanium_IBR_MLV_vaccine:5.9531e-05,(Nasalgen_IP_MLV_vaccine:1.43845e-05,(((C44:1.74588e-05,(Cooper:0.000524321)#7:0.000524321::0.176807):8.2022e-05,(C46:6.88007e-06,#3:7.98499e-06::0.246215):9.00368e-06):6.90109e-05,((((PA1:4.23367e-05,MN7:2.38518e-05):1.50334e-05,(((MN5:0.000134595,(MN3:0.000398363,((PA3:5.30533e-05,MN14:4.13536e-05):5.49913e-05,MN12:4.83382e-05):0.000187117):7.38533e-05):4.89696e-05)#1:1.67199e-05::0.21834,MN6:2.50523e-05):1e-06):3.43501e-05,(#6:0.000337297::0.282541)#0:0.000335879::0.598883):8.47631e-05,#7:1e-06::0.823193):8.07643e-05):1.69956e-05):6.22204e-05):0.000244735,((VR188_Los_Angeles:9.37979e-05,TSV-2_Nasal_MLV_vaccine:0.00016826):7.52846e-05,(C33:0.000194816,(((BoviShield_Gold_FP5_MLV_vaccine:6.17255e-05,Express1_IBR_MLV_vaccine:3.40139e-05):3.15731e-05,C29:4.57903e-05):5.78085e-05,(C26:0.000205851,(C18:0.00020743,#1:1e-06::0.78166):1e-06):6.6739e-05):5.08464e-05):6.04049e-05):2.72398e-06):0.0001965):1e-06)#2:0.00104699::0.86223):0.00133255,(BHV5:0.0909379)#9:1e-06::0.106231):0.00133255,(#9:0.0909379::0.893769)#4:1e-06::0.0739264):0.0026651)#5:1e-06::0.71376,#8:0.000777577::0.721676):0.00101182):0.00129351):0.000444047):0.00268546,#0:0.000295874::0.401117):0.0051618,#5:0.00231497::0.28624):0.00202028,#2:0.00319848::0.13777):0.00698484,#4:0.195223::0.926074);
+Better network written to /home/mutalisk/virus-project/analysis/netrax/experiment-G/experiment-G-netrax-output
+We have 12 candidates before removing the old bad ones.
+Adding 8 candidates to the 9 previous ones.
+[======================================================================] 100 %
+New size after prefiltering: 8 vs. 17
+0 filtered candidates improved BIC.
+best_bic: 545745.0623
+[======================================================================] 100 %
+New size after ranking: 6 vs. 8
+0 filtered candidates improved BIC.
+best_bic: 545745.0623
+[======================================================================] 100 %
+New size after choosing: 5 vs. 6
+0 filtered candidates improved BIC.
+best_bic: 545745.0623
+retrying with all new candidates
+[======================================================================] 100 %
+New size after prefiltering: 5 vs. 217
+0 filtered candidates improved BIC.
+best_bic: 545745.0623
+[======================================================================] 100 %
+New size after ranking: 2 vs. 5
+0 filtered candidates improved BIC.
+best_bic: 545745.0623
+[======================================================================] 100 %
+New size after choosing: 2 vs. 2
+0 filtered candidates improved BIC.
+best_bic: 545745.0623
+
+Starting full search for move type: ArcRemovalMove
+
+ArcRemovalMove step 2: fast iterations mode, with the best max distance 25
+[======================================================================] 100 %
+New size after prefiltering: 2 vs. 17
+0 filtered candidates improved BIC.
+best_bic: 545745.0623
+[======================================================================] 100 %
+New size after ranking: 2 vs. 2
+0 filtered candidates improved BIC.
+best_bic: 545745.0623
+[======================================================================] 100 %
+New size after choosing: 2 vs. 2
+0 filtered candidates improved BIC.
+best_bic: 545745.0623
+
+Starting full search for move type: ArcInsertionMove
+
+ArcInsertionMove step 2: fast iterations mode, with the best max distance 5
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpiexec noticed that process rank 0 with PID 0 on node mutalisk exited on signal 9 (Killed).

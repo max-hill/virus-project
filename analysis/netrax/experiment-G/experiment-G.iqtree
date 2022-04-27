@@ -1,0 +1,210 @@
+IQ-TREE 2.1.3 COVID-edition built Apr 21 2021
+
+Input file name: experiment-G-dataset.fasta
+Type of analysis: ModelFinder + tree reconstruction
+Random seed number: 49826
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 34 sequences with 144551 nucleotide sites
+Number of constant sites: 126602 (= 87.5829% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 126602 (= 87.5829% of all sites)
+Number of parsimony informative sites: 1992
+Number of distinct site patterns: 2652
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: HKY+F+R3
+
+List of models sorted by BIC scores: 
+
+Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+HKY+F+R3        -274703.059  549552.119 +    0.197  549552.194 +    0.198  550273.460 +    0.977
+K3Pu+F+R3       -274702.138  549552.277 +    0.182  549552.353 +    0.182  550283.499 -  0.00645
+TPM3+F+R3       -274702.632  549553.265 +    0.111  549553.341 +    0.111  550284.487 -  0.00394
+TPM3u+F+R3      -274702.685  549553.371 +    0.106  549553.448 +    0.106  550284.593 -  0.00373
+TPM2u+F+R3      -274702.830  549553.659 +   0.0913  549553.736 +   0.0913  550284.882 -  0.00323
+TPM2+F+R3       -274702.830  549553.659 +   0.0913  549553.736 +   0.0913  550284.882 -  0.00323
+TN+F+R3         -274703.045  549554.089 +   0.0737  549554.166 +   0.0737  550285.312 -  0.00261
+TIM+F+R3        -274702.487  549554.974 -   0.0473  549555.053 -   0.0473  550296.078 -  1.2e-05
+TIM3+F+R3       -274703.022  549556.045 -   0.0277  549556.124 -   0.0277  550297.149 - 7.01e-06
+TIM2+F+R3       -274703.105  549556.210 -   0.0255  549556.289 -   0.0255  550297.314 - 6.46e-06
+TVM+F+R3        -274701.503  549555.005 -   0.0466  549555.086 -   0.0465  550305.991 - 8.43e-08
+GTR+F+R3        -274732.340  549618.680 - 6.94e-16  549618.764 - 6.92e-16  550379.547 - 8.98e-24
+GTR+F+R4        -274764.780  549687.561 - 7.66e-31  549687.648 - 7.62e-31  550468.190 - 5.07e-43
+GTR+F+R2        -274869.668  549889.336 - 1.17e-74  549889.415 - 1.17e-74  550630.440 - 2.97e-78
+GTR+F+I+G4      -275325.850  550801.700 - 8.96e-273  550801.779 - 8.95e-273  551542.804 - 2.27e-276
+GTR+F+G4        -275458.415  551064.831 -        0  551064.907 -        0  551796.053 -        0
+GTR+F+I         -275498.119  551144.238 -        0  551144.315 -        0  551875.461 -        0
+GTR+F           -277005.210  554156.421 -        0  554156.495 -        0  554877.762 -        0
+F81+F+R3        -280198.581  560541.162 -        0  560541.235 -        0  561252.622 -        0
+TVMe+R3         -293338.545  586823.090 -        0  586823.165 -        0  587544.431 -        0
+SYM+R3          -293348.611  586845.222 -        0  586845.298 -        0  587576.444 -        0
+TIM3e+R3        -293569.322  587282.645 -        0  587282.717 -        0  587994.105 -        0
+TIM2e+R3        -293584.583  587313.167 -        0  587313.240 -        0  588024.627 -        0
+K3P+R3          -293650.378  587442.757 -        0  587442.828 -        0  588144.336 -        0
+TIMe+R3         -293649.274  587442.548 -        0  587442.621 -        0  588154.008 -        0
+K2P+R3          -293789.307  587718.614 -        0  587718.682 -        0  588410.311 -        0
+TNe+R3          -293788.136  587718.272 -        0  587718.343 -        0  588419.851 -        0
+JC+R3           -297702.846  595543.692 -        0  595543.759 -        0  596225.508 -        0
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: HKY+F+R3
+
+Rate parameter R:
+
+  A-C: 1.0000
+  A-G: 5.3725
+  A-T: 1.0000
+  C-G: 1.0000
+  C-T: 5.3725
+  G-T: 1.0000
+
+State frequencies: (empirical counts from alignment)
+
+  pi(A) = 0.1348
+  pi(C) = 0.3594
+  pi(G) = 0.3658
+  pi(T) = 0.14
+
+Rate matrix Q:
+
+  A    -1.569    0.2288     1.251   0.08917
+  C   0.08582   -0.7978    0.2329    0.4791
+  G    0.4611    0.2288   -0.7791   0.08917
+  T   0.08582     1.229    0.2329    -1.548
+
+Model of rate heterogeneity: FreeRate with 3 categories
+Site proportion and rates:  (0.5066,0.3773) (0.4772,0.3775) (0.01613,38.97)
+
+ Category  Relative_rate  Proportion
+  1         0.3773         0.5066
+  2         0.3775         0.4772
+  3         38.97          0.01613
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -274664.7652 (s.e. 684.8333)
+Unconstrained log-likelihood (without tree): -370915.9976
+Number of free parameters (#branches + #model parameters): 73
+Akaike information criterion (AIC) score: 549475.5304
+Corrected Akaike information criterion (AICc) score: 549475.6051
+Bayesian information criterion (BIC) score: 550196.8717
+
+Total tree length (sum of branch lengths): 0.3705
+Sum of internal branch lengths: 0.0158 (4.2632% of tree length)
+
+WARNING: 2 near-zero internal branches (<0.0000) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'BHV5' is drawn at root
+
++-----------------------------------------------------------BHV5
+|
+|  +--MN2
++--|
+|  |     +--SP1777
+|  |  +--|
+|  |  |  +--SM023
+|  +--|
+|     |  +--K22
+|     +--|
+|        +--B589
+|
+|                       +--MN3
+|                    +--|
+|                    |  +--MN5
+|                 +**|
+|                 |  |  +--C18
+|                 |  +--|
+|                 |     +--C26
+|              +--|
+|              |  +--C33
+|           +--|
+|           |  |     +--C29
+|           |  |  +--|
+|           |  |  |  +--Express1_IBR_MLV_vaccine
+|           |  +--|
+|           |     +--BoviShield_Gold_FP5_MLV_vaccine
+|        +**|
+|        |  |        +--MN6
+|        |  |     +--|
+|        |  |     |  |  +--MN7
+|        |  |     |  +--|
+|        |  |     |     +--PA1
+|        |  |  +--|
+|        |  |  |  |        +--C44
+|        |  |  |  |     +--|
+|        |  |  |  |     |  +--Cooper
+|        |  |  |  |  +--|
+|        |  |  |  |  |  +--C46
+|        |  |  |  +--|
+|        |  |  |     +--Nasalgen_IP_MLV_vaccine
+|        |  +--|
+|        |     +--Titanium_IBR_MLV_vaccine
+|     +--|
+|     |  |        +--MN12
+|     |  |     +--|
+|     |  |     |  |  +--MN14
+|     |  |     |  +--|
+|     |  |     |     +--PA3
+|     |  |  +--|
+|     |  |  |  +--TSV-2_Nasal_MLV_vaccine
+|     |  +--|
+|     |     +--VR188_Los_Angeles
+|  +--|
+|  |  |  +--C14_CSU_034_10640
+|  |  +--|
+|  |     |        +--C28_55771
+|  |     |     +--|
+|  |     |     |  +--C42
+|  |     |  +--|
+|  |     |  |  |  +--C36_876_459
+|  |     |  |  +--|
+|  |     |  |     +--C43
+|  |     +--|
+|  |        +--C47
++--|
+   +--216_II
+
+Tree in newick format:
+
+(BHV5:0.3370681636,(MN2:0.0004366806,((SP1777:0.0009407772,SM023:0.0005858760):0.0005340049,(K22:0.0028553063,B589:0.0032646173):0.0017479664):0.0032907555):0.0023383356,((((((((MN3:0.0004527957,MN5:0.0001264635):0.0002109682,(C18:0.0002138149,C26:0.0001842158):0.0000336080):0.0000051842,C33:0.0002128723):0.0000511622,((C29:0.0000588702,Express1_IBR_MLV_vaccine:0.0000459639):0.0000244186,BoviShield_Gold_FP5_MLV_vaccine:0.0000478114):0.0000712852):0.0000594708,(((MN6:0.0000243299,(MN7:0.0000238809,PA1:0.0000428601):0.0000148903):0.0001789365,(((C44:0.0000200277,Cooper:0.0010225535):0.0000742395,C46:0.0000074381):0.0000690900,Nasalgen_IP_MLV_vaccine:0.0000074784):0.0000441026):0.0000475759,Titanium_IBR_MLV_vaccine:0.0000497395):0.0001690713):0.0000014608,(((MN12:0.0000686550,(MN14:0.0000356406,PA3:0.0000533480):0.0000296104):0.0001925844,TSV-2_Nasal_MLV_vaccine:0.0000221919):0.0001488814,VR188_Los_Angeles:0.0001241124):0.0000676482):0.0001841109,(C14_CSU_034_10640:0.0004868985,(((C28_55771:0.0002741060,C42:0.0000816953):0.0000342720,(C36_876_459:0.0007115506,C43:0.0004317153):0.0000347890):0.0001682170,C47:0.0001280326):0.0002002328):0.0001572210):0.0008048241,216_II:0.0046343181):0.0048080924);
+
+TIME STAMP
+----------
+
+Date and time: Sat Apr 23 15:31:46 2022
+Total CPU time used: 65.694922 seconds (0h:1m:5s)
+Total wall-clock time used: 9.3770289 seconds (0h:0m:9s)
+
