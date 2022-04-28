@@ -1,0 +1,139 @@
+---
+title: "Summary Statistics"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(magrittr) # for: %>%
+library(seqinr) # for: read.fasta, write.fasta
+```
+
+Load alignments for all 50 taxa:
+```{r}
+full.fasta <- read.fasta(file="../Data/BHV1-plus-BHV5-outgroup-alignment.fasta")
+# length(full.fasta) # 50 taxa
+# full.fasta$BHV5 %>% length # 144551 sites
+```
+
+Helper functions:
+```{r}
+# Calculates p-distance between 2 sequences based on Pairwise-deletion
+pdist <- function(s1,s2) {
+  # site positions for which s1 and s2 have non-gap characters
+  ind <- (s1 != "-") & (s2 != "-")
+  # prop of sites for which s1 and s2 have the same character
+  mean(s1[ind] == s2[ind])
+}
+
+# Given a set of aligned sequences, return an indicator for the site positions
+# that (1) have no gap characters, and (2) are not monoallelic.
+informativeSites <- function(L) { # `L` is list of sequences
+  msa <- matrix(nrow=length(L),ncol=length(L[[1]]))
+  for (i in 1:length(L)) {
+    msa[i,] <- L[[i]]
+  }
+  ind <- rep(F,ncol(msa))
+  for (j in 1:ncol(msa)) {
+    chars <- unique(msa[,j])
+    if ((length(chars) > 1) && !(anyNA(chars))) {
+      ind[j] <- T
+    }
+  }
+  ind
+}
+
+# Same as `pdist()` except that an indicator specifying a subset of site
+# positions is supplied.
+pdist.informative <- function(s1,s2,ind) {
+  pdist(s1[ind],s2[ind])
+}
+```
+
+Dataset O:
+```{r}
+# 12 taxa
+O.taxa.idx <- c(36,21,25,2,5,11,12,13,14,15,16,19)
+names(full.fasta)[O.taxa.idx]
+ind <- informativeSites(full.fasta[O.taxa.idx])
+sum(ind) # 2055
+
+# Calculate p-distances (Pairwise-Deletion)
+O.taxa.pdist <- matrix(NA,nrow=12,ncol=12)
+O.taxa.pdist.informative <- matrix(NA,nrow=12,ncol=12) # informative sites only
+for (i in 1:11) {
+  s1.idx <- O.taxa.idx[i]
+  for (j in (i+1):12) {
+    s2.idx <- O.taxa.idx[j]
+    O.taxa.pdist[i,j] <- pdist(full.fasta[[s1.idx]],full.fasta[[s2.idx]])
+    O.taxa.pdist.informative[i,j] <- 
+      pdist.informative(full.fasta[[s1.idx]],full.fasta[[s2.idx]],ind)
+  }
+}
+
+max(O.taxa.pdist,na.rm=T) # 0.9999184
+min(O.taxa.pdist,na.rm=T) # 0.9993274
+
+max(O.taxa.pdist.informative,na.rm=T) # 0.991654
+min(O.taxa.pdist.informative,na.rm=T) # 0.6326531
+median(O.taxa.pdist.informative,na.rm=T) # 0.9598238
+```
+
+Dataset A:
+```{r}
+# 10 taxa
+A.taxa.idx <- c(21,25,2,5,12,13,14,15,16,19)
+names(full.fasta)[A.taxa.idx]
+ind <- informativeSites(full.fasta[A.taxa.idx])
+sum(ind) # 1949
+
+# Calculate p-distances (Pairwise-Deletion)
+A.taxa.pdist <- matrix(NA,nrow=10,ncol=10)
+A.taxa.pdist.informative <- matrix(NA,nrow=10,ncol=10)
+for (i in 1:9) {
+  s1.idx <- A.taxa.idx[i]
+  for (j in (i+1):10) {
+    s2.idx <- A.taxa.idx[j]
+    A.taxa.pdist[i,j] <- pdist(full.fasta[[s1.idx]],full.fasta[[s2.idx]])
+    A.taxa.pdist.informative[i,j] <-
+      pdist.informative(full.fasta[[s1.idx]],full.fasta[[s2.idx]],ind)
+  }
+}
+
+max(A.taxa.pdist,na.rm=T) # 0.9999184
+min(A.taxa.pdist,na.rm=T) # 0.9993274
+
+max(A.taxa.pdist.biallelic,na.rm=T) # 0.9923037
+min(A.taxa.pdist.biallelic,na.rm=T) # 0.1216008
+median(A.taxa.pdist.biallelic,na.rm=T) # 0.9558748
+```
+
+Dataset B:
+```{r}
+# 8 taxa
+B.taxa.idx <- c(25,2,5,6,10,11,38,32)
+names(full.fasta)[B.taxa.idx]
+ind <- informativeSites(full.fasta[B.taxa.idx])
+sum(ind) # 3400
+
+# Calculate p-distances (Pairwise-Deletion)
+B.taxa.pdist <- matrix(NA,nrow=8,ncol=8)
+B.taxa.pdist.informative <- matrix(NA,nrow=8,ncol=8)
+for (i in 1:7) {
+  s1.idx <- B.taxa.idx[i]
+  for (j in (i+1):8) {
+    s2.idx <- B.taxa.idx[j]
+    B.taxa.pdist[i,j] <- pdist(full.fasta[[s1.idx]],full.fasta[[s2.idx]])
+    B.taxa.pdist.informative[i,j] <- 
+      pdist.informative(full.fasta[[s1.idx]],full.fasta[[s2.idx]],ind)
+  }
+}
+
+max(B.taxa.pdist,na.rm=T) # 0.9999259
+min(B.taxa.pdist,na.rm=T) # 0.9993606
+
+max(B.taxa.pdist.biallelic,na.rm=T) # 0.9902941
+min(B.taxa.pdist.biallelic,na.rm=T) # 0.2105882
+median(B.taxa.pdist.biallelic,na.rm=T) # 0.5339706
+```
+
