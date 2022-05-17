@@ -1,3 +1,32 @@
+# 2022-04-28
+
+analysis of 3 data sets: 0,A,B, using SnappNet & NetRAX
+* inferred 2 reticulations from 0 and A, none from B.
+* SnappNet cannot handle as many taxa as NetRax.
+* NetRax ran somewhat with 50 taxa, but not to completion: 50 is too many.
+
+next steps:
+
+- partition into loci:
+  * try partition with chunks of 2500-bp?
+  * or chunks of 100 SNPs? For delimiting chunks with a fixed
+    number of SNPs, see the MDL part of the
+    [TICR](https://github.com/nstenz/TICR#mdl) pipeline.
+  * Aaron can send coordinate the genes that are known to have
+    been transferred from BHV5 into 216.
+
+- taxon sampling: sample taxa around possible reticulations:
+  * around known hybrid 216 (between BHV5 and BHV1):
+    to use as a positive control, if we can find that some methods
+    perform well enough to detect it.
+  * around MN10?
+  * around the vaccine-derived strain: that was our original question.
+
+- try RF-Net-2?
+  * run either IQTree or RAxML on each gene
+    (I think IQTree can do all gene alignments within a folder)
+  * then use this as input to RF-Net-2
+
 # 2022-03-31
 
 IQ-Tree on all BHV1.1 strains + MN2
