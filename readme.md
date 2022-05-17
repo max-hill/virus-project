@@ -952,24 +952,6 @@ The remaining 11 taxa were chosen randomly from the remainin taxa.
 >C26
 
 ```
->BHV5
->MN2
->PA3
->C14_CSU_034_10640
->C26
->C28_55771
->C29
->C33
->C43
->C44
->C46
->C47
->BoviShield_Gold_FP5_MLV_vaccine
->216_II
->SM023
->K22
->Cooper
-
 
 
 We chose a uniform partition size of 1501 since with this size, the coordinates
