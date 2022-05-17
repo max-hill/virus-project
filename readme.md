@@ -923,19 +923,80 @@ mpiexec ./netrax --name experiment-G --msa ~/virus-project/analysis/netrax/exper
 This appeared to terminate with an error, so we will try again in the next experiment, experiment-H
 
 
-#### Experiment H: Try experiment G again.
-Same parameters and everything as experiment G.
+#### Experiment H: 20 taxa, partitions 1500 bp.
+
+Here we re-attempt NetRAX using only 20 taxa. The first 9 taxa were chosen
+manually to match the set that Aaron used for the bootscan information analysis.
+The remaining 11 taxa were chosen randomly from the remainin taxa.
+
+```
+>216_II
+>Cooper
+>K22
+>BoviShield_Gold_FP5_MLV_vaccine
+>MN2
+>BHV5
+>C14_CSU_034_10640
+>C46
+>C33
+>SM023
+>C28_55771
+>Express1_IBR_MLV_vaccine
+>Titanium_IBR_MLV_vaccine
+>C43
+>C47
+>PA3
+>C29
+>TSV-2_Nasal_MLV_vaccine
+>C44
+>C26
+
+```
+>BHV5
+>MN2
+>PA3
+>C14_CSU_034_10640
+>C26
+>C28_55771
+>C29
+>C33
+>C43
+>C44
+>C46
+>C47
+>BoviShield_Gold_FP5_MLV_vaccine
+>216_II
+>SM023
+>K22
+>Cooper
+
+
+
+We chose a uniform partition size of 1501 since with this size, the coordinates
+81071-82601 (corresponding to a segment of BHV-5 detected in 216-II) map almost
+exactly onto one of the partition intervals (partition interval 55, which has
+coordinates 81055-82555).
+
+
 
 1. Setup: Run the code
 
 `
 mkdir analysis/netrax/experiment-H
+
 cd scripts/
-bash generate-partition-file.sh  144551 5000 >../analysis/netrax/experiment-H/partition.txt
+
+bash generate-partition-file.sh  144551 1501 >../analysis/netrax/experiment-H/partition.txt
+
 cd ../data/
-grep -A1 -E ">BHV5$|>MN2$|>MN3$|>MN5$|>MN6$|>MN7$|>MN12$|>MN14$|>PA1$|>PA3$|>C14_CSU_034_10640$|>C18$|>C26$|>C28_55771$|>C29$|>C33$|>C36_876_459$|>C42$|>C43$|>C44$|>C46$|>C47$|>Nasalgen_IP_MLV_vaccine$|>TSV-2_Nasal_MLV_vaccine$|>BoviShield_Gold_FP5_MLV_vaccine$|>Express1_IBR_MLV_vaccine$|>Titanium_IBR_MLV_vaccine$|>VR188_Los_Angeles$|>216_II$|>SP1777$|>SM023$|>K22$|>B589$|>Cooper$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-H/experiment-H-dataset.fasta
+
+grep -A1 -E ">216_II$|>Cooper$|>K22$|>BoviShield_Gold_FP5_MLV_vaccine$|>MN2$|>BHV5$|>C14_CSU_034_10640$|>C46$|>C33$|>SM023$|>C28_55771$|>Express1_IBR_MLV_vaccine$|>C43$|>TITANIUM_IBR_MLV_VACCINE$|>C47$|>PA3$|>C29$|>TSV-2_Nasal_MLV_vaccine$|>C44$|>C26$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-H/experiment-H-dataset.fasta
+
+
 cd ../analysis/netrax/experiment-H/
+
 iqtree2 -nt AUTO -s experiment-H-dataset.fasta -pre experiment-H
+
 cd ../../../scripts/NetRAX/bin/
 
 `
