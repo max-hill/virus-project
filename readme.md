@@ -923,9 +923,9 @@ mpiexec ./netrax --name experiment-G --msa ~/virus-project/analysis/netrax/exper
 This appeared to terminate with an error, so we will try again in the next experiment, experiment-H
 
 
-#### Experiment H: 20 taxa, partitions 1500 bp.
+#### Experiment H: 14 taxa, partitions 1500 bp.
 
-Here we re-attempt NetRAX using only 20 taxa. The first 9 taxa were chosen
+Here we re-attempt NetRAX using only 14 taxa. The first 9 taxa were chosen
 manually to match the set that Aaron used for the bootscan information analysis.
 The remaining 11 taxa were chosen randomly from the remainin taxa.
 
@@ -942,14 +942,8 @@ The remaining 11 taxa were chosen randomly from the remainin taxa.
 >SM023
 >C28_55771
 >Express1_IBR_MLV_vaccine
->Titanium_IBR_MLV_vaccine
 >C43
->C47
->PA3
->C29
->TSV-2_Nasal_MLV_vaccine
->C44
->C26
+>Titanium_IBR_MLV_vaccine
 
 ```
 
@@ -961,7 +955,7 @@ coordinates 81055-82555).
 
 
 
-1. Setup: Run the code
+1. Setup: From `virus-project/` run the code
 
 `
 mkdir analysis/netrax/experiment-H
@@ -972,7 +966,7 @@ bash generate-partition-file.sh  144551 1501 >../analysis/netrax/experiment-H/pa
 
 cd ../data/
 
-grep -A1 -E ">216_II$|>Cooper$|>K22$|>BoviShield_Gold_FP5_MLV_vaccine$|>MN2$|>BHV5$|>C14_CSU_034_10640$|>C46$|>C33$|>SM023$|>C28_55771$|>Express1_IBR_MLV_vaccine$|>C43$|>TITANIUM_IBR_MLV_VACCINE$|>C47$|>PA3$|>C29$|>TSV-2_Nasal_MLV_vaccine$|>C44$|>C26$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-H/experiment-H-dataset.fasta
+grep -A1 -E ">216_II$|>Cooper$|>K22$|>BoviShield_Gold_FP5_MLV_vaccine$|>MN2$|>BHV5$|>C14_CSU_034_10640$|>C46$|>C33$|>SM023$|>C28_55771$|>Express1_IBR_MLV_vaccine$|>C43$|>Titanium_IBR_MLV_vaccine$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-H/experiment-H-dataset.fasta
 
 
 cd ../analysis/netrax/experiment-H/
@@ -986,7 +980,7 @@ cd ../../../scripts/NetRAX/bin/
 2. Run netrax. From `scripts/NetRAX/bin/` run
 
 `
-mpiexec ./netrax --name experiment-H --msa ~/virus-project/analysis/netrax/experiment-H/experiment-H-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-H/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-H/experiment-H.treefile --output ~/virus-project/analysis/netrax/experiment-H/experiment-H-netrax-output --seed 42
+time mpiexec ./netrax --name experiment-H --msa ~/virus-project/analysis/netrax/experiment-H/experiment-H-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-H/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-H/experiment-H.treefile --output ~/virus-project/analysis/netrax/experiment-H/experiment-H-netrax-output --seed 42
 `
 
 
