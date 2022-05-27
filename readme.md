@@ -925,7 +925,7 @@ This appeared to terminate with an error, so we will try again in the next exper
 
 #### Experiment H: 14 taxa, partitions 1500 bp.
 
-Here we re-attempt NetRAX using only 14 taxa. The first 9 taxa were chosen
+Here we re-attempt NetRAX experiment G using only 14 taxa. The first 9 taxa were chosen
 manually to match the set that Aaron used for the bootscan information analysis.
 The remaining 11 taxa were chosen randomly from the remainin taxa.
 
@@ -983,6 +983,292 @@ cd ../../../scripts/NetRAX/bin/
 time mpiexec ./netrax --name experiment-H --msa ~/virus-project/analysis/netrax/experiment-H/experiment-H-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-H/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-H/experiment-H.treefile --output ~/virus-project/analysis/netrax/experiment-H/experiment-H-netrax-output --seed 42
 `
 
+This experiment was run for 5 days and then I terminated it because it was
+taking too long -- based on the output the program prints to standard output,
+the search slowed WAAYYY with so many reticulations. It seems NetRAX is not
+well-suited to this dataset, except possibly for very small subsets of taxa. I
+will try a few more experiments with only a handful of interesting taxa, but I
+don't think there is any hope of getting a network with anywhere near ~40 virus
+taxa like they did in the original netrax paper without use of much greater
+computing power.
+
+The best network (with 11 reticulations) at time of termination
+was
+
+```
+((((((((SM023:0.000355913,((MN2:0.000162697)#2:0.000129066::0.959867)#0:4.20047e-05::0.810574):0.000969623)#8:0.00230393::0.0709942,#2:0.000586834::0.0401327):0.00227872,(((((C43:0.000420249,C28_55771:0.000244748):0.000161384,C14_CSU_034_10640:0.000350982):0.000117563,((((Titanium_IBR_MLV_vaccine:3.79122e-05,((Cooper:1e-06)#9:0.00985818::0.0861941,#0:0.000507896::0.189426):0.00105592):3.40097e-05,(C46:2.03014e-05,#9:0.00053794::0.913806):0.000105322):0.000160228,((Express1_IBR_MLV_vaccine:6.02929e-05,BoviShield_Gold_FP5_MLV_vaccine:3.95134e-05):9.30207e-05,C33:0.000213747):5.53397e-05):1e-06)#7:0.000150062::0.967927):0.00104073)#3:0.00535355::0.161247,((((((216_II:0.00138658,#3:1e-06::0.838753):0.00226759,((BHV5:0.00910269)#10:0.0275547::0.938285)#6:2e-06::0.0330477):1e-06,#10:1e-06::0.0617148):1e-06,#7:0.000705172::0.0320729):0.000845346)#4:1e-06::0.264105)#1:0.00557112::0.956345):0.0036752):0.00504995,((K22:0.00214952,#8:0.000803704::0.929006):0.00185509,#4:1e-06::0.735895):0.00185509):0.071358,#1:1e-06::0.043655):0.071358,(#6:0.150754::0.966952)#5:1e-06::0.893143):1e-06,#5:0.380319::0.106857);
+```
+
+It puts 216 and BHV5 next to each other on the main tree and BHV5's role as
+outgroup is interpreted as a series of reticulations from the BHV5 ancestral
+lineage to different parts of the tree
+
+I think this is why it is giving so many reticulations (6 out of 11 are
+reticulations are attached to the lineage of BHV5).
+
+other reticulations aside from those include: 
+
+- Cooper and C46 
+- MN2 and Cooper 
+- K22 and MN2
+
+Comparing this with the original IQtree gives some interesting ideas for subsets
+of taxa to attempt the rerun on. The original IQtree was:
+
+```
+(BHV5:0.3437566367,(MN2:0.0004470893,(SM023:0.0009200055,K22:0.0045897634):0.0031639504):0.0024980114,(((C14_CSU_034_10640:0.0003815357,(C28_55771:0.0002469324,C43:0.0005261230):0.0002247489):0.0002619631,((C33:0.0002030252,(BoviShield_Gold_FP5_MLV_vaccine:0.0000368873,Express1_IBR_MLV_vaccine:0.0000585872):0.0000870600):0.0000499017,((C46:0.0000146958,Cooper:0.0010689542):0.0001449138,Titanium_IBR_MLV_vaccine:0.0000722728):0.0001398656):0.0001315459):0.0008380508,216_II:0.0045762809):0.0047728195);
+```
+
+In particular, I think there is a hybridization in the clade containing
+`Titanium_IBR_MLV_vaccine, Cooper, and C46`. In the IQTree ML treee, this clade
+had topology
+
+`(Titanium_IBR_MLV_vaccine, (Cooper, C46))`
+
+By contrast, in the netrax network, it has topology
+
+`((Titanium_IBR_MLV_vaccine, Cooper), C46)`
+
+with a hybridization between Cooper and C46.
+
+I am not really sure how to interpret the other hybridization events, due to the
+(presumably spurious?) positioning of BHV5 in the netrax network. but I think
+there is something going on with the clade consisting of `K22, MN2, and SM023`
+
+#### Experiment I: 5 taxa, partitions 1500 bp.
+
+Here we attempt to run NetRAX on only 5 taxa. I chose these after looking at the
+results of Experiment H. If this completes in a reasonable time, I would like to
+add MN2 (and hopefully SM023 and K22 if runtime permits).
+
+```
+>Titanium_IBR_MLV_vaccine
+>C46
+>Cooper
+>216_II
+>BHV5
+
+```
+
+We chose a uniform partition size of 1501 since with this size, the coordinates
+81071-82601 (corresponding to a segment of BHV-5 detected in 216-II) map almost
+exactly onto one of the partition intervals (partition interval 55, which has
+coordinates 81055-82555).
+
+
+
+1. Setup: From `virus-project/` run the code
+
+`
+mkdir analysis/netrax/experiment-I
+
+cd scripts/
+
+bash generate-partition-file.sh  144551 1501 >../analysis/netrax/experiment-I/partition.txt
+
+cd ../data/
+
+grep -A1 -E ">216_II$|>Cooper$|>BHV5$|>C46$|>Titanium_IBR_MLV_vaccine$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-I/experiment-I-dataset.fasta
+
+
+cd ../analysis/netrax/experiment-I/
+
+iqtree2 -nt AUTO -s experiment-I-dataset.fasta -pre experiment-I
+
+cd ../../../scripts/NetRAX/bin/
+
+`
+
+The IQtree ML tree looks like this:
+
+```
++----------------------------------------------------------BHV5
+|
+|     +--C46
+|  +--|
+|  |  +--Cooper
++--|
+|  +--Titanium_IBR_MLV_vaccine
+|
++--216_II
+
+```
+
+
+2. Run netrax. From `scripts/NetRAX/bin/` run
+
+`
+time mpiexec ./netrax --name experiment-I --msa ~/virus-project/analysis/netrax/experiment-I/experiment-I-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-I/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-I/experiment-I.treefile --output ~/virus-project/analysis/netrax/experiment-I/experiment-I-netrax-output --seed 42
+`
+
+
+It finished! Output:
+
+```
+Statistics on which moves were taken:
+RSPRMove: 11
+RNNIMove: 22
+ArcRemovalMove: 2
+ArcInsertionMove: 8
+Best inferred network has 6 reticulations, logl = -243048.9706, bic = 498299.4552
+Best inferred network is: 
+((((((((Titanium_IBR_MLV_vaccine:5.41725e-05,((C46:1.64089e-05,(Cooper:1e-06)#3:0.0181288::0.0743261):1e-06,#3:0.000260271::0.925674):0.000112339):1e-06)#1:0.000657252::0.870353,(BHV5:0.0110382)#4:2e-06::0.0609788):0.000164813,(#4:0.0331145::0.939021)#2:0.000329626::0.0738334):0.000164813,216_II:0.00211521):1e-06,((#2:0.0662291::0.926167,(#1:1e-06::0.129647)#5:1e-06::0.0870004):0.0662291)#0:1e-06::0.809674):0.0173416,#5:0.00167005::0.913):0.0173406,#0:0.148385::0.190326);
+n_reticulations, logl, bic, newick
+0, -245293.0996, 502464.1371, ((216_II:0.00269859,(Titanium_IBR_MLV_vaccine:6.3244e-05,(Cooper:0.00103708,C46:1.68449e-05):0.000165221):0.00280381):0.000116812,BHV5:0.194431);
+1, -244417.6241, 500767.1154, (((216_II:0.00211668,(BHV5:0.19476)#0:1e-06::0.809674):0.000818889,(Titanium_IBR_MLV_vaccine:6.3244e-05,(Cooper:0.00103708,C46:1.68449e-05):0.000165221):0.00262901):0.00297664,#0:0.0972153::0.190326);
+2, -243952.1983, 499890.1931, (((Titanium_IBR_MLV_vaccine:6.3244e-05,(Cooper:0.00103708,C46:1.68449e-05):0.000165221):0.000818889,((216_II:0.00211668,(BHV5:0.176611)#0:1e-06::0.809674):1e-06)#1:0.0013145::0.989594):0.138721,(#1:0.135357::0.010406,#0:0.142635::0.190326):0.00574982);
+3, -243551.444, 499142.6139, (((Titanium_IBR_MLV_vaccine:6.3244e-05,(Cooper:0.00103708,C46:1.68449e-05):0.000165221):0.000818889,(((216_II:0.00211668,((BHV5:0.0441527)#2:0.132458::0.866721)#0:1e-06::0.809674):2e-06,#2:1e-06::0.133279):1e-06)#1:0.0013145::0.989594):0.138721,(#1:0.135357::0.010406,#0:0.142635::0.190326):0.00574982);
+4, -243220.2383, 498534.132, ((((Titanium_IBR_MLV_vaccine:5.37634e-05,((C46:1.49793e-05,(Cooper:1e-06)#3:0.0181288::0.0743261):1e-06,#3:0.000260271::0.925674):9.8626e-05):1e-06)#1:0.00334009::0.115906,(((((BHV5:0.0441527)#2:0.132458::0.866721)#0:1e-06::0.809674,#2:1e-06::0.133279):1e-06,216_II:0.00211521):1e-06,#1:0.0013145::0.884094):0.0173406):0.0173406,#0:0.148385::0.190326);
+5, -243080.6029, 498308.7904, ((((((((Titanium_IBR_MLV_vaccine:5.41725e-05,((C46:1.49793e-05,(Cooper:1e-06)#3:0.0181288::0.0743261):1e-06,#3:0.000260271::0.925674):9.8626e-05):1e-06)#1:0.000657252::0.870353,(BHV5:0.0110382)#4:2e-06::0.0609788):0.000164813,(#4:0.0331145::0.939021)#2:0.000329626::0.0738334):0.000164813,216_II:0.00211521):1e-06,(#2:0.132458::0.926167)#0:1e-06::0.809674):0.0173416,#1:0.00334009::0.129647):0.0173406,#0:0.148385::0.190326);
+6, -243048.9706, 498299.4552, ((((((((Titanium_IBR_MLV_vaccine:5.41725e-05,((C46:1.64089e-05,(Cooper:1e-06)#3:0.0181288::0.0743261):1e-06,#3:0.000260271::0.925674):0.000112339):1e-06)#1:0.000657252::0.870353,(BHV5:0.0110382)#4:2e-06::0.0609788):0.000164813,(#4:0.0331145::0.939021)#2:0.000329626::0.0738334):0.000164813,216_II:0.00211521):1e-06,((#2:0.0662291::0.926167,(#1:1e-06::0.129647)#5:1e-06::0.0870004):0.0662291)#0:1e-06::0.809674):0.0173416,#5:0.00167005::0.913):0.0173406,#0:0.148385::0.190326);
+
+Total runtime: 862 seconds.
+
+real    14m22.892s
+user    86m4.553s
+sys     0m7.713s
+
+```
+
+Netrax put `BHV1` and `216_II` next to each other on the tree, so it's
+definitely picking up the signal of the recombinant segment in Aaron's dataset.
+
+
+
+#### Experiment J: 4 taxa, partitions 1500 bp.
+
+Here we repeat experiment-J but without BHV5.
+
+```
+>Titanium_IBR_MLV_vaccine
+>C46
+>Cooper
+>216_II
+```
+
+
+1. Setup: From `virus-project/` run the code
+
+`
+mkdir analysis/netrax/experiment-J
+
+cd scripts/
+
+bash generate-partition-file.sh  144551 1501 >../analysis/netrax/experiment-J/partition.txt
+
+cd ../data/
+
+grep -A1 -E ">216_II$|>Cooper$|>C46$|>Titanium_IBR_MLV_vaccine$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-J/experiment-J-dataset.fasta
+
+
+cd ../analysis/netrax/experiment-J/
+
+iqtree2 -nt AUTO -s experiment-J-dataset.fasta -pre experiment-J
+
+cd ../../../scripts/NetRAX/bin/
+
+`
+
+The IQtree ML tree looks like this:
+
+```
+
+
+```
+
+
+2. Run netrax. From `scripts/NetRAX/bin/` run
+
+`
+time mpiexec ./netrax --name experiment-J --msa ~/virus-project/analysis/netrax/experiment-J/experiment-J-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-J/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-J/experiment-J.treefile --output ~/virus-project/analysis/netrax/experiment-J/experiment-J-netrax-output --seed 42
+`
+
+OUTPUT:
+
+```
+Statistics on which moves were taken:
+RSPRMove: 10
+RNNIMove: 7
+ArcRemovalMove: 0
+ArcInsertionMove: 4
+Best inferred network has 4 reticulations, logl = -179116.1116, bic = 370056.1243
+Best inferred network is: 
+(((216_II:0.00242289)#0:0.00264824::0.220259)#2:0.00219829::0.712842,(((C46:8.47757e-06,((#2:0.0125566::0.287158,((Cooper:1.75101e-05)#1:0.00568715::0.0860721)#3:0.0506881::0.109599):0.0125566,#3:0.00284358::0.890401):0.00284358):2.75576e-05,#1:7.75503e-06::0.913928):8.41477e-05,(Titanium_IBR_MLV_vaccine:1e-06,#0:1e-06::0.779741):4.89687e-05):0.00102477);
+n_reticulations, logl, bic, newick
+0, -179747.7682, 371108.0605, ((Cooper:0.000978559,(216_II:0.00522433,Titanium_IBR_MLV_vaccine:5.83259e-05):0.000155428):1e-06,C46:1.54081e-05);
+1, -179644.6316, 370954.6316, ((216_II:0.00261216)#0:0.00248323::0.220259,((Cooper:0.000973357,C46:1.65241e-05):0.000148766,(Titanium_IBR_MLV_vaccine:1e-06,#0:1e-06::0.779741):0.000146367):0.00102477);
+2, -179292.7572, 370303.7269, ((216_II:0.00261697)#0:0.00439658::0.220259,(((C46:8.47757e-06,(Cooper:1e-06)#1:0.0113743::0.0860721):2.8053e-05,#1:6.00402e-05::0.913928):8.41477e-05,(Titanium_IBR_MLV_vaccine:1e-06,#0:1e-06::0.779741):7.66577e-05):0.00102477);
+3, -179151.7481, 370074.5531, (((216_II:0.00261697)#0:0.00219829::0.220259)#2:0.00219829::0.653834,((((C46:8.47757e-06,(Cooper:1e-06)#1:0.0113743::0.0860721):2.8053e-05,#1:3.10201e-05::0.913928):4.20738e-05,#2:0.0251131::0.346166):4.20738e-05,(Titanium_IBR_MLV_vaccine:1e-06,#0:1e-06::0.779741):7.66577e-05):0.00102477);
+4, -179116.1116, 370056.1243, (((216_II:0.00242289)#0:0.00264824::0.220259)#2:0.00219829::0.712842,(((C46:8.47757e-06,((#2:0.0125566::0.287158,((Cooper:1.75101e-05)#1:0.00568715::0.0860721)#3:0.0506881::0.109599):0.0125566,#3:0.00284358::0.890401):0.00284358):2.75576e-05,#1:7.75503e-06::0.913928):8.41477e-05,(Titanium_IBR_MLV_vaccine:1e-06,#0:1e-06::0.779741):4.89687e-05):0.00102477);
+
+Total runtime: 55 seconds.
+
+real    0m55.503s
+user    5m28.496s
+sys     0m0.373s
+```
+
+No idea what is going on here.
+
+#### Experiment K: 3 taxa, partitions 1500 bp.
+
+Here we test the 3-taxon clade with leaves
+
+```
+>Titanium_IBR_MLV_vaccine
+>C46
+>Cooper
+```
+
+From `virus-project/` run the code (I should turn this into a script...)
+
+`
+mkdir analysis/netrax/experiment-K
+
+cd scripts/
+
+bash generate-partition-file.sh  144551 1501 >../analysis/netrax/experiment-K/partition.txt
+
+cd ../data/
+
+grep -A1 -E ">Cooper$|>C46$|>Titanium_IBR_MLV_vaccine$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-K/experiment-K-dataset.fasta
+
+cd ../analysis/netrax/experiment-K/
+
+iqtree2 -nt AUTO -s experiment-K-dataset.fasta -pre experiment-K
+
+cd ../../../scripts/NetRAX/bin/
+
+time mpiexec ./netrax --name experiment-K --msa ~/virus-project/analysis/netrax/experiment-K/experiment-K-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-K/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-K/experiment-K.treefile --output ~/virus-project/analysis/netrax/experiment-K/experiment-K-netrax-output --seed 42
+`
+
+OUTPUT:
+
+```
+Statistics on which moves were taken:
+RSPRMove: 1
+RNNIMove: 0
+ArcRemovalMove: 0
+ArcInsertionMove: 1
+Best inferred network has 1 reticulations, logl = -174200.5872, bic = 359781.7766
+Best inferred network is: 
+((Titanium_IBR_MLV_vaccine:0.000223546,(Cooper:0.000460691)#0:0.000459958::0.989356):1e-06,(C46:6.49904e-06,#0:0.284157::0.0106441):6.49904e-06);
+n_reticulations, logl, bic, newick
+0, -174291.6374, 359912.2057, ((Cooper:0.000921382,Titanium_IBR_MLV_vaccine:0.000223546):1e-06,C46:1.29981e-05);
+1, -174200.5872, 359781.7766, ((Titanium_IBR_MLV_vaccine:0.000223546,(Cooper:0.000460691)#0:0.000459958::0.989356):1e-06,(C46:6.49904e-06,#0:0.284157::0.0106441):6.49904e-06);
+
+Total runtime: 1 seconds.
+
+real    0m1.881s
+user    0m6.866s
+sys     0m0.155s
+
+```
+
+This result is very strange. Look at how long the reticulation branch is
+compared to the other branche lenghts: 0.24 vs 0.0004. What is going on here? I
+could try this with different netrax settings, perhaps a different partition
+length as well.
 
 ## Part 4. Using TriLoNet
 
