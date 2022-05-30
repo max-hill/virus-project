@@ -1270,6 +1270,112 @@ compared to the other branche lenghts: 0.24 vs 0.0004. What is going on here? I
 could try this with different netrax settings, perhaps a different partition
 length as well.
 
+#### Combined experiments 2022-05-30 with Ben and Shuqi
+In this experiment Ben, Shuqi, and I are each using different programs (netrax,
+rfnet, and SnappNet) to infer explicit networks for the following taxa:
+
+- Set1.
+
+```
+C33
+C46
+Titanium_IBR_MLV_vaccine
+Cooper
+```
+
+- Set 2.
+
+```
+K22
+MN2
+MN3
+SM023
+```
+
+- Set 3. Taxon of greatest interest:
+
+```
+C33
+C46
+Titanium_IBR_MLV_vaccine
+Cooper
+K22
+MN2
+MN3
+SM023
+MN10
+BHV5
+216_II
+C44
+```
+
+In particular, we will use block lengths of 1500 and 2500 (I think... I can't
+actually remember, so I'll cover all my bases by doing 500, 1000, 1500, 2000,
+and 2500). We will do Set 1. Then Set 2. Then do Set 3 (or as many taxa in set
+three as feasible). These taxa were chosen after looking at previous runs using
+netrax and SnappNet, and choosing mostly taxa from clades that appeared to
+exhibit reticulations.
+
+I use the script `run-netrax-experiment.sh` which is run from the `scripts/`
+directory. For sets 1 and 2, we navigate to the `scripts/` directory and then
+run the following code block:
+
+```
+
+set1_taxa="C33 C46 Titanium_IBR_MLV_vaccine Cooper"
+
+set2_taxa="K22 MN2 MN3 SM023"
+
+for k in 0500 1000 1500 2000 2500
+
+do
+
+   bash run-netrax-experiment.sh set1-blocksize-$k $k $set1_taxa
+
+   bash run-netrax-experiment.sh set2-blocksize-$k $k $set2_taxa
+
+done
+
+```
+
+For set 3, we will use the notation `set3.5` to denote the first five taxa in
+set 3 (see list above), `set3.6` to denote the first 6, etc. Note that
+`set3.4=set1`. To generate netrax networks for these, from `scripts/` run the
+following code blocks:
+
+- For set 3.5:
+
+```
+
+taxa_list="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22"
+
+for k in 0500 1000 1500 2000 2500
+
+do 
+
+   bash run-netrax-experiment.sh set3.5-blocksize-$k $k $taxa_list
+
+done
+
+```
+
+- For set 3.6:
+```
+
+taxa_list="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2"
+
+for k in 0500 1000 1500 2000 2500
+
+do 
+
+   bash run-netrax-experiment.sh set3.5-blocksize-$k $k $taxa_list
+
+done
+```
+
+- set 3.7 to be continued
+
+
 ## Part 4. Using TriLoNet
 
 https://www.uea.ac.uk/groups-and-centres/computational-biology/software/trilonet
