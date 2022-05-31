@@ -1335,9 +1335,9 @@ do
 done
 ```
 
-For set 3, we will use the notation `set3.05` to denote the first five taxa in
-set 3 (see list above), `set3.06` to denote the first 6, etc. Note that
-`set3.04=set1`. To generate netrax networks for these, from `scripts/` run the
+For set 3, we will use the notation `set3_05` to denote the first five taxa in
+set 3 (see list above), `set3_06` to denote the first 6, etc. Note that
+`set3_04=set1`. To generate netrax networks for these, from `scripts/` run the
 following code blocks:
 
 ```
