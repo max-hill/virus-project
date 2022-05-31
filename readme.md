@@ -1321,60 +1321,52 @@ directory. For sets 1 and 2, we navigate to the `scripts/` directory and then
 run the following code block:
 
 ```
-
-set1_taxa="C33 C46 Titanium_IBR_MLV_vaccine Cooper"
-
-set2_taxa="K22 MN2 MN3 SM023"
-
-for k in 0500 1000 1500 2000 2500
-
+set1="C33 C46 Titanium_IBR_MLV_vaccine Cooper"
+set2="K22 MN2 MN3 SM023"
+for i in 1 2
 do
-
-   bash run-netrax-experiment.sh set1-blocksize-$k $k $set1_taxa
-
-   bash run-netrax-experiment.sh set2-blocksize-$k $k $set2_taxa
-
+   for k in 0500 1000 1500 2000 2500
+   do
+      taxa_set="set$i"
+      bash run-netrax-experiment.sh set$i-blocksize-$k $k ${!taxa_set}
+   done
+   mkdir "../analysis/netrax/set$i-experiments/"
+   mv ../analysis/netrax/experiment-set$i-* ../analysis/netrax/set$i-experiments/
 done
-
 ```
 
-For set 3, we will use the notation `set3.5` to denote the first five taxa in
-set 3 (see list above), `set3.6` to denote the first 6, etc. Note that
-`set3.4=set1`. To generate netrax networks for these, from `scripts/` run the
+For set 3, we will use the notation `set3.05` to denote the first five taxa in
+set 3 (see list above), `set3.06` to denote the first 6, etc. Note that
+`set3.04=set1`. To generate netrax networks for these, from `scripts/` run the
 following code blocks:
 
-- For set 3.5:
-
 ```
+set3_05="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22"
+set3_06="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2"
+set3_07="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2 MN3"
+set3_08="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2 MN3 SM023"
+set3_09="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2 MN3 SM023 MN10"
 
-taxa_list="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22"
 
-for k in 0500 1000 1500 2000 2500
-
+for taxa_set in set3_07 set3_08 set3_09
 do 
-
-   bash run-netrax-experiment.sh set3.5-blocksize-$k $k $taxa_list
-
+   for k in 0500 1000 1500 2000 2500
+   do 
+      bash run-netrax-experiment.sh $taxa_set-blocksize-$k $k ${!taxa_set}
+   done
+   mkdir "../analysis/netrax/$taxa_set-experiments/"
+   mv ../analysis/netrax/experiment-$taxa_set-* ../analysis/netrax/$taxa_set-experiments/
 done
-
+cd ../analysis/netrax
 ```
 
-- For set 3.6:
+
+
 ```
-
-taxa_list="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2"
-
-for k in 0500 1000 1500 2000 2500
-
-do 
-
-   bash run-netrax-experiment.sh set3.5-blocksize-$k $k $taxa_list
-
-done
+set3_10="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2 MN3 SM023 MN10 BHV5"
+set3_11="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2 MN3 SM023 MN10 BHV5 216_II"
+set3_12="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2 MN3 SM023 MN10 BHV5 216_II C44"
 ```
-
-- set 3.7 to be continued
-
 
 ## Part 4. Using TriLoNet
 

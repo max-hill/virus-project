@@ -24,6 +24,14 @@
 
 ################################################################################
 
+# Check if script is run from the correct directory
+dir=$(pwd | awk -F'/' '{print $NF}')
+if [[ $dir != scripts ]]
+then
+    echo "ERROR: this script must be run from the directory 'virus-project/scripts/'."
+    exit
+fi
+
 # Name the input variable. 
 experiment_label="$1"
 partition_block_size="$2"
@@ -80,9 +88,13 @@ iqtree2 -nt AUTO -s experiment-$experiment_label-dataset.fasta -pre experiment-$
 cd ../../../scripts/NetRAX/bin/
 experiment_path="../../../analysis/netrax/experiment-$experiment_label"
 
-time mpiexec ./netrax --name experiment$experiment_label --msa $experiment_path/experiment-$experiment_label-dataset.fasta --model $experiment_path/partition.txt --average_displayed_tree_variant --start_network $experiment_path/experiment-$experiment_label.treefile --output $experiment_path/experiment-$experiment_label-netrax-output.txt --seed 42
 
-# Create a readme and copy this file to the experiment folder
+START=$(date +%s)
+mpiexec ./netrax --name experiment$experiment_label --msa $experiment_path/experiment-$experiment_label-dataset.fasta --model $experiment_path/partition.txt --average_displayed_tree_variant --start_network $experiment_path/experiment-$experiment_label.treefile --output $experiment_path/experiment-$experiment_label-netrax-output.txt --seed 42
+END=$(date +%s)
+netrax_runtime=$(( $END - $START ))
+
+# Create a readme with documentation and copy this script to the experiment folder
 cp "../../run-netrax-experiment.sh" "$experiment_path/run-netrax-experiment.sh"
 
 echo "# Readme" >$experiment_path/readme.md
@@ -98,12 +110,17 @@ echo -e "\nThe best inferred network by netrax can be found in the file
 echo -e "\nThe best inferred tree by iqtree can be found in the file
 \`experiment-$experiment_label.treefile\`" >>$experiment_path/readme.md
 
+echo -e "\nNetrax runtime: $netrax_runtime seconds" >>$experiment_path/readme.md
+
 echo -e "\nLast updated: $(date)"  >>$experiment_path/readme.md
 
 # Tell the user where to find the output
-echo "All output written to the folder"
+echo -e "\nAll output written to the folder"
 echo -e "\n../analysis/netrax/experiment-$experiment_label/"
 echo -e "\nSee readme.md in that folder for further details."
+
+# Return to scripts/ directory
+cd ../../
 
 ################################################################################
 
