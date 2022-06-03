@@ -957,25 +957,25 @@ coordinates 81055-82555).
 
 1. Setup: From `virus-project/` run the code
 
-`
-mkdir analysis/netrax/experiment-H
+   ```
+   mkdir analysis/netrax/experiment-H
 
-cd scripts/
+   cd scripts/
 
-bash generate-partition-file.sh  144551 1501 >../analysis/netrax/experiment-H/partition.txt
+   bash generate-partition-file.sh  144551 1501 >../analysis/netrax/experiment-H/partition.txt
 
-cd ../data/
+   cd ../data/
 
-grep -A1 -E ">216_II$|>Cooper$|>K22$|>BoviShield_Gold_FP5_MLV_vaccine$|>MN2$|>BHV5$|>C14_CSU_034_10640$|>C46$|>C33$|>SM023$|>C28_55771$|>Express1_IBR_MLV_vaccine$|>C43$|>Titanium_IBR_MLV_vaccine$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-H/experiment-H-dataset.fasta
+   grep -A1 -E ">216_II$|>Cooper$|>K22$|>BoviShield_Gold_FP5_MLV_vaccine$|>MN2$|>BHV5$|>C14_CSU_034_10640$|>C46$|>C33$|>SM023$|>C28_55771$|>Express1_IBR_MLV_vaccine$|>C43$|>Titanium_IBR_MLV_vaccine$" BHV1-plus-BHV5-outgroup-alignment.fasta | grep -v -- "^--$" > ../analysis/netrax/experiment-H/experiment-H-dataset.fasta
 
 
-cd ../analysis/netrax/experiment-H/
+   cd ../analysis/netrax/experiment-H/
 
-iqtree2 -nt AUTO -s experiment-H-dataset.fasta -pre experiment-H
+   iqtree2 -nt AUTO -s experiment-H-dataset.fasta -pre experiment-H
 
-cd ../../../scripts/NetRAX/bin/
+   cd ../../../scripts/NetRAX/bin/
 
-`
+   ```
 
 2. Run netrax. From `scripts/NetRAX/bin/` run
 
@@ -1059,7 +1059,7 @@ coordinates 81055-82555).
 
 1. Setup: From `virus-project/` run the code
 
-`
+```
 mkdir analysis/netrax/experiment-I
 
 cd scripts/
@@ -1077,7 +1077,7 @@ iqtree2 -nt AUTO -s experiment-I-dataset.fasta -pre experiment-I
 
 cd ../../../scripts/NetRAX/bin/
 
-`
+```
 
 The IQtree ML tree looks like this:
 
@@ -1149,7 +1149,7 @@ Here we repeat experiment-J but without BHV5.
 
 1. Setup: From `virus-project/` run the code
 
-`
+```
 mkdir analysis/netrax/experiment-J
 
 cd scripts/
@@ -1166,13 +1166,6 @@ cd ../analysis/netrax/experiment-J/
 iqtree2 -nt AUTO -s experiment-J-dataset.fasta -pre experiment-J
 
 cd ../../../scripts/NetRAX/bin/
-
-`
-
-The IQtree ML tree looks like this:
-
-```
-
 
 ```
 
@@ -1222,7 +1215,7 @@ Here we test the 3-taxon clade with leaves
 
 From `virus-project/` run the code (I should turn this into a script...)
 
-`
+```
 mkdir analysis/netrax/experiment-K
 
 cd scripts/
@@ -1240,7 +1233,7 @@ iqtree2 -nt AUTO -s experiment-K-dataset.fasta -pre experiment-K
 cd ../../../scripts/NetRAX/bin/
 
 time mpiexec ./netrax --name experiment-K --msa ~/virus-project/analysis/netrax/experiment-K/experiment-K-dataset.fasta --model ~/virus-project/analysis/netrax/experiment-K/partition.txt --average_displayed_tree_variant --start_network ~/virus-project/analysis/netrax/experiment-K/experiment-K.treefile --output ~/virus-project/analysis/netrax/experiment-K/experiment-K-netrax-output --seed 42
-`
+```
 
 OUTPUT:
 
