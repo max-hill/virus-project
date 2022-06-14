@@ -1,3 +1,67 @@
+# 2022-06-02
+
+NexRAX
+- 14 taxa, partition size 1500: didn't finish in a week.
+  best inferred until then: 11 reticulations, many ancestral to BHV5
+- 5 taxa, partition size 1500: best has 6 reticulations.
+  best with h=1 recovers the 126_II as a hybrid (also it looks like it's BHV5)
+- set1 taxa, 2500 bp: 4 taxa with Cooper, C33, C46, Titanium.
+  but 3-blob: both displayed trees have same topology. explains rate variation.
+- increasing to 8 taxa, 2500 bp: 30 seconds.
+  again: one reticulation explains rate variation
+- same 8 taxa, 500 bp: 11 minutes
+
+SbappNet
+data set 3, 7 taxa: 2 days
+need tools to summarize the posterior distribution programmatically (not manually)
+2 networks sampled from the posterior: don't detect 216 as a hybrid between
+BHV5 and BHV1. Some from BHV1.1 (e.g. MN2) and some from BHV1.2 (e.g. Cooper, MN3)
+
+data set on 4 taxa: C46 C33 Cooper Titanium
+(C33,(Titanium,(Cooper,C46))): PP ~ 50/800
+network with h=1: PP ~ 400/800 (unrooted version identical to that from RF-Net)
+networks with h=2: multiple.
+
+RF-Net
+2500 bp: 58 genes with IQ-Tree < 0.5h
+set3 on ~12 taxa.
+reticulation with 216_II appears with later reticulations, but later than 8.
+Perhaps because the block transferred from BHV5 to 216 was a small and single block.
+
+1500 bp: 97 genes (1 of them matches the transferred segment almost perfectly)
+Would need to re-root at BHV5.
+
+set with 4 taxa: got 2 different networks from 1500 bp and 2500 bp,
+but those are identical if we unroot them.
+2500 bp: (C33,((Cooper,C46),Ti)) + edge from C33 to Cooper
+1500 bp: (C33,((Ti,C46),Cooper)) + edge from C33 to Ti
+
+C46Cooper | TiC33 and C33Cooper | TiC46
+C46Ti | CooperC33 and C33Ti | CooperC46
+
+gene trees:
+C46Ti 16
+C46Cooper 29
+TiCooper 13
+
+To get uncertainty: bootstrap the sites, or bootstrap the loci
+
+messages for a publication:
+- instability between methods
+- impact of assumptions (e.g. reticulations to explain rate variation),
+  care in interpreting output when the software doesn't help (e.g. interpret them as unrooted)
+- lack of SNPs could affect accuracy, and choice of partition size
+- computational burden and running time: for method comparisons
+- lack of identifiability: not taken into account by some methods (e.g. RF-Net and 4-cycles)
+  echo the "reproducibility crisis" from Maier et al. 2022 preprint
+
+next steps
+* throw in another taxon: 5 or 6 taxa
+* from BHV1.1 only, from a mix of BHV1.1 and BHV1.2
+  to compare data sets with lower / higher level of variation overall,
+  e.g. lower / higher number of SNPs.
+* add find_graphs
+
 # 2022-04-28
 
 analysis of 3 data sets: 0,A,B, using SnappNet & NetRAX
