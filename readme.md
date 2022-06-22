@@ -165,7 +165,7 @@ when using IQ-TREE can be found
 [here](https://github.com/UWMadison-computingtools-2020/fp-group-6/blob/master/stepsinstructions.md#install-iq-tree).
 
 ### Install IQ-TREE
-1. Download IQ-TREE [here](http://www.iqtree.org/) and save it to the `scripts/`
+1. Dowfnload IQ-TREE [here](http://www.iqtree.org/) and save it to the `scripts/`
 directory. 
 
 Note: we used the COVID-19 release 2.1.3 (April 21, 2021) for Linux.
@@ -1059,6 +1059,7 @@ coordinates 81055-82555).
 
 1. Setup: From `virus-project/` run the code
 
+
 ```
 mkdir analysis/netrax/experiment-I
 
@@ -1360,6 +1361,137 @@ set3_10="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2 MN3 SM023 MN10 BHV5"
 set3_11="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2 MN3 SM023 MN10 BHV5 216_II"
 set3_12="C33 C46 Titanium_IBR_MLV_vaccine Cooper K22 MN2 MN3 SM023 MN10 BHV5 216_II C44"
 ```
+
+
+### Experiment L
+This experiment involves the following taxa:
+
+```
+C33
+C46
+Titanium_IBR_MLV_vaccine
+Cooper
+
+B589
+SP1777
+```
+We call this "Set 1a"
+
+The first three are from BHV-1.1 and the last two are from BHV-1.2. This experiment is run in conjunction with Ben and
+Shuqi using other methods. We will use block lengths of 2500bp to start with.
+
+Navigate to the `scripts/` directory and then run the following code block:
+
+```
+experiment_name="L1"
+taxa_set="C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777"
+block_length=2500
+bash run-netrax-experiment.sh $experiment_name $block_length $taxa_set
+```
+
+This finishes in about 1 minute.
+
+Note that IQtree output indicates there are 142610 constant sites (out of 144551 total). So there are about 1941 SNPs in
+our data. At 2500bp per block, there are about 58 blocks. Hence there are, on average, 33 SNPs per block. Let's try with
+some larger block sizes too, say 5000.
+
+```
+experiment_name="L2"
+taxa_set="C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777"
+block_length=5000
+bash run-netrax-experiment.sh $experiment_name $block_length $taxa_set
+```
+
+### Experiment M
+Similar to L but with a different taxa set, which we call set 2a. Set 2a consist of the following taxa, the first 4 are
+from BHV-1.1; the last 3 are from BHV-1.2.
+
+```
+Cooper
+MN3
+C14_CSU_034_10640
+C36_876_459
+
+K22
+MN2
+SM023
+```
+
+Navigate to `scripts/` and run the following.
+
+```
+time bash run-netrax-experiment.sh M 2500 Cooper MN3 C14_CSU_034_10640 C36_876_459 K22 MN2 SM023
+```
+
+This set has 142421 nonconstant sites out of a total of 144551, so there are about 2130 SNPs, somewhat larger than
+experiment L.
+
+
+### Experiment N
+Similar to experiment L, but with the addition of BHV5 and 216_II. Specifically,
+we partition block size 2500bp with the following taxa:
+
+```
+BHV5 
+216_II
+
+C33
+C46
+Titanium_IBR_MLV_vaccine
+Cooper
+
+B589
+SP1777
+```
+
+From `scripts/` run
+
+```
+time bash run-netrax-experiment.sh N 2500 BHV5 216_II C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777
+```
+
+According to the IQtree output, there are 127241 constant sites (out of 144551),
+so there are a total of 17310 SNPs for this data set. 
+
+Ran this for four and a half hours before cancelling the simulation (8
+reticulations). I will try again with larger block size of 10000.
+
+
+```
+time bash run-netrax-experiment.sh N 10000 BHV5 216_II C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777
+```
+
+Finished in 689 seconds. 
+
+
+### Experiment O
+Similar to experiment M, but with the addition of BHV5 and 216_II, and without
+C14_CSU_034_10640. Specifically, we use partition block size 2500bp with the
+following taxa:
+
+```
+BHV5 
+216_II
+
+Cooper
+MN3
+C36_876_459
+
+K22
+MN2
+SM023
+```
+
+
+From `scripts/` run
+
+```
+time bash run-netrax-experiment.sh O 10000 BHV5 216_II Cooper MN3 C36_876_459 K22 MN2 SM023
+```
+
+Finished in 48 seconds. 
+
+
 
 ## Part 4. Using TriLoNet
 
