@@ -48,10 +48,31 @@ To get uncertainty: bootstrap the sites, or bootstrap the loci
 
 messages for a publication:
 - instability between methods
-- impact of assumptions (e.g. reticulations to explain rate variation),
-  care in interpreting output when the software doesn't help (e.g. interpret them as unrooted)
+- impact of assumptions, e.g.:
+  * NetRAX ignores rate variation, and can infer extra reticulations to explain
+    rate variation (of the form of 3-cycles: all displayed trees have the same
+    topology for differing edge lengths)
+  * RF-Net ignores ILS, and may infer reticulations to explain gene tree
+    discordance due to ILS
+- technical difficulties, e.g.:
+  * some methods infer "unrooted" networks, or rather, undirected, but does not
+    say so, or does not recall this fact prominently. Multiple runs may seem
+    to recover different networks (because they must be written with a root somewhere)
+    but in fact equal semi-directed networks.
+- model selection is difficult:
+  * easiest with Bayesian methods: SnappNet
+  * *what model selection method do they recommend for NetRAX? for RF-Net?*
+  * slope heuristic: still just a heuristic
+  * RF-Net: fast enough that we can bootstrap sites (via bootstrap trees) and/or
+    loci to quantify stability of the estimate. Could bootstrapping help select
+    the number of reticulations?
+  * cross-validation: what criterion to use with large gene trees, to compare
+    the network obtained from the training data (say 90% of the gene trees)
+    with the remaining (10%) gene trees?
 - lack of SNPs could affect accuracy, and choice of partition size
 - computational burden and running time: for method comparisons
+  *warning*: analyses may need to be re-run, so that all analyses were run on the
+  same machine to make running times comparable.
 - lack of identifiability: not taken into account by some methods (e.g. RF-Net and 4-cycles)
   echo the "reproducibility crisis" from Maier et al. 2022 preprint
 
