@@ -28,9 +28,8 @@ Unless otherwise noted, the following instructions are for Debian 10 Buster
 ## Part 0. Obtaining the Data
 
 ### Downloading the Full BHV1 Dataset
-We used the datafile [BHV1\_plus\ BHV5\
-
-(7mb fasta file). Download this file to the `data/` directory. Rename the file to 
+We used the datafile `BHV1\_plus\ BHV5 outgroup\_alignment.txt` (7mb fasta
+file). Download this file to the `data/` directory. Rename the file to
 
 `BHV1-plus-BHV5-outgroup-alignment.fasta`
 
