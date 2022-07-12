@@ -1,0 +1,22 @@
+Initial, given network:
+(((((C36_876_459:0.000848838,((Cooper:0.000764601)#2:1e-06::0.65248,(#2:0.000674563::0.34752,((MN2:0.000783169)#0:1e-06::0.190984,MN3:3.98511e-05):0.000417792):9.38205e-05):7.19932e-05):1e-06)#3:0.00519791::0.207299,((BHV5:0.106704)#6:1e-06::0.483202,(216_II:0.00191437)#1:0.000935069::0.196662):0.000935069):0.00416647,(((#6:0.062861::0.516798)#5:0.0424501::0.610658,((K22:0.000765341)#4:0.00125401::0.809016,(#0:6.98637e-06::0.809016,SM023:0.000351298):0.00159555):0.00174021):0.00107201,(#1:1e-06::0.803338,(#3:0.000220175::0.792701,#4:1e-06::0.190984):0.000717915):0.00320731):0.00774456):2e-06,#5:0.146487::0.389342);
+Initial (before brlen and reticulation opt) BIC Score: 522111.8808
+Initial (before brlen and reticulation opt) loglikelihood: -259820.913
+optimizing model, reticulation probs, and branch lengths (slow mode)...
+BIC score after model optimization: 522031.629
+BIC score after updating reticulation probs: 522031.1492
+BIC score after branch length optimization: 522022.4577
+BIC score after model optimization: 522019.247
+BIC score after updating reticulation probs: 522019.247
+BIC score after branch length optimization: 522016.0941
+improved bic: 522016.0941
+BIC score after updating reticulation probs: 522016.0941
+Network after optimization of brlens and reticulation probs:
+(((((C36_876_459:0.00085228,((Cooper:0.00076844)#2:1e-06::0.65248,(#2:0.000674563::0.34752,((MN2:0.000787368)#0:1e-06::0.190984,MN3:3.99453e-05):0.000419444):9.44036e-05):7.14866e-05):1e-06)#3:0.00519791::0.207299,((BHV5:0.113338)#6:1e-06::0.534882,(216_II:0.00191211)#1:0.000935069::0.196662):0.000935069):0.00416647,(((#6:0.062861::0.465118)#5:0.0424501::0.710678,((K22:0.000777699)#4:0.00125401::0.809016,(#0:6.98637e-06::0.809016,SM023:0.000349582):0.00159577):0.002144):0.000741019,(#1:1e-06::0.803338,(#3:0.000220175::0.792701,#4:1e-06::0.190984):0.000728149):0.00318921):0.00774456):2e-06,#5:0.146487::0.289322);
+Number of reticulations: 7
+BIC Score: 522016.0941
+Loglikelihood: -259773.0196
+AIC Score: 519900.0392
+AICc Score: 519900.094
+
+Total runtime: 31 seconds.

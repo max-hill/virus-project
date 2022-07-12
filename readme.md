@@ -1429,7 +1429,52 @@ experiment L.
 
 ### Experiment N
 Similar to experiment L, but with the addition of BHV5 and 216_II. Specifically,
-we partition block size 2500bp with the following taxa:
+we partition block size 10000bp with the following taxa:
+
+```
+BHV5 
+216_II
+
+C33
+C46
+Titanium_IBR_MLV_vaccine
+Cooper
+
+B589
+SP1777
+```
+
+According to the IQtree output, there are 127241 constant sites (out of 144551),
+so there are a total of 17310 SNPs for this data set. 
+
+I initially tried running this with block length 2500 bp for four and a half hours before cancelling the simulation (8
+reticulations). I then tried again with larger block size of 10000.
+
+
+From `scripts/` run
+
+
+```
+time bash run-netrax-experiment.sh N 10000 BHV5 216_II C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777
+```
+
+Finished in 689 seconds. 
+
+Next we score the network by running the following from `scripts/`
+
+```
+experiment_label=N
+cd NetRAX/bin/
+experiment_path="../../../analysis/netrax/experiment-$experiment_label"
+msa=$experiment_path/experiment-$experiment_label-dataset.fasta
+model=$experiment_path/partition.txt
+start_network=$experiment_path/experiment-${experiment_label}-netrax-output.txt
+mpiexec ./netrax --msa $msa --model $model --seed 42 --average_displayed_tree_variant --brlen linked --start_network $start_network --score_only > $experiment_path/netrax-score.txt
+
+```
+
+### Experiment N-unlinked
+Experiment N with netrax set to the "unlinked" branch lenghts option. We use block size 10,000bp.
 
 ```
 BHV5 
@@ -1447,26 +1492,18 @@ SP1777
 From `scripts/` run
 
 ```
-time bash run-netrax-experiment.sh N 2500 BHV5 216_II C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777
+time bash run-netrax-experiment-unlinked.sh Nunlinked 10000 BHV5 216_II C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777
 ```
 
 According to the IQtree output, there are 127241 constant sites (out of 144551),
 so there are a total of 17310 SNPs for this data set. 
 
-Ran this for four and a half hours before cancelling the simulation (8
-reticulations). I will try again with larger block size of 10000.
 
-
-```
-time bash run-netrax-experiment.sh N 10000 BHV5 216_II C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777
-```
-
-Finished in 689 seconds. 
 
 
 ### Experiment O
 Similar to experiment M, but with the addition of BHV5 and 216_II, and without
-C14_CSU_034_10640. Specifically, we use partition block size 2500bp with the
+C14_CSU_034_10640. Specifically, we use partition block size 10000bp with the
 following taxa:
 
 ```
@@ -1493,6 +1530,163 @@ Finished in 48 seconds.
 
 
 
+### Experiment O-unlinked
+Same as experiement-O but with the netrax "unlinked" branch lengths option.
+Specifically, we use partition block size 10000bp with the following taxa:
+
+```
+BHV5 
+216_II
+
+Cooper
+MN3
+C36_876_459
+
+K22
+MN2
+SM023
+```
+
+
+From `scripts/` run
+
+```
+time bash run-netrax-experiment-unlinked.sh O-unlinked 10000 BHV5 216_II Cooper MN3 C36_876_459 K22 MN2 SM023
+```
+
+Total runtime: 34 sec
+
+Next we score the network by running the following from `scripts/`
+
+```
+experiment_label=O
+cd NetRAX/bin/
+experiment_path="../../../analysis/netrax/experiment-$experiment_label"
+msa=$experiment_path/experiment-$experiment_label-dataset.fasta
+model=$experiment_path/partition.txt
+start_network=$experiment_path/experiment-${experiment_label}-netrax-output.txt
+mpiexec ./netrax --msa $msa --model $model --seed 42 --average_displayed_tree_variant --brlen linked --start_network $start_network --score_only > $experiment_path/netrax-score.txt
+
+```
+
+### Experiment N2
+I think there was a problem with my earlier netrax code. In particular, mpiexec was not reading my input variables correctly because I was using --name "blah" (as shown in the example code in the original Netrax repo). My linked and unlinked runs in experiment O were outputing the exact same tree, which probably indicates an error. Therefore I copied the code format from the file https://github.com/lutteropp/NetRAX/blob/master/experiments/submit_netrax_big_empirical.sh
+
+and rewrote my run-netrax-experiment scripts. The new script is run-netrax-experiment-both-linked-and-unlinked.sh
+
+Here I test the following taxa 
+
+```
+BHV5 
+216_II
+
+C33
+C46
+Titanium_IBR_MLV_vaccine
+Cooper
+
+B589
+SP1777
+```
+
+First attempt to run the script resulted in correct run of linked case, but unlinked case segfaulted. 
+
+```
+time bash run-netrax-experiment-both-linked-and-unlinked.sh N2 10000 BHV5 216_II C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777
+``` 
+
+### Experiment Nredo
+Here we redo experiment N. This is the linked mode case, with partition size 10k and taxa
+
+
+```
+BHV5 
+216_II
+
+C33
+C46
+Titanium_IBR_MLV_vaccine
+Cooper
+
+B589
+SP1777
+```
+
+From `scripts/`, run
+
+```
+time bash run-netrax-experiment-both-linked-and-unlinked.sh Nredo 10000 BHV5 216_II C33 C46 Titanium_IBR_MLV_vaccine Cooper B589 SP1777
+``` 
+
+
+```
+experiment_label=Nredo
+cd NetRAX/bin/
+experiment_path="../../../analysis/netrax/experiment-$experiment_label"
+msa=$experiment_path/experiment-$experiment_label-dataset.fasta
+model=$experiment_path/partition.txt
+start_network=$experiment_path/netrax-output-linked
+mpiexec ./netrax --msa $msa --model $model --seed 42 --average_displayed_tree_variant --brlen linked --start_network $start_network --score_only > $experiment_path/netrax-score.txt
+
+```
+
+### Experiment O2 - linked only
+Here I test the following taxa using run-netrax-experiment-both-linked-and-unlinked.sh. I have commented out the unlinked netrax runs because they induce segfaults. I am also not convinced that any previous unlinked runs were working correctly. I am also skeptical of my previous linked run because a test (N3) of a linked netrax run with my new code did not produce the same result as a previous run.
+
+
+```
+BHV5 
+216_II
+
+Cooper
+MN3
+C36_876_459
+
+K22
+MN2
+SM023
+```
+
+From `scripts/` run
+
+```
+time bash run-netrax-experiment-both-linked-and-unlinked.sh O2 10000 BHV5 216_II Cooper MN3 C36_876_459 K22 MN2 SM023
+```
+
+Ran for 7 hours then I accidentally killed the run. Best tree at time of termination was
+
+```
+((((((216_II:0.00193926)#1:0.000935069::0.196662,(BHV5:0.0931037)#6:1e-06::0.256423):0.000935069,((C36_876_459:0.000855914,(((MN3:4.02892e-05,(MN2:0.000792514)#0:1e-06::0.190984):0.000419086,(Cooper:0.000773537)#2:0.000674563::0.315927):9.55276e-05,#2:1e-06::0.684073):7.08063e-05):1e-06)#3:0.00519791::0.233125):0.00416647,(((SM023:0.00035017,#0:6.98637e-06::0.809016):0.00160667,(K22:0.000789349)#4:0.00125401::0.809016):0.00285869,((#3:0.000220175::0.766875,#4:1e-06::0.190984):0.000717635,#1:1e-06::0.803338):0.0032543):0.00686261):1e-06,(#6:0.062861::0.743577)#5:1e-06::0.0877487):1e-06,#5:0.146487::0.912251);
+```
+
+to restart this from where we left off, from `scripts/`, run
+
+```
+experiment_label=O2
+cd NetRAX/bin/
+experiment_path="../../../analysis/netrax/experiment-$experiment_label"
+msa=$experiment_path/experiment-$experiment_label-dataset.fasta
+model=$experiment_path/partition.txt
+outputfile_linked=$experiment_path/netrax-output-linked
+time mpiexec ./netrax --msa $msa --model $model --seed 42 --output ${outputfile_linked}-continued --average_displayed_tree_variant --brlen linked --start_network $outputfile_linked
+```
+
+Next we score the network by running the following from `scripts/`
+
+```
+experiment_label=O2
+cd NetRAX/bin/
+experiment_path="../../../analysis/netrax/experiment-$experiment_label"
+msa=$experiment_path/experiment-$experiment_label-dataset.fasta
+model=$experiment_path/partition.txt
+start_network=$experiment_path/netrax-output-linked-continued
+score_outputfile=$experiment_path/netrax-score-output
+mpiexec ./netrax --msa $msa --model $model --seed 42 --output $score_outputfile --average_displayed_tree_variant --brlen linked --start_network $start_network --score_only > $experiment_path/netrax-score.txt
+
+```
+
+
+
 ## Part 4. Using TriLoNet
 
 https://www.uea.ac.uk/groups-and-centres/computational-biology/software/trilonet
@@ -1511,7 +1705,7 @@ and save it to the `scripts/` directory.
    and run
 
 ```
-cp ../../../../data/BHV1-6-clinical-isolates.nex bhv1-6-clinical-isolates.nex
+cp ../../../../data/BHV1-6-clinical-isolates.fasta bhv1-6-clinical-isolates.fasta
 ```
 
 which will copy the data to the TriLoNet directory, using a name that has only
@@ -1519,14 +1713,146 @@ lowecase letters. Then we run the command
 
 
 ```
-java -jar TriLoNet.jar bhv1-6-clinical-isolates.nex
+java -jar TriLoNet.jar bhv1-6-clinical-isolates.fasta
 ```
 
-Unfortunately, this return an error
+
+
+### Trilonet experiment with set 1b
+Set 1b consists of
 
 ```
-Exception in thread "main" java.lang.NullPointerException
-        at trilonet.ReadInput.readNEXUS(ReadInput.java:88)
-        at trilonet.Main.main(Main.java:176)
+BHV5 
+216_II
+
+C33
+C46
+Titanium_IBR_MLV_vaccine
+Cooper
+
+B589
+SP1777
 ```
 
+I used the fasta file generated from netrax experiment-N. I created a new directory `analysis/trilonet/set1b` containing this dataset, which I renamed to `set1b-dataset.fasta`.
+
+From `scripts/TriLoNet3/TriLoNet/TriLoNet/` run
+
+```
+mypath="../../../../analysis/trilonet/set1b"
+
+java -jar TriLoNet.jar $mypath/set1b-dataset.fasta $mypath/output.txt
+```
+
+Visualization created with icytree.
+
+### Trilonet experiment with set 2b
+Set 2b consists of
+
+```
+BHV5 
+216_II
+
+Cooper
+MN3
+C36_876_459
+
+K22
+MN2
+SM023
+```
+
+I used the fasta file generated from netrax experiment-O. I created a new directory `analysis/trilonet/set2b` containing this dataset, which I renamed to `set2b-dataset.fasta`.
+
+From `scripts/TriLoNet3/TriLoNet/TriLoNet/` run
+
+```
+mypath="../../../../analysis/trilonet/set2b"
+
+java -jar TriLoNet.jar $mypath/set2b-dataset.fasta $mypath/output.txt
+```
+
+Visualization created with icytree.
+
+
+
+### Trilonet experiment with set 1b -- with specified breakpoints
+Set 1b consists of
+
+```
+BHV5 
+216_II
+
+C33
+C46
+Titanium_IBR_MLV_vaccine
+Cooper
+
+B589
+SP1777
+```
+
+I used the fasta file generated from netrax experiment-N. I created a new directory `analysis/trilonet/set1b-with-breakpoint` containing this dataset, which I renamed to `set1b-dataset.fasta`.
+
+From `scripts/TriLoNet3/TriLoNet/TriLoNet/` run
+
+```
+mypath="../../../../analysis/trilonet/set1b-with-breakpoint"
+
+java -jar TriLoNet.jar $mypath/set1b-dataset.fasta $mypath/output.txt --b81055,82555
+```
+
+Visualization created with icytree.
+
+
+
+### Trilonet experiment with set 2b -- with specified breakpoints
+Set 1b consists of
+
+```
+BHV5 
+216_II
+
+Cooper
+MN3
+C36_876_459
+
+K22
+MN2
+SM023
+```
+
+I used the fasta file generated from netrax experiment-N. I created a new directory `analysis/trilonet/set2b-with-breakpoint` containing this dataset, which I renamed to `set2b-dataset.fasta`.
+
+From `scripts/TriLoNet3/TriLoNet/TriLoNet/` run
+
+```
+mypath="../../../../analysis/trilonet/set2b-with-breakpoint"
+
+java -jar TriLoNet.jar $mypath/set2b-dataset.fasta $mypath/output.txt --b81055,82555
+```
+
+Visualization created with icytree.
+
+### Trilonet experiment with K22 set and Titanium sets 
+1. make folder `analysis/trilonet/combined-experiment/`
+
+2. copy `set1b-dataset.fasta` and `set2b-dataset.fasta` from trilonet folders
+   from previous experiments (folders `trilonet/set1b/` and `trilonet/set2b`)
+
+3. from `scripts/` run
+
+```
+cd TriLoNet3/TriLoNet/TriLoNet/
+mypath="../../../../analysis/trilonet/combined-experiment"
+titanium_dataset=${mypath}/set1b-dataset.fasta
+k22_dataset=${mypath}/set2b-dataset.fasta
+
+java -jar TriLoNet.jar $titanium_dataset ${mypath}/titanium-set-output.txt
+java -jar TriLoNet.jar $titanium_dataset ${mypath}/titanium-set-with-breakpoints-output.txt --b81055,82555
+
+java -jar TriLoNet.jar $k22_dataset ${mypath}/k22-set-output.txt
+java -jar TriLoNet.jar $k22_dataset ${mypath}/k22-set-with-breakpoints-output.txt --b81055,82555
+```
+
+visualizations created with icytree

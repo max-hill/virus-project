@@ -1,0 +1,32 @@
+IQ-TREE multicore version 2.1.3 COVID-edition for Linux 64-bit built Apr 21 2021
+Developed by Bui Quang Minh, James Barbetti, Nguyen Lam Tung,
+Olga Chernomor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    mutalisk (AVX2, FMA3, 31 GB RAM)
+Command: iqtree2 -nt AUTO -s experiment-set3_09-blocksize-1000-dataset.fasta -pre experiment-set3_09-blocksize-1000
+Seed:    654593 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Tue May 31 13:51:17 2022
+Kernel:  AVX+FMA - auto-detect threads (12 CPU cores detected)
+
+Reading alignment file experiment-set3_09-blocksize-1000-dataset.fasta ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+WARNING: 7561 sites contain only gaps or ambiguous characters.
+Alignment has 9 sequences with 144551 columns, 541 distinct patterns
+1299 parsimony-informative, 738 singleton sites, 142514 constant sites
+                          Gap/Ambiguity  Composition  p-value
+   1  C33                         6.96%    passed     83.97%
+   2  C46                         7.61%    passed     97.40%
+   3  Titanium_IBR_MLV_vaccine    6.85%    passed     86.05%
+   4  Cooper                      7.30%    passed     99.73%
+   5  K22                         6.44%    passed     71.46%
+   6  MN2                         6.64%    passed     78.59%
+   7  MN3                         6.68%    passed     94.66%
+   8  SM023                       6.66%    passed     63.12%
+   9  MN10                        6.68%    passed     93.81%
+****  TOTAL                       6.87%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+NOTE: minimal branch length is reduced to 0.000000691797 for long alignment
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.001 seconds
+Measuring multi-threading efficiency up to 12 CPU cores
+Increase to 10 rounds for branch lengths

@@ -1,0 +1,149 @@
+IQ-TREE 2.1.3 COVID-edition built Apr 21 2021
+
+Input file name: experiment-set3_06-blocksize-1000-dataset.fasta
+Type of analysis: ModelFinder + tree reconstruction
+Random seed number: 782927
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 6 sequences with 144551 nucleotide sites
+Number of constant sites: 142690 (= 98.7126% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 142690 (= 98.7126% of all sites)
+Number of parsimony informative sites: 750
+Number of distinct site patterns: 327
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: K3Pu+F+I
+
+List of models sorted by BIC scores: 
+
+Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+K3Pu+F+I        -188807.703  377645.405 +    0.618  377645.409 +    0.619  377793.626 +    0.581
+HKY+F+I         -188814.039  377656.077 -  0.00298  377656.080 -  0.00298  377794.417 +    0.391
+TPM3+F+I        -188812.229  377654.458 -  0.00669  377654.461 -  0.00669  377802.679 -  0.00629
+TPM3u+F+I       -188812.269  377654.538 -  0.00643  377654.541 -  0.00643  377802.759 -  0.00604
+TPM2u+F+I       -188812.399  377654.797 -  0.00565  377654.801 -  0.00565  377803.018 -  0.00531
+TPM2+F+I        -188812.399  377654.797 -  0.00565  377654.801 -  0.00565  377803.018 -  0.00531
+TN+F+I          -188812.855  377655.711 -  0.00358  377655.714 -  0.00358  377803.931 -  0.00336
+TIM+F+I         -188807.795  377647.590 +    0.207  377647.594 +    0.207  377805.692 -  0.00139
+TIM2+F+I        -188811.252  377654.503 -  0.00654  377654.507 -  0.00654  377812.605 - 4.39e-05
+TIM3+F+I        -188811.802  377655.603 -  0.00377  377655.607 -  0.00377  377813.705 - 2.54e-05
+TVM+F+I         -188808.236  377650.471 -   0.0491  377650.475 -   0.0491  377818.455 - 2.36e-06
+GTR+F+I         -188807.021  377650.042 +   0.0609  377650.047 +   0.0608  377827.907 - 2.09e-08
+GTR+F+I+G4      -188807.009  377652.018 -   0.0227  377652.023 -   0.0227  377839.764 - 5.57e-11
+GTR+F+G4        -188813.311  377662.621 - 0.000113  377662.626 - 0.000113  377840.486 - 3.88e-11
+GTR+F+R2        -188827.446  377692.891 - 3.02e-11  377692.897 - 3.02e-11  377880.638 - 7.41e-20
+GTR+F+R3        -188819.145  377680.290 - 1.65e-08  377680.296 - 1.64e-08  377887.799 - 2.06e-21
+GTR+F           -188843.818  377721.635 - 1.73e-17  377721.640 - 1.73e-17  377889.619 - 8.31e-22
+F81+F+I         -189738.100  379502.200 -        0  379502.202 -        0  379630.658 -        0
+K2P+I           -203439.652  406901.303 -        0  406901.305 -        0  407009.998 -        0
+TIM2e+I         -203432.727  406891.455 -        0  406891.457 -        0  407019.913 -        0
+TVMe+I          -203426.963  406881.925 -        0  406881.928 -        0  407020.265 -        0
+TNe+I           -203439.151  406902.303 -        0  406902.305 -        0  407020.879 -        0
+K3P+I           -203439.529  406903.057 -        0  406903.060 -        0  407021.634 -        0
+TIM3e+I         -203434.755  406895.509 -        0  406895.512 -        0  407023.967 -        0
+TIMe+I          -203438.905  406903.811 -        0  406903.813 -        0  407032.269 -        0
+SYM+I           -203427.448  406884.897 -        0  406884.900 -        0  407033.118 -        0
+JC+I            -204162.054  408344.108 -        0  408344.109 -        0  408442.922 -        0
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: K3Pu+F+I
+
+Rate parameter R:
+
+  A-C: 1.0000
+  A-G: 7.1582
+  A-T: 0.7209
+  C-G: 0.7209
+  C-T: 7.1582
+  G-T: 1.0000
+
+State frequencies: (empirical counts from alignment)
+
+  pi(A) = 0.1349
+  pi(C) = 0.3592
+  pi(G) = 0.3658
+  pi(T) = 0.1402
+
+Rate matrix Q:
+
+  A     -1.67    0.1949      1.42   0.05484
+  C   0.07316   -0.7607     0.143    0.5445
+  G    0.5237    0.1405   -0.7402   0.07607
+  T   0.05274     1.395    0.1984    -1.646
+
+Model of rate heterogeneity: Invar
+Proportion of invariable sites: 0.8719
+
+ Category  Relative_rate  Proportion
+  0         0              0.8719
+  1         7.809          0.1281
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -188807.6864 (s.e. 346.9086)
+Unconstrained log-likelihood (without tree): -252674.4407
+Number of free parameters (#branches + #model parameters): 15
+Akaike information criterion (AIC) score: 377645.3729
+Corrected Akaike information criterion (AICc) score: 377645.3762
+Bayesian information criterion (BIC) score: 377793.5937
+
+Total tree length (sum of branch lengths): 0.0150
+Sum of internal branch lengths: 0.0062 (41.4749% of tree length)
+
+NOTE: Tree is UNROOTED although outgroup taxon 'C33' is drawn at root
+
++--C33
+|
+|     +--C46
+|  +--|
+|  |  +----Cooper
++--|
+|  +--Titanium_IBR_MLV_vaccine
+|
+|                             +----------------------------K22
++-----------------------------|
+                              +-------MN2
+
+Tree in newick format:
+
+(C33:0.0001896766,((C46:0.0000149772,Cooper:0.0009813674):0.0001123090,Titanium_IBR_MLV_vaccine:0.0000809857):0.0001501117,(K22:0.0057854374,MN2:0.0017055853):0.0059441090);
+
+TIME STAMP
+----------
+
+Date and time: Mon May 30 18:45:31 2022
+Total CPU time used: 0.557374 seconds (0h:0m:0s)
+Total wall-clock time used: 0.122262 seconds (0h:0m:0s)
+

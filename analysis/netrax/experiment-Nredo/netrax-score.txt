@@ -1,0 +1,22 @@
+Initial, given network:
+(((BHV5:0.0968372)#1:0.104897::0.617471)#0:0.109777::0.222729,((((SP1777:0.00195686)#4:0.00166719::0.202141,(#4:1e-06::0.797859,B589:0.00238881):0.00239855):0.000226994)#3:0.00181002::0.169534,(#3:1e-06::0.830466,(((216_II:0.000746372)#2:0.000905823::0.738671,(C33:0.000184773,(((Cooper:0.000503197)#5:1e-06::0.690983,(#5:0.00048688::0.309017,C46:1.11886e-05):1.40161e-05):0.000103482,Titanium_IBR_MLV_vaccine:7.9856e-05):0.00015327):0.0010027):0.00300912,(#0:0.00639528::0.777271,(#1:2e-06::0.382529,#2:1e-06::0.261329):0.00418332):0.0042675):1e-06):0.00699924):0.0526925);
+Initial (before brlen and reticulation opt) BIC Score: 518025.2432
+Initial (before brlen and reticulation opt) loglikelihood: -257805.5387
+optimizing model, reticulation probs, and branch lengths (slow mode)...
+BIC score after model optimization: 517998.6675
+BIC score after updating reticulation probs: 517997.0757
+BIC score after branch length optimization: 517981.456
+BIC score after model optimization: 517972.6838
+BIC score after updating reticulation probs: 517972.6838
+BIC score after branch length optimization: 517968.7743
+improved bic: 517968.7743
+BIC score after updating reticulation probs: 517968.7743
+Network after optimization of brlens and reticulation probs:
+(((BHV5:0.10608)#1:0.104897::0.468682)#0:0.109777::0.300456,((((SP1777:0.00196078)#4:0.00166719::0.202141,(#4:1e-06::0.797859,B589:0.00240253):0.00238483):0.000195228)#3:0.00181002::0.169534,(#3:1e-06::0.830466,(((216_II:0.00074258)#2:0.000905823::0.738671,(C33:0.000185568,(((Cooper:0.000506649)#5:1e-06::0.660081,(#5:0.00048688::0.339919,C46:1.11886e-05):1.42148e-05):0.000104465,Titanium_IBR_MLV_vaccine:8.00856e-05):0.000154325):0.00101528):0.00304509,(#0:0.00639528::0.699544,(#1:2e-06::0.531318,#2:1e-06::0.261329):0.00418332):0.00442561):1e-06):0.00699924):0.0526925);
+Number of reticulations: 6
+BIC Score: 517968.7743
+Loglikelihood: -257777.3042
+AIC Score: 515900.6085
+AICc Score: 515900.6609
+
+Total runtime: 14 seconds.

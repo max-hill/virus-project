@@ -1,0 +1,103 @@
+ORIGINAL SEQUENCES WITHOUT BREAKPOINT CHARACTERS LENGTH =  144551
+ORIGINAL SEQUENCES WITH BREAKPOINT CHARACTERS LENGTH =  144553
+
+
+CLEANED SEQUENCES LENGTH = 128008
+Number of taxa: 8
+Vertex 0 = root
+Vertex 1 = BHV5
+Vertex 2 = 216_II
+Vertex 3 = Cooper
+Vertex 4 = MN3
+Vertex 5 = C36_876_459
+Vertex 6 = K22
+Vertex 7 = MN2
+Vertex 8 = SM023
+
+Leaf Count = 0
+List of Trinets extracted from the Network: 
+Tr0 = Tr{216_II, Cooper, MN2 : S2}
+Tr1 = Tr{216_II, Cooper, SM023 : S2}
+Tr2 = Tr{216_II, MN3, MN2 : S2}
+Tr3 = Tr{216_II, MN3, SM023 : S2}
+Tr4 = Tr{216_II, C36_876_459, MN2 : S2}
+Tr5 = Tr{216_II, C36_876_459, SM023 : S2}
+Tr6 = Tr{Cooper, C36_876_459, MN3 : S1}
+Tr7 = Tr{Cooper, K22, MN2 : S1}
+Tr8 = Tr{Cooper, SM023, MN2 : S1}
+Tr9 = Tr{MN3, K22, MN2 : S1}
+Tr10 = Tr{MN3, SM023, MN2 : S1}
+Tr11 = Tr{C36_876_459, K22, MN2 : S1}
+Tr12 = Tr{C36_876_459, SM023, MN2 : S1}
+Tr13 = Tr{K22, SM023, MN2 : S2}
+Tr14 = Tr{216_II, Cooper, BHV5 : T1}
+Tr15 = Tr{216_II, MN3, BHV5 : T1}
+Tr16 = Tr{216_II, C36_876_459, BHV5 : T1}
+Tr17 = Tr{216_II, K22, BHV5 : T1}
+Tr18 = Tr{216_II, MN2, BHV5 : T1}
+Tr19 = Tr{216_II, SM023, BHV5 : T1}
+Tr20 = Tr{Cooper, MN3, BHV5 : T1}
+Tr21 = Tr{Cooper, C36_876_459, BHV5 : T1}
+Tr22 = Tr{Cooper, K22, BHV5 : T1}
+Tr23 = Tr{Cooper, MN2, BHV5 : T1}
+Tr24 = Tr{Cooper, SM023, BHV5 : T1}
+Tr25 = Tr{MN3, C36_876_459, BHV5 : T1}
+Tr26 = Tr{MN3, K22, BHV5 : T1}
+Tr27 = Tr{MN3, MN2, BHV5 : T1}
+Tr28 = Tr{MN3, SM023, BHV5 : T1}
+Tr29 = Tr{C36_876_459, K22, BHV5 : T1}
+Tr30 = Tr{C36_876_459, MN2, BHV5 : T1}
+Tr31 = Tr{C36_876_459, SM023, BHV5 : T1}
+Tr32 = Tr{K22, MN2, BHV5 : T1}
+Tr33 = Tr{K22, SM023, BHV5 : T1}
+Tr34 = Tr{MN2, SM023, BHV5 : T1}
+Tr35 = Tr{Cooper, MN3, 216_II : T1}
+Tr36 = Tr{Cooper, C36_876_459, 216_II : T1}
+Tr37 = Tr{216_II, Cooper, K22 : T1}
+Tr38 = Tr{MN3, C36_876_459, 216_II : T1}
+Tr39 = Tr{216_II, MN3, K22 : T1}
+Tr40 = Tr{216_II, C36_876_459, K22 : T1}
+Tr41 = Tr{K22, MN2, 216_II : T1}
+Tr42 = Tr{K22, SM023, 216_II : T1}
+Tr43 = Tr{MN2, SM023, 216_II : T1}
+Tr44 = Tr{Cooper, MN3, K22 : T1}
+Tr45 = Tr{Cooper, MN3, MN2 : T1}
+Tr46 = Tr{Cooper, MN3, SM023 : T1}
+Tr47 = Tr{Cooper, C36_876_459, K22 : T1}
+Tr48 = Tr{Cooper, C36_876_459, MN2 : T1}
+Tr49 = Tr{Cooper, C36_876_459, SM023 : T1}
+Tr50 = Tr{K22, SM023, Cooper : T1}
+Tr51 = Tr{MN3, C36_876_459, K22 : T1}
+Tr52 = Tr{MN3, C36_876_459, MN2 : T1}
+Tr53 = Tr{MN3, C36_876_459, SM023 : T1}
+Tr54 = Tr{K22, SM023, MN3 : T1}
+Tr55 = Tr{K22, SM023, C36_876_459 : T1}
+List of Trinets: end 
+
+REPORT: (BHV5,((K22,(SM023,(MN2)#H1)n7)n6,(216_II,(#H1,((C36_876_459,(MN3)#H2)n2,(Cooper,#H2)n3)n1)n9)n8)n5)root;
+REPORT: (BHV5,((K22,(SM023,(MN2)#H1)),(216_II,(#H1,((C36_876_459,(MN3)#H2),(Cooper,#H2))))))root;
+Extracting trinets from Output network...........
+Output Network eNewick: 
+(BHV5,((K22,(SM023,(MN2)#H1)n7)n6,(216_II,(#H1,((C36_876_459,(MN3)#H2)n2,(Cooper,#H2)n3)n1)n9)n8)n5)root;
+
+finalNetwork eNewick Short: 
+(BHV5,((K22,(SM023,(MN2)#H1)),(216_II,(#H1,((C36_876_459,(MN3)#H2),(Cooper,#H2))))))root;
+
+Number of leaves in the output network: 8
+
+
+Reticulations in  output network = 2
+
+
+
+Time to extract Trinets =  0 hours 0 minutes 0 seconds
+Time build our network =  0 hours 0 minutes 0 seconds
+Time to compare results =  0 hours 0 minutes 0 seconds
+Total program time =  0 hours 0 minutes 0 seconds
+
+Results Summary
+Written eNewick String to output.tree
+Output eNewick String Short: 
+(BHV5,((K22,(SM023,(MN2)#H1)),(216_II,(#H1,((C36_876_459,(MN3)#H2),(Cooper,#H2))))))root;
+
+

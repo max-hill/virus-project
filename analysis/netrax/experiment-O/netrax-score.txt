@@ -1,0 +1,22 @@
+Initial, given network:
+((BHV5:0.078547)#1:0.235641::0.865969,(((#1:1e-06::0.134031,(216_II:0.00157168)#2:0.000409057::0.265854):0.00311131,(#2:1e-06::0.734146,((Cooper:0.00128361,((MN2:0.000278437)#0:1e-06::0.190984,MN3:0.000346493):0.000232622):8.87697e-05,C36_876_459:0.00091358):0.00178583):0.000966424):0.00335019,(K22:0.00263354,(#0:0.000278437::0.809016,SM023:0.000569795):0.00148297):0.00256311):1.97551e-05);
+Initial (before brlen and reticulation opt) BIC Score: 522873.2206
+Initial (before brlen and reticulation opt) loglikelihood: -260313.2238
+optimizing model, reticulation probs, and branch lengths (slow mode)...
+BIC score after model optimization: 522835.9105
+BIC score after updating reticulation probs: 522822.4806
+BIC score after branch length optimization: 522428.3144
+BIC score after model optimization: 522368.282
+BIC score after updating reticulation probs: 522368.282
+BIC score after branch length optimization: 522327.5964
+improved bic: 522327.5964
+BIC score after updating reticulation probs: 522327.5964
+Network after optimization of brlens and reticulation probs:
+((BHV5:0.106079)#1:0.235641::0.480805,(((#1:1e-06::0.519195,(216_II:0.00177016)#2:0.000409057::0.265854):0.00311131,(#2:1e-06::0.734146,((Cooper:0.0012707,((MN2:0.000589918)#0:1e-06::0.190984,MN3:7.78905e-05):0.00038428):0.000120135,C36_876_459:0.000851478):0.00105284):0.00281902):0.00286969,(K22:0.00247208,(#0:0.000278437::0.809016,SM023:0.000451263):0.00198323):0.00180401):1.97551e-05);
+Number of reticulations: 3
+BIC Score: 522327.5964
+Loglikelihood: -260040.4117
+AIC Score: 520402.8233
+AICc Score: 520402.8687
+
+Total runtime: 2 seconds.

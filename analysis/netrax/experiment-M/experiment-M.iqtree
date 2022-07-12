@@ -1,0 +1,152 @@
+IQ-TREE 2.1.3 COVID-edition built Apr 21 2021
+
+Input file name: experiment-M-dataset.fasta
+Type of analysis: ModelFinder + tree reconstruction
+Random seed number: 418353
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 7 sequences with 144551 nucleotide sites
+Number of constant sites: 142421 (= 98.5265% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 142421 (= 98.5265% of all sites)
+Number of parsimony informative sites: 1289
+Number of distinct site patterns: 529
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: HKY+F+I
+
+List of models sorted by BIC scores: 
+
+Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+HKY+F+I         -192559.586  385151.171 -   0.0374  385151.175 -   0.0374  385309.273 +    0.889
+K3Pu+F+I        -192556.433  385146.866 +    0.322  385146.870 +    0.322  385314.850 +   0.0547
+TPM3+F+I        -192557.522  385149.044 +    0.108  385149.048 +    0.108  385317.027 -   0.0184
+TPM3u+F+I       -192557.529  385149.057 +    0.108  385149.061 +    0.108  385317.041 -   0.0183
+TPM2u+F+I       -192558.358  385150.716 -   0.0469  385150.721 -   0.0469  385318.700 -  0.00798
+TPM2+F+I        -192558.358  385150.716 -   0.0469  385150.721 -   0.0469  385318.700 -  0.00798
+TN+F+I          -192559.158  385152.316 -   0.0211  385152.321 -   0.0211  385320.300 -  0.00358
+TIM+F+I         -192556.247  385148.493 +    0.143  385148.498 +    0.143  385326.358 - 0.000173
+TIM3+F+I        -192557.098  385150.196 +   0.0609  385150.201 +   0.0608  385328.061 -  7.4e-05
+TIM2+F+I        -192557.895  385151.790 -   0.0274  385151.795 -   0.0274  385329.655 - 3.33e-05
+TVM+F+I         -192556.252  385150.504 +   0.0522  385150.509 +   0.0522  385338.251 - 4.53e-07
+GTR+F+I         -192555.922  385151.843 -   0.0267  385151.849 -   0.0267  385349.471 - 1.66e-09
+GTR+F+R3        -192558.130  385162.261 - 0.000146  385162.269 - 0.000146  385389.533 - 3.32e-18
+GTR+F+R4        -192555.934  385161.869 - 0.000178  385161.878 - 0.000177  385408.903 - 2.06e-22
+GTR+F+I+G4      -192639.554  385321.109 - 4.69e-39  385321.115 - 4.69e-39  385528.618 - 2.08e-48
+GTR+F+G4        -192809.905  385659.811 - 1.33e-112  385659.817 - 1.33e-112  385857.439 - 8.25e-120
+GTR+F+R2        -192873.134  385788.268 - 1.69e-140  385788.274 - 1.69e-140  385995.777 - 7.52e-150
+GTR+F           -193145.700  386329.400 - 5.29e-258  386329.405 - 5.29e-258  386517.147 - 4.6e-263
+F81+F+I         -193738.274  387506.549 -        0  387506.552 -        0  387654.770 -        0
+TVMe+I          -207214.346  414460.692 -        0  414460.696 -        0  414618.794 -        0
+TIM2e+I         -207224.823  414479.646 -        0  414479.649 -        0  414627.867 -        0
+SYM+I           -207214.147  414462.293 -        0  414462.298 -        0  414630.277 -        0
+K2P+I           -207238.784  414503.567 -        0  414503.570 -        0  414632.025 -        0
+TIM3e+I         -207229.330  414488.659 -        0  414488.663 -        0  414636.880 -        0
+K3P+I           -207235.292  414498.585 -        0  414498.588 -        0  414636.924 -        0
+TNe+I           -207238.700  414505.400 -        0  414505.403 -        0  414643.739 -        0
+TIMe+I          -207235.208  414500.415 -        0  414500.419 -        0  414648.636 -        0
+JC+I            -208161.179  416346.358 -        0  416346.360 -        0  416464.935 -        0
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: HKY+F+I
+
+Rate parameter R:
+
+  A-C: 1.0000
+  A-G: 8.9471
+  A-T: 1.0000
+  C-G: 1.0000
+  C-T: 8.9471
+  G-T: 1.0000
+
+State frequencies: (empirical counts from alignment)
+
+  pi(A) = 0.1348
+  pi(C) = 0.3592
+  pi(G) = 0.3659
+  pi(T) = 0.1401
+
+Rate matrix Q:
+
+  A    -1.653    0.1573     1.434   0.06138
+  C   0.05903   -0.7685    0.1603    0.5492
+  G    0.5281    0.1573   -0.7468   0.06138
+  T   0.05903     1.408    0.1603    -1.627
+
+Model of rate heterogeneity: Invar
+Proportion of invariable sites: 0.95
+
+ Category  Relative_rate  Proportion
+  0         0              0.95
+  1         20             0.05
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -192559.5856 (s.e. 394.3569)
+Unconstrained log-likelihood (without tree): -259674.4546
+Number of free parameters (#branches + #model parameters): 16
+Akaike information criterion (AIC) score: 385151.1712
+Corrected Akaike information criterion (AICc) score: 385151.1750
+Bayesian information criterion (BIC) score: 385309.2734
+
+Total tree length (sum of branch lengths): 0.0204
+Sum of internal branch lengths: 0.0120 (58.8923% of tree length)
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Cooper' is drawn at root
+
++---Cooper
+|
+|  +--MN3
++--|
+|  |                                         +----------------K22
+|  |                            +------------|
+|  |                            |            +--SM023
+|  +----------------------------|
+|                               +--MN2
+|
+|  +--C14_CSU_034_10640
++--|
+   +--C36_876_459
+
+Tree in newick format:
+
+(Cooper:0.0013589236,(MN3:0.0003141782,((K22:0.0046421346,SM023:0.0008454556):0.0035780011,MN2:0.0000770787):0.0079779633):0.0001554591,(C14_CSU_034_10640:0.0003798011,C36_876_459:0.0007552795):0.0002838220);
+
+TIME STAMP
+----------
+
+Date and time: Tue Jun 21 13:19:32 2022
+Total CPU time used: 1.046402 seconds (0h:0m:1s)
+Total wall-clock time used: 0.21480989 seconds (0h:0m:0s)
+

@@ -1,0 +1,20 @@
+Initial, given network:
+(((((BHV5:0.0528863)#0:0.000115539::0.741583)#3:0.112542::0.869796)#1:0.112749::0.206589,(#0:1e-06::0.258417,(((((216_II:0.00123791)#2:0.000115539::0.742938,(C33:0.000197639,(((Cooper:0.000467009)#5:1e-06::0.645117,(#5:0.000467009::0.354883,C46:1.4107e-05):6.47445e-06):9.19711e-05,Titanium_IBR_MLV_vaccine:7.72428e-05):0.000147671):0.000520141):0.00150863)#4:0.000454828::0.742527,(#4:0.0017668::0.257473,(#3:1e-06::0.130204,#2:1e-06::0.257062):0.00562838):0.00445097):0.000814169,((B589:0.00268693)#6:0.00151555::0.399326,(#6:1e-06::0.600674,SP1777:0.00221189):1e-06):0.00252862):0.0526553):0.000292345):0.000292345,#1:0.002282::0.793411);
+Initial (before brlen and reticulation opt) BIC Score: 518242.1641
+Initial (before brlen and reticulation opt) loglikelihood: -257886.0897
+optimizing model, reticulation probs, and branch lengths (slow mode)...
+BIC score after model optimization: 518221.2239
+BIC score after updating reticulation probs: 518218.7087
+BIC score after branch length optimization: 518082.6628
+BIC score after model optimization: 518054.3274
+BIC score after updating reticulation probs: 518053.8835
+BIC score after branch length optimization: 518037.4742
+Network after optimization of brlens and reticulation probs:
+(((((BHV5:0.069313)#0:0.000115539::0.599897)#3:0.112542::0.782816)#1:0.112749::0.28593,(#0:1e-06::0.400103,(((((216_II:0.00154094)#2:0.000115539::0.742938,(C33:0.000185017,(((Cooper:0.000479991)#5:1e-06::0.648666,(#5:0.000512326::0.351334,C46:1.16974e-05):1.34127e-05):0.000105836,Titanium_IBR_MLV_vaccine:7.99171e-05):0.00015416):0.00101837):0.00171109)#4:0.000454828::0.782555,(#4:0.0017668::0.217445,(#3:1e-06::0.217184,#2:1e-06::0.257062):0.00562838):0.00445097):0.000952123,((B589:0.00224116)#6:0.00151555::0.397319,(#6:1e-06::0.602681,SP1777:0.00229367):0.000261403):0.00245754):0.0528094):0.000292345):0.000292345,#1:0.002282::0.71407);
+Number of reticulations: 7
+BIC Score: 518037.4742
+Loglikelihood: -257783.7448
+AIC Score: 515921.4895
+AICc Score: 515921.5444
+
+Total runtime: 21 seconds.
