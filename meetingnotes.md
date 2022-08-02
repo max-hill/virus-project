@@ -1,6 +1,67 @@
+# 2022-07-07
+
+2 datasets: "Titanium" and "K22"
+- Each has 8 taxa - BHV5, 216_II, and taxa from BHV1.1 and BHV1.2. 
+- "Titanium": BHV5, 216_II, {C33, C46, Ti, Cooper}, {B589, SP1777} 
+- "K22": BHV5, 216_II, {Cooper, MN3, C36}, {K22, MN2, SM023}
+
+Partition: 14 consecutive blocks of 10,000 bp, the 15th block has 4551 bp.
+
+Methods tried out:
+
+1. NetRAX
+- Ran NetRAX 2 times for "Titanium"
+  - Both runs completed in about 12 mins and detected 7-8 reticulations. 
+  - The output networks were visually very similar.
+- Ran NetRAX 3 times for "K22"
+  - Run-1 completed in less than a minute
+  - Run-2 was terminated before completion after running for close to 8 hrs
+  - Run-3 was initialized using the final state of Run-2, and completed in 10
+  minutes.
+  - Run-1 detected 3 reticulations, Run-2/3 detected 7 reticulations.
+2. TriloNet
+- TriloNet recovered (essentially) the same network as NetRAX for "Titanium".
+- For "K22" the networks recovered by TriloNet and NetRAX are less easy to
+compare.
+3. SnappNet + PhyloNet
+- SnappNet runs much slower when BHV5 (outgroup) is included, and an
+"outOfMemory" error occurs after a large number of MCMC iterations.
+- PhyloNet offers multiple ways to summarize networks (displayed tree,
+backbone tree, maximum networks).
+- For "Titanium", there are 2 max-displayed trees and 2 backbone networks with
+51% support, and there is 1 max network with 25% support.
+4. Bacter
+- Fast to run. Its outputs have many more reticulations than the other methods.
+- The authors recommend using the ACGAnnotator package in BEAST to summarize the
+MCMC output. PhyloNet can't be used directly (some amount of string formatting
+has to be done).
+5. RF-Net + TreeTime
+- TreeTime was used to root the gene trees. The method used to root the gene
+trees assumes a strict molecular clock. The method failed to root some gene
+trees.
+- The average (across gene trees) embedding cost is much lower when 15 genes
+are used than when 58 genes are used. 
+- For "Titanium", if 58 genes (2,500 bp per gene) are used, then a reticulation
+from BHV5 to 216_II is detected.
+- For "K22", if 15 genes (10,000 bp per gene) are used, then a reticulation
+from 216_II to K22 is detected.
+- If we look at which genes "support" the above 2 reticulations, then site
+positions match with the bootscan figure provided by Aaron. 
+
+Next steps:
+- Try NetRAX with restricted number of reticulations.
+- Look more closely at the IQ-tree fitted gene trees given the partitions used.
+- Add K22 to "Titanium" since we have a good idea of the topology of "Titanium".
+Try adding more taxa to "Titanium" to build on the current result for that set.
+- Figure out "outOfMemory" issue for SnappNet as well as the effect on runtime
+of adding BHV5. For every set of taxa, consider running SnappNet with and
+without BHV5 (for runtime considerations).
+- Try running methods on HSV-1, HSV2 dataset with more known recombinants to
+test current understanding of how these methods work?
+
 # 2022-06-02
 
-NexRAX
+NetRAX
 - 14 taxa, partition size 1500: didn't finish in a week.
   best inferred until then: 11 reticulations, many ancestral to BHV5
 - 5 taxa, partition size 1500: best has 6 reticulations.
@@ -11,7 +72,7 @@ NexRAX
   again: one reticulation explains rate variation
 - same 8 taxa, 500 bp: 11 minutes
 
-SbappNet
+SnappNet
 data set 3, 7 taxa: 2 days
 need tools to summarize the posterior distribution programmatically (not manually)
 2 networks sampled from the posterior: don't detect 216 as a hybrid between
