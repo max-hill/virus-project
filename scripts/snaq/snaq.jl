@@ -11,7 +11,7 @@ assumed structure of the working directory from which to run the script:
 │   ├── ...
 │   └── scripts
 │       ├── ...
-│       ├── snaq.jl
+│       ├── snaq
 │       └── ...
 ├── osf
 │   ├── genetrees
@@ -219,5 +219,128 @@ plot(net[2], showedgelength=true, showgamma=true, xlim=[0.2,11])
 plot(net[3], showedgelength=true, showgamma=true, xlim=[0.2,12])
 if taxonset == "set1c"
   plot(net[4], showedgelength=true, showgamma=true, xlim=[0.2,13])
+end
+R"dev.off"()
+
+#= -------- bootstrap with h=1 ------------------
+- not h=2 because of rooting issues, and for simplicity of interpretation
+- on franklin03 to paralellize the runs, using tmux & stashticket to log out:
+
+ssh franklin03.stat.wisc.edu
+top # checking for no other users / big processes running
+stashticket
+tmux new-session -s bootsnaq
+ssh franklin03
+cd private/concordance/herpesvirus
+
+
+from SNPs: done 2022-08-26/27.
+failed when giving multiple processors to julia with `julia --project -p 30`
+because ...wtf?... first bootstrap rep: all good.
+second bootstrap rep: error saying "cannot serialize a running Task"
+instead: paralellize the bootstrap reps, each with a single processor: see
+`snaq_bootstrap.jl` to do a single bootstrap rep, and
+`snaq_bootstrap_submit.sh` to run 8 reps serially
+
+below: code to concatenate the 100 bootstrap reps and summarize them.
+=#
+
+using PhyloNetworks, CSV, DataFrames
+using PhyloPlots, RCall
+outdir_root = "gitrepo/analysis/snaq"
+
+function rootaboveoutgroup!(net::HybridNetwork, outgroup)
+  good = true
+  # direct rooting at the outgroup is possible, or
+  # the direct parent of the outgroup is a hybrid
+  try
+    rootatnode!(net, outgroup, verbose=false)
+  catch e1
+    isa(e1, PhyloNetworks.RootMismatch) || rethrow(e1)
+    directEdges!(net)
+    oi = findfirst(n -> n.name == outgroup, net.node)
+    pa = PhyloNetworks.getParent(net.node[oi].edge[1])
+    for ntrials in eachindex(net.node)
+      pa.hybrid && break
+      good = false
+      oi = findfirst(n -> n === pa, net.node)
+      pa = PhyloNetworks.getMajorParent(net.node[oi])
+    end
+    pae = PhyloNetworks.getMajorParentEdge(pa)
+    try
+      rootonedge!(net, pae, verbose=false)
+    catch e2
+      isa(e2, PhyloNetworks.RootMismatch) || rethrow(e2)
+      directEdges!(net)
+      msg = "can't root above $outgroup's 1st ancestral hybrid: the major edge is still below a reticulation"
+      throw(PhyloNetworks.RootMismatch(msg)) # e2.msg * msg
+    end
+  end
+  msg = (good ? "" : "can't root above $outgroup directly: its parent isn't a hybrid")
+  return(msg)
+end
+
+R"pdf"("$outdir_root/snaq_bootstrap.pdf", height=7.6, width=9);
+R"par"(mar=[.1,.1,.1,.1], oma=[0,0,1,0]); R"layout"([1 2; 3 4])
+for datainput in ("SNPs", "genetrees")
+  for taxonset in ("set1b","set1c")
+    # concatenate the 100 bootstrap networks into a single file
+    outdir = joinpath(outdir_root,
+                  (datainput == "genetrees" ? "fromIQtrees" : "fromSNPs"),
+                  taxonset)
+    infiles = joinpath.(outdir, "bootsnaq_" .* lpad.(0:99, 2, "0") .* ".out")
+    bootfile = joinpath(outdir, "bootsnaq_all.out")
+    if !isfile(bootfile) || filesize(bootfile)==0
+      @info "write $bootfile"
+      open(bootfile, "w") do bfh
+        for infile in infiles
+          bnet = readlines(infile, keep=true)[1] # 1 line only: 1 network
+          write(bfh, bnet)
+        end
+      end
+    end
+    # read best network with h=1
+    net1 = readMultiTopology(joinpath(outdir,"snaq_net_0123.out"))[2] # 2nd line: h=1
+    rootatnode!(net1, "BHV5")
+    rotateindices = (datainput == "SNPs" ?
+                      (taxonset == "set1b" ? [-4,-6,-5] : [-7,-5]) :
+                      (taxonset == "set1b" ? [-6,-5,-7] : [-6,-7,-8]))
+    for i in rotateindices rotate!(net1,i); end
+    # read & root bootstrap networks
+    bootnet = readMultiTopology(bootfile)
+    problematicreps = Int[]
+    for (i,n) in enumerate(bootnet)
+      try
+        msg = rootaboveoutgroup!(n, "BHV5")
+        msg == "" || push!(problematicreps, i)
+      catch e
+        isa(e, PhyloNetworks.RootMismatch) || rethrow(e)
+        push!(problematicreps, i)
+        @error "from $datainput, $taxonset: can't reroot bootstrap rep $i\n(e.msg)"
+      end
+    end
+    isempty(problematicreps) ||
+      @error "from $datainput, $taxonset: can't reroot bootstrap net for $(length(problematicreps)) reps: $(join(problematicreps,','))"
+    # SNPs set1b: rep 19. set1c: none
+    # genetrees set1b: 10 reps (6,9,16,17,23,31,36,59,74,83). set1c: 9 reps (3,6,28,31,46,82,90,97,98)
+    # calculate bootstrap support for major tree in best network
+    BSe_tree, tree1 = treeEdgesBootstrap(bootnet,net1);
+    plot(net1, edgelabel=BSe_tree)
+    R"mtext"("support for major tree edges", side=1, line=-1.5, cex=0.8)
+    BSn, BSe, BSc, BSgam, BSedgenum = hybridBootstrapSupport(bootnet, net1);
+    plot(net1, edgelabel=BSe[:,[:edge,:BS_hybrid_edge]],
+          nodelabel=BSn[:,[:hybridnode,:BS_hybrid_samesisters]],
+          nodelabelcolor="red4");
+    R"mtext"("support for hybrid edges & full reticulation", side=1, line=-1.5, cex=0.8)
+    R"mtext"("from $datainput, sets 1b (top) and 1c (bottom)", side=3, line=-1, outer=true)
+    if datainput == "genetrees" && taxonset == "set1c"
+      for i in [3,6,29,32]
+        plot(bootnet[i])
+        R"mtext"("bootstrap replicate $i", side=1, line=-1, cex=0.8)
+      end
+      R"mtext"("""example bootstrap: often (~10%) the direction of gene flow is reversed
+                  (from gene trees, $taxonset)""", side=3, outer=true, line=-2)
+    end
+  end
 end
 R"dev.off"()
