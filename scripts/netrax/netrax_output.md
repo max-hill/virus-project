@@ -28,7 +28,7 @@ To begin with, we might want to examine each run (which corresponds to one of th
 We used 15 start networks, and so we have output for 15 runs (run-0, run-1, ..., run-14) in a single file.
 
 The output for each run tracks the sequence of move types explored and the set of candidates (and their respective scores) evaluated for each move. At the end of each run, a breakdown of how many moves of each type was taken is reported (keyword: "statistics"). We use this to extract the line ranges associated with each run.
-```
+```shell
 $ # Breakdown of accepted moves
 $ grep -i "statistics" netrax-shell-log.txt -n -A 4 |
 > head -5
@@ -38,7 +38,7 @@ $ grep -i "statistics" netrax-shell-log.txt -n -A 4 |
 1899-ArcRemovalMove: 0
 1900-ArcInsertionMove: 8
 
-$ # Line numbers for demarcation
+$ # Line no.s for demarcation
 $ grep -i "statistics" netrax-shell-log.txt -n |
 > grep -oE "[0-9]+" |
 > head -2
@@ -65,7 +65,7 @@ $ sed -ne "1,1896p" netrax-shell-log.txt |
 ```
 
 ## View no. of reticulations, log-likelihood and BIC for the best network for all runs.
-```
+```shell
 $ grep -i "Best inferred network has" netrax-shell-log.txt |
 > head -2
 Best inferred network has 8 reticulations, logl = -257743.2999, bic = 518012.4033
@@ -79,7 +79,7 @@ $ grep -i "Best inferred network has" netrax-shell-log.txt |
 ```
 
 ## Extract log-likelihoods and BICs for best networks (of each run)
-```
+```shell
 $ # log-likelihoods
 $ # sed to extract odd lines
 $ grep -i "Best inferred network has" netrax-shell-log.txt |
@@ -100,7 +100,7 @@ $ grep -i "Best inferred network has" netrax-shell-log.txt |
 ```
 
 ## Extract BIC trajectory for a single run
-```
+```shell
 $ sed -ne "1,1896p" netrax-shell-log.txt |
 > grep -i "improved global" -n |
 > grep -oE "[0-9]+\.[0-9]+"
@@ -114,4 +114,39 @@ $ sed -ne "1,1896p" netrax-shell-log.txt |
 > | wc -l
 50
 ```
-Note that we have 2 more BICs (50) than number of moves taken (48). This is because the BIC is computed for the best tree (0 reticulations) before any rearrangement move is made, and also an extra time for the best network (8 reticulations) using a more intensive optimization procedure ("slow mode").
+Note that we have 2 more BICs (50) than no. of moves taken (48). This is because the BIC is computed for the best tree (0 reticulations) before any rearrangement move is made, and also an extra time for the best network (8 reticulations) using a more intensive optimization procedure ("slow mode").
+
+### Example:
+
+Suppose we want to compare the BICs after the nth and (n+1)th arc insertion moves for the first run. We extract the BIC values calculated after arc insertion moves and pipe them to `bic.txt`.
+
+```shell
+$ sed -ne "1,1896p" netrax-shell-log.txt |
+> grep -i "took arcinsertionmove" -A 1 |
+> grep -oE "[0-9]+\.[0-9]+" > bic.txt
+```
+
+These values can be read, say in *Julia*, and processed using array operations. As we can see, increasing the no. of reticulations yields somewhat diminishing marginal improvement in BIC.
+
+```shell
+julia> bic = map(x->parse(Float64,x),bic.txt)
+8-element Array{Float64,1}:
+ 519098.3824
+ 518734.6868
+ 518633.4823
+ 518339.0693
+ 518157.1892
+ 518112.4854
+ 518073.0673
+ 518012.5455
+
+julia> bic[2:8]-bic[1:7]
+7-element Array{Float64,1}:
+ -363.6955999999773
+ -101.20450000005076
+ -294.41300000000047
+ -181.8800999999512
+  -44.70380000001751
+  -39.41810000000987
+  -60.52179999998771
+```
