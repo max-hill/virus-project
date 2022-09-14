@@ -1,3 +1,77 @@
+# 2022-09-14
+
+recap of taxon sets:
+1. all BHV-1.1, C33 as outgroup
+2. MN3, K22, MN2, SM023, all BHV-1.2 except for MN3 which is the outgroup
+3. BHV5, 216-II, MN10, C44, set(1), set(2)
+
+1a. B589
+2a.
+
+1b.
+2b.
+1c. K22 + 1b
+
+We are more confident in the relationships in 1b than 2b,
+so add taxa from 2b to 1b.
+
+recap of partitions
+- 14 consecutive blobs of 10,000. 15th block has 4551 bp
+- 57 consecutive blobs of 2500 bp. 58th block
+- 96 consecutive blobs of
+
+observations / what we know from data with Titanium
+- stable relationships: BHV 1.1 clade (C33,C46,Titanium,Cooper)
+  and only 1 reticulation in that clade
+- elsewhere: some recombinations could reflect rate variation only.
+
+questions:
+- how are the placement of reticulations affected by missing lineages?
+- can we pick out reticulations that we understand well?
+- can we reliably identify inferred reticulations with are the results
+  of rate variation rather than recombination?
+- in what ways should a reticulation edge be special vs treated similarly
+  to other edges?
+- what are plausible biological interpretations to what we are seeing?
+  not 100% sure about relationships between certain features in the graphs
+  and the correct correponding biological events.
+
+in simplex: mutation rate ~ 5 x 10^-7 or 5 x 10^-8
+in adenovirus, E3 region contains almost all genes that blocks
+immune response: hyper variable. same mutation rate, but selection on top.
+
+CB: did you try shifting the window boundaries?
+AK: in repeat regions: from illumina sequencing, the alignment could be
+    low-quality with many gaps. Gaps treated as missing values,
+    and sequences may be "over-aligned" in regions with many gaps,
+    so edge lengths could be underestimated in these regions.
+CB: map windows to reticulations.
+
+recombination more frequent in regions with higher CG content.
+HSV: ~ 68% overall, but ~ 80% in repeat region.
+BHV: ~ 75% GC
+Block the repeat region?
+genome structure:
+LTR (long terminal repeat) ... LTR+STR (short terminal repeat) ...(~13kb) STR
+LTR: long in HSV, but super short in BHV (<200bp)
+STR: short in HSV but much longer in BHV (~15kb)
+
+AK: will confirm that the first LTR and last STR were removed.
+CB: add virus isolates to reduce ghost lineages in the networks
+
+possible way forward
+step 1: classify reticulations theoretically
+step 2: simulate under biological known regimes (ghost lineages,
+  distant root, rate variation etc.) to understand what kinds of reticulations are then inferred by various software
+step 3: use conculsions from steps 1 and 2 in interpret our BHV results
+
+paper title: "Application of XYZ to bovine herpes genome data sets"
+where XYZ summarizes the class of network methods we've used.
+
+conclusions:
+- what we learned about BHV
+- cautionary tale about methods
+
 # 2022-08-11
 
 to do next:
