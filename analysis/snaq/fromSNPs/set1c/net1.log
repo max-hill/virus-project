@@ -1,0 +1,446 @@
+optimization of topology, BL and inheritance probabilities using:
+ hmax = 1,
+ tolerance parameters: ftolRel=1.0e-6, ftolAbs=1.0e-6,
+                       xtolAbs=0.001, xtolRel=0.01.
+ max number of failed proposals = 75, liktolAbs = 1.0e-6.
+rootname for files: gitrepo/analysis/snaq/fromSNPs/set1c/net1
+BEGIN: 20 runs on starting tree (C46,Cooper,(Titanium_IBR_MLV_vaccine,((((B589,(SP1777,K22):0.03805142750886124):0.7525156094505974,BHV5):1.001006203184506,216_II):2.6033328385064194,C33):0.7778474559861493):0.45233231951170016);
+
+main seed 96704
+seed: 96704 for run 1, 2022-08-17 9:40:38.445
+
+BEGIN SNaQ for run 1, seed 96704 and hmax 1
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 235 (failures: 75) with -loglik=400.83826 and ht_min=[0.32325, 3.48116, 0.03805, 0.75255, 1.001, 1.37272, 1.40331, 1.72439, 1.28158, 0.00028]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 5		 5		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 65		 65		 4	 |	 0		 0		 --
+mvtarget	 62		 62		 2	 |	 0		 0		 --
+chdir		 30		 30		 3	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 73		 70		 2	 |	 0		 0		 --
+Total		 235		 232		 12	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 0.0		 0.0
+(C46,(Titanium_IBR_MLV_vaccine,(C33,((216_II,(((SP1777,K22):0.038053206697165644,B589):0.7525533258344476,BHV5):1.0009980114590467):1.724393046088915,#H10:0.00027983422911870455::0.32324531208502977):1.3727218258047136):1.4033140408701268):3.481157068439687,(Cooper)#H10:1.281578875121432::0.6767546879149702);
+---------------------
+seed: 7628 for run 2, 2022-08-17 9:48:2.246
+
+BEGIN SNaQ for run 2, seed 7628 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 113 (failures: 75) with -loglik=400.83826 and ht_min=[0.32324, 3.48104, 1.4033, 0.03806, 0.75255, 1.001, 3.87775, 1.72437, 1.37271, 4.83573]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 3		 2		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 31		 31		 3	 |	 0		 0		 --
+mvtarget	 30		 30		 0	 |	 0		 0		 --
+chdir		 13		 13		 1	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 36		 35		 2	 |	 2		 2		 --
+Total		 113		 111		 7	 |	 2		 2		 2
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 1.0		 1.0
+(((C33,(#H10:3.8777474576539337::0.32324429850760855,((BHV5,((SP1777,K22):0.03806087291604827,B589):0.7525485384136579):1.0009962197111044,216_II):1.7243723655884147):1.372708667711485):1.4032998979785902,Titanium_IBR_MLV_vaccine):3.4810412273050737,C46,(Cooper)#H10:4.835729104737557::0.6767557014923915);
+---------------------
+seed: 84388 for run 3, 2022-08-17 9:52:52.866
+
+BEGIN SNaQ for run 3, seed 84388 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 179 (failures: 75) with -loglik=575.66745 and ht_min=[0.31349, 0.03864, 0.2883, 2.53589, 2.29421, 0.77777, 0.45233, 0.55838]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 64		 64		 1	 |	 0		 0		 --
+mvtarget	 51		 51		 0	 |	 0		 0		 --
+chdir		 16		 16		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 47		 40		 3	 |	 0		 0		 --
+Total		 179		 172		 5	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.0	 |	 -- 		 0.0		 0.0
+(C46,Cooper,(Titanium_IBR_MLV_vaccine,(C33,((((SP1777,K22):0.038644912746837665,B589):0.28830295917118415,(BHV5)#H10:::0.6865095144192785):2.2942129080337366,(216_II,#H10:::0.31349048558072146):0.5583795491869952):2.5358929771083947):0.7777720596801199):0.45232985756757854);
+---------------------
+seed: 60224 for run 4, 2022-08-17 9:59:25.727
+
+BEGIN SNaQ for run 4, seed 60224 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 90 (failures: 75) with -loglik=400.83826 and ht_min=[0.32324, 1.37273, 0.03805, 0.75255, 1.001, 1.40331, 3.48116, 1.72438]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 22		 22		 2	 |	 0		 0		 --
+mvtarget	 25		 25		 0	 |	 0		 0		 --
+chdir		 8		 8		 1	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 34		 31		 1	 |	 3		 3		 --
+Total		 90		 87		 5	 |	 3		 3		 2
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 1.0		 0.7
+(C46,(Titanium_IBR_MLV_vaccine,(C33,((((B589,(SP1777,K22):0.038050642258534384):0.7525523328057807,BHV5):1.001001186080114,216_II):1.7243830502695958,#H10:::0.3232441053924242):1.372730729773111):1.4033063940483328):3.481164093807258,(Cooper)#H10:::0.6767558946075758);
+---------------------
+seed: 32665 for run 5, 2022-08-17 10:3:51.867
+
+BEGIN SNaQ for run 5, seed 32665 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 108 (failures: 75) with -loglik=658.87583 and ht_min=[0.02413, 0.47062, 0.03804, 0.75248, 1.00108, 2.57269, 8.94759, 0.83598]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 29		 29		 2	 |	 0		 0		 --
+mvtarget	 34		 34		 1	 |	 0		 0		 --
+chdir		 8		 8		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 36		 28		 4	 |	 0		 0		 --
+Total		 108		 100		 8	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 0.0		 0.0
+((Titanium_IBR_MLV_vaccine,((216_II,(((K22,SP1777):0.038043110035611345,B589):0.7524772320619286,BHV5):1.00108231860785):2.5726940078486145,(C33)#H10:::0.9758691117148717):0.8359839620071516):0.47061866885768533,Cooper,(C46,#H10:::0.02413088828512828):8.94758981398281);
+---------------------
+seed: 9 for run 6, 2022-08-17 10:7:10.605
+
+BEGIN SNaQ for run 6, seed 9 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 175 (failures: 75) with -loglik=400.83826 and ht_min=[0.32324, 1.72439, 0.03805, 0.75255, 1.001, 1.40331, 3.48116, 1.37272]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 2		 2		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 49		 49		 9	 |	 0		 0		 --
+mvtarget	 57		 57		 0	 |	 0		 0		 --
+chdir		 18		 18		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 49		 47		 4	 |	 0		 0		 --
+Total		 175		 173		 14	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 0.0		 0.0
+(C46,(Titanium_IBR_MLV_vaccine,(C33,(((((SP1777,K22):0.03805091003172024,B589):0.7525522390632342,BHV5):1.0010004097019267,216_II):1.7243885847665665,#H10:::0.323244279101906):1.37272026956404):1.4033080343924291):3.481162367067672,(Cooper)#H10:::0.676755720898094);
+---------------------
+seed: 8650 for run 7, 2022-08-17 10:13:22.735
+
+BEGIN SNaQ for run 7, seed 8650 and hmax 1
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 116 (failures: 75) with -loglik=400.83826 and ht_min=[0.32324, 3.48112, 0.03805, 0.75255, 1.72438, 1.001, 1.4033, 1.37273]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 34		 34		 3	 |	 0		 0		 --
+mvtarget	 38		 38		 1	 |	 0		 0		 --
+chdir		 12		 12		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 31		 31		 2	 |	 0		 0		 --
+Total		 116		 116		 7	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 0.0		 0.0
+(C46,(Titanium_IBR_MLV_vaccine,(C33,(((((K22,SP1777):0.038050277725883645,B589):0.7525514080412601,BHV5):1.0010013631841241,216_II):1.7243837445796075,#H10:::0.3232434408771364):1.3727321794653184):1.4033032856123049):3.4811219587117455,(Cooper)#H10:::0.6767565591228636);
+---------------------
+seed: 31996 for run 8, 2022-08-17 10:18:33.74
+
+BEGIN SNaQ for run 8, seed 31996 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 175 (failures: 75) with -loglik=502.94257 and ht_min=[0.15996, 1.26976, 1.05613, 0.03808, 0.0, 3.36589, 1.22731, 0.75266]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 49		 49		 9	 |	 3		 3		 --
+mvtarget	 50		 50		 2	 |	 3		 3		 --
+chdir		 27		 27		 3	 |	 7		 7		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 48		 46		 3	 |	 6		 6		 --
+Total		 175		 173		 18	 |	 19		 19		 10
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 1.0		 0.5
+(C46,(Titanium_IBR_MLV_vaccine,(((BHV5,((SP1777,K22):0.03807888907095528,B589):0.7526584346742099):1.0561279086654167,(216_II,#H10:::0.15995792086817467):0.0):3.365890000497037,C33):1.227310040906583):1.2697598669533283,(Cooper)#H10:::0.8400420791318253);
+---------------------
+seed: 61890 for run 9, 2022-08-17 10:21:7.231
+
+BEGIN SNaQ for run 9, seed 61890 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 155 (failures: 75) with -loglik=400.83826 and ht_min=[0.32324, 3.48103, 1.4033, 0.03805, 0.75255, 1.72437, 1.37273, 1.001]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 50		 50		 7	 |	 1		 1		 --
+mvtarget	 40		 40		 3	 |	 1		 1		 --
+chdir		 23		 23		 2	 |	 2		 2		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 41		 37		 1	 |	 3		 3		 --
+Total		 155		 151		 14	 |	 7		 7		 5
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 1.0		 0.7
+((Titanium_IBR_MLV_vaccine,(C33,((216_II,(((SP1777,K22):0.03805131460652527,B589):0.7525527415259153,BHV5):1.0009997505032313):1.7243749064169887,#H10:::0.3232415034639069):1.3727331319321205):1.4033032479698957):3.481028706124186,C46,(Cooper)#H10:::0.6767584965360931);
+---------------------
+seed: 58054 for run 10, 2022-08-17 10:27:15.535
+
+BEGIN SNaQ for run 10, seed 58054 and hmax 1
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 107 (failures: 75) with -loglik=587.24928 and ht_min=[0.43384, 0.08125, 0.33616, 2.78123, 2.57584, 0.77781, 0.45233, 0.01331]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 3		 3		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 32		 32		 2	 |	 0		 0		 --
+mvtarget	 30		 30		 0	 |	 0		 0		 --
+chdir		 12		 12		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 30		 29		 1	 |	 0		 0		 --
+Total		 107		 106		 4	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.0	 |	 -- 		 0.0		 0.0
+(C46,Cooper,(Titanium_IBR_MLV_vaccine,(((216_II,#H10:::0.4338432349652792):0.3361575863059533,(SP1777,(K22,(B589,(BHV5)#H10:::0.5661567650347208):0.013311632421204544):0.08125196117459532):2.7812333424682123):2.5758447137948743,C33):0.7778055283380978):0.45233041557202447);
+---------------------
+seed: 55511 for run 11, 2022-08-17 10:30:46.689
+
+BEGIN SNaQ for run 11, seed 55511 and hmax 1
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 101 (failures: 75) with -loglik=400.83826 and ht_min=[0.32324, 1.37273, 0.03806, 0.75255, 1.001, 1.4033, 3.48116, 1.72438]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 31		 31		 2	 |	 0		 0		 --
+mvtarget	 29		 29		 1	 |	 0		 0		 --
+chdir		 10		 10		 1	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 30		 27		 2	 |	 0		 0		 --
+Total		 101		 98		 7	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 0.0		 0.0
+(C46,(Titanium_IBR_MLV_vaccine,(C33,(((((SP1777,K22):0.03805513698970658,B589):0.7525512189474689,BHV5):1.0010014022512794,216_II):1.7243840290826273,#H10:::0.32324363950593926):1.3727324446253544):1.4033021421855707):3.48115972894574,(Cooper)#H10:::0.6767563604940607);
+---------------------
+seed: 96312 for run 12, 2022-08-17 10:35:37.814
+
+BEGIN SNaQ for run 12, seed 96312 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 218 (failures: 75) with -loglik=629.89327 and ht_min=[0.13888, 1.13243, 0.03805, 0.75251, 1.00091, 10.0, 0.40563, 2.43006]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 63		 63		 11	 |	 0		 0		 --
+mvtarget	 69		 69		 1	 |	 0		 0		 --
+chdir		 16		 16		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 69		 62		 2	 |	 0		 0		 --
+Total		 218		 211		 15	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 0.0		 0.0
+(C46,Cooper,((Titanium_IBR_MLV_vaccine,#H10:::0.1388846925197784):10.0,(((BHV5,((K22,SP1777):0.038050914620754196,B589):0.752509537180514):1.0009090025481204,216_II):2.430059080545458,(C33)#H10:::0.8611153074802216):1.1324254280019317):0.40563244082074723);
+---------------------
+seed: 28684 for run 13, 2022-08-17 10:43:18.914
+
+BEGIN SNaQ for run 13, seed 28684 and hmax 1
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 104 (failures: 75) with -loglik=575.66745 and ht_min=[0.31349, 0.03865, 0.2883, 2.29421, 2.5359, 0.77777, 0.45233, 0.55836]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 2		 2		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 31		 31		 0	 |	 0		 0		 --
+mvtarget	 27		 27		 0	 |	 0		 0		 --
+chdir		 8		 8		 2	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 36		 33		 2	 |	 0		 0		 --
+Total		 104		 101		 5	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.0	 |	 -- 		 0.0		 0.0
+(C46,Cooper,(Titanium_IBR_MLV_vaccine,(C33,(((B589,(SP1777,K22):0.038646848361996805):0.2882977625444694,(BHV5)#H10:::0.6865068075204646):2.2942051583036047,(216_II,#H10:::0.3134931924795355):0.5583602822995467):2.535896312269781):0.7777677461403149):0.45232581503848923);
+---------------------
+seed: 66505 for run 14, 2022-08-17 10:47:20.701
+
+BEGIN SNaQ for run 14, seed 66505 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 116 (failures: 75) with -loglik=400.83826 and ht_min=[0.32324, 0.03805, 0.75255, 1.001, 1.37273, 1.40331, 3.4812, 1.7244]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 2		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 33		 33		 1	 |	 0		 0		 --
+mvtarget	 35		 35		 0	 |	 0		 0		 --
+chdir		 8		 8		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 38		 36		 2	 |	 1		 1		 --
+Total		 116		 113		 4	 |	 1		 1		 1
+Proportion	 -- 		 1.0		 0.0	 |	 -- 		 1.0		 1.0
+(C46,((C33,((216_II,(BHV5,(B589,(SP1777,K22):0.03805127121516646):0.7525479170053367):1.0010021955712878):1.7243999490013422,#H12:::0.32324220865779585):1.3727339816563768):1.4033066999217743,Titanium_IBR_MLV_vaccine):3.4811968018589887,(Cooper)#H12:::0.6767577913422042);
+---------------------
+seed: 80464 for run 15, 2022-08-17 10:52:55.672
+
+BEGIN SNaQ for run 15, seed 80464 and hmax 1
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 171 (failures: 75) with -loglik=400.83826 and ht_min=[0.32324, 3.48118, 1.72439, 0.03805, 0.75255, 1.001, 1.40331, 1.37272]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 3		 3		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 48		 48		 5	 |	 0		 0		 --
+mvtarget	 46		 46		 3	 |	 0		 0		 --
+chdir		 18		 18		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 56		 50		 2	 |	 1		 1		 --
+Total		 171		 165		 11	 |	 1		 1		 1
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 1.0		 1.0
+(C46,(Titanium_IBR_MLV_vaccine,(C33,((216_II,((B589,(SP1777,K22):0.03805089305322639):0.7525512564359773,BHV5):1.0010008900197105):1.7243894374770274,#H10:::0.3232445651133908):1.3727196930935321):1.4033062922691957):3.4811800307532508,(Cooper)#H10:::0.6767554348866092);
+---------------------
+seed: 41531 for run 16, 2022-08-17 10:58:37.709
+
+BEGIN SNaQ for run 16, seed 41531 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 82 (failures: 75) with -loglik=660.61825 and ht_min=[0.00333, 0.03076, 0.76124, 1.00869, 2.62161, 0.0, 0.45235, 0.77841]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 25		 25		 0	 |	 0		 0		 --
+mvtarget	 25		 25		 0	 |	 0		 0		 --
+chdir		 4		 4		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 27		 21		 0	 |	 0		 0		 --
+Total		 82		 76		 1	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.0	 |	 -- 		 0.0		 0.0
+(C46,Cooper,(Titanium_IBR_MLV_vaccine,((((((K22,B589):0.03076010160876306,(SP1777)#H10:::0.9966664933795):0.7612434682604606,BHV5):1.0086897873157152,216_II):2.6216123508557048,C33):0.0,#H10:::0.0033335066205000645):0.7784118909917647):0.4523526709417378);
+---------------------
+seed: 36626 for run 17, 2022-08-17 10:59:44.972
+
+BEGIN SNaQ for run 17, seed 36626 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 129 (failures: 75) with -loglik=437.36455 and ht_min=[0.23317, 1.22356, 0.03805, 0.75253, 1.00124, 2.35042, 1.79446, 10.0, 9.99834, 0.0]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 34		 34		 4	 |	 0		 0		 --
+mvtarget	 41		 41		 0	 |	 0		 0		 --
+chdir		 16		 16		 1	 |	 1		 1		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 37		 34		 1	 |	 0		 0		 --
+Total		 129		 126		 7	 |	 1		 1		 1
+Proportion	 -- 		 1.0		 0.1	 |	 -- 		 1.0		 1.0
+(C46,(Titanium_IBR_MLV_vaccine,(C33,(((BHV5,(B589,(SP1777,K22):0.038053779551734744):0.7525260770831987):1.001238060949301,216_II):2.350415914312512)#H10:9.998336551233972::0.7668284883164302):1.7944633735858906):1.223564697828411,(Cooper,#H10:0.0::0.23317151168356978):10.0);
+---------------------
+seed: 27555 for run 18, 2022-08-17 11:3:30.853
+
+BEGIN SNaQ for run 18, seed 27555 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 132 (failures: 75) with -loglik=400.83826 and ht_min=[0.32324, 3.48115, 0.03805, 0.75255, 1.001, 1.4033, 1.37272, 1.72439]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 1		 1		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 37		 37		 0	 |	 0		 0		 --
+mvtarget	 37		 37		 1	 |	 1		 1		 --
+chdir		 9		 9		 0	 |	 1		 1		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 48		 35		 2	 |	 1		 1		 --
+Total		 132		 119		 4	 |	 3		 3		 2
+Proportion	 -- 		 1.0		 0.0	 |	 -- 		 1.0		 0.7
+(C46,(Titanium_IBR_MLV_vaccine,(C33,((((B589,(SP1777,K22):0.03805276988096951):0.752551911490118,BHV5):1.001000961953095,216_II):1.724386684224329,#H10:::0.3232434135762092):1.3727213905030438):1.4033038999772887):3.481154869870344,(Cooper)#H10:::0.6767565864237908);
+---------------------
+seed: 56730 for run 19, 2022-08-17 11:8:40.657
+
+BEGIN SNaQ for run 19, seed 56730 and hmax 1
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 88 (failures: 75) with -loglik=503.05329 and ht_min=[0.15996, 0.03499, 0.75428, 1.05596, 3.3659, 1.22731, 1.26977, 0.0]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 4		 4		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 26		 26		 1	 |	 0		 0		 --
+mvtarget	 25		 25		 0	 |	 0		 0		 --
+chdir		 4		 4		 0	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 29		 28		 1	 |	 0		 0		 --
+Total		 88		 87		 3	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.0	 |	 -- 		 0.0		 0.0
+(C46,(Titanium_IBR_MLV_vaccine,((216_II,((((K22,B589):0.034985524519788154,SP1777):0.7542830469021076,BHV5):1.0559590681375977,#H10:::0.15995846540897318):0.0):3.365897980041627,C33):1.2273136347451858):1.269774018182239,(Cooper)#H10:::0.8400415345910268);
+---------------------
+seed: 43960 for run 20, 2022-08-17 11:11:36.909
+
+BEGIN SNaQ for run 20, seed 43960 and hmax 1 changed starting topology by NNI move
+
+Begins heuristic optimization of network------
+
+found best network, now we re-optimize branch lengths and gamma more precisely
+STOPPED by number of failures criteria
+END optTopLevel: found minimizer topology at step 150 (failures: 75) with -loglik=613.80917 and ht_min=[0.12237, 0.03814, 0.70631, 10.0, 2.4152, 0.77772, 0.45232, 1.45655]
+PERFORMANCE: total number of moves (proposed, successful, accepted) in general, and to fix gamma=0.0,t=0.0 cases
+	--------moves general--------				 --------moves gamma,t------	
+move	 Num.Proposed	 Num.Successful	 Num.Accepted	 | Num.Proposed	 Num.Successful	 Num.Accepted
+add		 2		 2		 1	 |	 NA 		 NA 		 NA 
+mvorigin	 42		 42		 1	 |	 0		 0		 --
+mvtarget	 48		 48		 0	 |	 0		 0		 --
+chdir		 11		 11		 2	 |	 0		 0		 --
+delete		 0		 0		 0	 |	 0		 0		 --
+nni		 47		 37		 2	 |	 0		 0		 --
+Total		 150		 140		 6	 |	 0		 0		 0
+Proportion	 -- 		 1.0		 0.0	 |	 -- 		 0.0		 0.0
+(C46,Cooper,(Titanium_IBR_MLV_vaccine,(C33,((((K22,SP1777):0.03814293049641153,B589):0.7063094498622514,(BHV5,#H10:::0.12237252511222069):10.0):1.4565504246552539,(216_II)#H10:::0.8776274748877793):2.4151957320277333):0.7777233648197122):0.45232224669846266);
+---------------------
+
+2022-08-17 11:15:38.518
+MaxNet is (C46,(Titanium_IBR_MLV_vaccine,(C33,(((((SP1777,K22):0.03805091003172024,B589):0.7525522390632342,BHV5):1.0010004097019267,216_II):1.7243885847665665,#H10:::0.323244279101906):1.37272026956404):1.4033080343924291):3.481162367067672,(Cooper)#H10:::0.676755720898094); 
+with -loglik 400.83826191436407

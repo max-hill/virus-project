@@ -1,0 +1,98 @@
+---
+title: "Visualizing gene trees"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(magrittr) # for: %>%
+library(ape) # for: read.tree, plot.phylo
+library(phangorn) # for: as.splits 
+library(dplyr) # for: tibble
+library(ggplot2) # for: geom_raster
+```
+
+```{r,echo=F}
+# Read in IQ-tree genetrees as "multiPhylo" object
+# path <- '../data/58genes_blksize2500_set1b.treefile'
+# path <- '../data/15genes_blksize10000_set1b.treefile'
+path <- '../data/58genes_blksize2500_set2b.treefile'
+# path <- '../data/15genes_blksize10000_set2b.treefile'
+trees <- read.tree(path)
+
+ngenes <- length(trees)
+ntaxa <- Ntip(trees[[1]])
+sp_all <- as.splits(trees) # "splits", "prop.part"
+# no. of splits over all genetrees, including (ngenes+1) trivial splits
+num_sp_all <- attr(sp_all,"weights") %>% length
+num_nt_sp_all <- num_sp_all-ntaxa-1 # no. of non-trivial splits
+# standard key for mapping splits represented as numerical vectors to taxon names
+key_all <- attr(sp_all,"labels")
+nt_sp_all <- sp_all[(ntaxa+2):num_sp_all] # keep only non-trivial splits
+# save key for mapping splits
+write.nexus.splits(nt_sp_all,
+                   paste(strsplit(path,'.treefile'),"_splits.nexus",sep=""))
+# character vector of non-trivial splits: (1) each split is represented as a
+# comma-separated sequence of integers in ascending order, (2) the no. of
+# integers used to represent each split is <= 1/2 of the total no. of taxa. 
+nt_sp_all_str <- vapply(nt_sp_all,
+                         function(x) paste(x,collapse=","),
+                         FUN.VALUE="")
+
+m <- matrix(nrow=ngenes,ncol=num_nt_sp_all)
+for (i in 1:ngenes) {
+  genetree <- trees[i] # "multiphylo"
+  # pass `as.splits` an "multiphylo" object rather than a "phylo" object so that
+  # (2) "no. of integers ... <= 1/2 of ..." is preserved.
+  sp <- as.splits(genetree)
+  num_sp <- attr(sp,"weights") %>% length
+  # for standardizing which integer each taxon is represented by
+  mapping <- match(attr(sp,"labels"),key_all)
+  nt_sp <- sp[(ntaxa+2):num_sp] # keep only non-trivial splits
+  nt_sp_str <- vapply(nt_sp,
+                      function(x) paste(sort(mapping[x]),collapse=","),
+                      FUN.VALUE="")
+  m[i,] <- nt_sp_all_str %in% nt_sp_str
+}
+
+ggplot(tibble(state=as.vector(m),
+              y=rep(1:ngenes,num_nt_sp_all),
+              x=rep(1:num_nt_sp_all,each=ngenes)),
+       aes(x=x,y=y,fill=state)) +
+  geom_raster(alpha=0.8) +
+  coord_fixed(ratio=1,expand=F) +
+  scale_fill_manual(values=c("TRUE"="black","FALSE"="gray"),
+                    labels=c("Yes","No"),name="Present") +
+  scale_y_continuous(breaks=1:ngenes,labels=1:ngenes) +
+  scale_x_continuous(breaks=1:num_nt_sp_all,labels=1:num_nt_sp_all) +
+  labs(y="Gene no.",x="Split no.",title="") +
+  guides(fill=guide_legend(keyheight=1,keywidth=1)) +
+  theme(axis.text.x=element_text(vjust=0.5,angle=90))
+```
+
+```{r,echo=F}
+# reorder rows of m to cluster genes with the same split profile
+
+# represent each row as a string
+rows <- apply(m,MARGIN=1,function(r) paste(r*1,collapse=""))
+groups <- rows %>% unique
+groupings <- match(rows,groups) # which group each row maps to
+perm <- lapply(1:length(groups),
+               function(g) which(g==groupings,arr.ind=T)) %>% unlist
+
+m_reorder <- m[perm,]
+ggplot(tibble(state=as.vector(m_reorder),
+              y=rep(1:ngenes,num_nt_sp_all),
+              x=rep(1:num_nt_sp_all,each=ngenes)),
+       aes(x=x,y=y,fill=state)) +
+  geom_raster(alpha=0.8) +
+  coord_fixed(ratio=1,expand=F) +
+  scale_fill_manual(values=c("TRUE"="black","FALSE"="gray"),
+                    labels=c("Yes","No"),name="Present") +
+  scale_y_continuous(breaks=1:ngenes,labels=perm) +
+  scale_x_continuous(breaks=1:num_nt_sp_all,labels=1:num_nt_sp_all) +
+  labs(y="Gene no.",x="Split no.",title="") +
+  guides(fill=guide_legend(keyheight=1,keywidth=1)) +
+  theme(axis.text.x=element_text(vjust=0.5,angle=90))
+```
+
