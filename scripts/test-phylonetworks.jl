@@ -10,13 +10,7 @@ using Plots
 Pkg.add("RCall")
 using RCall
 
-
-rotate!(net6, 16)
-plot(net6, showedgenumber=true, shownodenumber=true, showgamma=true)
-
 displayedTrees(net0,0.41) |> length
-
-rootatnode!(net6,-18)
 #_______________________________________________________________________________
 #
 # Define starting trees and inferred networks.
@@ -67,6 +61,10 @@ net_12=readTopology("((C33:0.000184761,(((((216_II:0.000489061,((BHV5:0.0243221)
 net_13=readTopology("(((((BHV5:0.0807945)#H2:2e-06::0.203297,(216_II:0.00167825)#H0:0.00268754::0.253045):0.00214217,((((((C46:1.16106e-05,(Cooper:0.000516106)#H4:0.000499287::0.309017)NODE_000000290.00:1.40987e-05,#H4:1e-06::0.690983):0.000106188,Titanium_IBR_MLV_vaccine:8.18422e-05)NODE_000000154.00:0.000156948,C33:0.000189195)NODE_0000000:0.00102585,#H0:1e-06::0.746955):0.0013827)#H1:0.00191311::0.229363):0.00540156,((SP1777:0.00203967,(B589:0.00240999)#H3:1e-06::0.841226):0.00262726,(#H1:1e-06::0.770637,#H3:0.00371512::0.158774):0.00150306)NODE_000000576.00:0.00422956)NODE_0000003100.00:1e-06,#H2:0.229922::0.796703)NODE_000000497.00;")
 net_14=readTopology("((((BHV5:0.0961651)#H0:1e-06::0.33529,(216_II:0.00166521)#H1:1e-06::0.252704):0.00219091,(#H0:0.110431::0.66471)#H3:1e-06::0.294508):0.00219091,(((((SP1777:0.00184998,(B589:0.00236426)#H4:1e-06::0.670798):0.00141692,#H4:0.00161584::0.329202)NODE_000000483.00:0.00204129)#H2:0.00143525::0.267034,#H3:0.0933968::0.705492):0.00469103,((((Titanium_IBR_MLV_vaccine:8.00789e-05,((C46:1.12661e-05,(Cooper:0.00050127)#H5:0.000485175::0.309017)NODE_000000262.00:1.3764e-05,#H5:1e-06::0.690983):0.000102853)NODE_000000132.00:0.000152478,C33:0.000184526)NODE_0000000:0.000935954,#H1:1e-06::0.747296):0.00207794,#H2:1e-06::0.732966):0.0027831)NODE_0000003100.00:0.00162558)NODE_000000583.00;")
 
+inferred_networks=[net_0, net_1, net_2, net_3, net_4, net_5, net_6, net_7, net_8,net_9, net_10, net_11, net_12, net_13, net_14]
+
+starting_trees=[starting_tree_0, starting_tree_1, starting_tree_2, starting_tree_3, starting_tree_4, starting_tree_5, starting_tree_6, starting_tree_7, starting_tree_8, starting_tree_9, starting_tree_10, starting_tree_11, starting_tree_12, starting_tree_13, starting_tree_14]
+
 ### END CODE BLOCK
 
 
@@ -75,20 +73,21 @@ net_14=readTopology("((((BHV5:0.0961651)#H0:1e-06::0.33529,(216_II:0.00166521)#H
 # Process networks
 #_______________________________________________________________________________
 
-inferred_networks=[net_0, net_1, net_2, net_3, net_4, net_5, net_6, net_7, net_8,net_9, net_10, net_11, net_12, net_13, net_14]
-
-starting_trees=[starting_tree_0, starting_tree_1, starting_tree_2, starting_tree_3, starting_tree_4, starting_tree_5, starting_tree_6, starting_tree_7, starting_tree_8, starting_tree_9, starting_tree_10, starting_tree_11, starting_tree_12, starting_tree_13, starting_tree_14]
 
 # Remove all three cycles from the networks
-for x in [net_0, net_1, net_2, net_3, net_4, net_5, net_6, net_7, net_8, net_9, net_10, net_11, net_12, net_13, net_14]
-    shrink3cycles!(x,false) # why false? I have no idea what that option does.
+for network in inferred_networks
+    shrink3cycles!(network,false) # why false? I have no idea what that option does.
 end
 
 # Assign BHV5 the root for all starting trees
-for x in starting_trees
-    rootatnode!(x,1)
+for tree in starting_trees
+    rootatnode!(tree,1)
 end
-
+# Looking at the plots, we see that trees 10, 11, and 14 are rooted at B589. We
+# want all the plots to be rooted at BHV5, so let's do that:
+rootatnode!(starting_tree_10,2)
+rootatnode!(starting_tree_11,2)
+rootatnode!(starting_tree_14,2)
 
 
 #_______________________________________________________________________________
@@ -106,16 +105,15 @@ R"par"(mar=[1,1,1,1])
 # Plot each tree
 for k in 0:14
     tree=eval(Meta.parse("starting_tree_$k")) # There must be better way to do parameter expansion
-    plot(tree, useedgelength=false, showedgenumber=true, shownodenumber=true, showgamma=true)
+    PhyloPlots.plot(tree, useedgelength=false, showedgenumber=true, shownodenumber=true, showgamma=true)
     R"mtext"("Starting Tree $k")
 end
 
-# Looking at the plots, we see that trees 10, 11, and 14 are rooted at B589. We
-# want all the plots to be rooted at BHV5, so let's do that:
-rootatnode!(starting_tree_10,2)
-rootatnode!(starting_tree_11,2)
-rootatnode!(starting_tree_14,2)
-
+for k in 0:14
+    PhyloPlots.plot(starting_trees[k+1], useedgelength=false, showedgenumber=true, shownodenumber=true, showgamma=true)
+    R"mtext"("Starting Tree $k")
+end
+    
 
 ### END CODE BLOCK
 
