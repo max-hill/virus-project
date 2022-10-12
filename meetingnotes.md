@@ -1,3 +1,27 @@
+# 2022-10-12
+
+to do: draft outline for next month
+
+- ran analyses with 15 blocks defined from right to left instead of left to right:
+  10,000 bp all blocks except for the "last" one, which is on the right in one
+  analysis and on the left in the other.
+  middle blocks: more similar across analyses, based on IQ-TREE
+  Can you do a 15×15 heatmap for RF distances, to visualize the similarity / differences between gene trees?
+- RFnet: stops at 8 reticulations for both data sets. reticulations added in a
+  different order, but similar set of 5+ reticulations.
+  reticulations within 1.1 clade and within 1.2 clade: added earlier
+  later: reticulation involving 216-II (or between clades)
+- NetRAX: not tried yet.
+
+- alternative way of defining blocks: equal number of variable or
+  parsimony-informative sites. This could be done with the perl script
+  [mdl.pl](https://github.com/nstenz/TICR#mdl), which requires PAUP*
+  as an external dependency.
+
+Aaron: plots from sliding windows, using number of SNPs and dissimilarity.
+recombined region seem to be fairly short, like ~1kb: quite shorter than
+the 10kb blocks used for network analyses.
+
 # 2022-09-14
 
 recap of taxon sets:
@@ -55,6 +79,10 @@ genome structure:
 LTR (long terminal repeat) ... LTR+STR (short terminal repeat) ...(~13kb) STR
 LTR: long in HSV, but super short in BHV (<200bp)
 STR: short in HSV but much longer in BHV (~15kb)
+
+IRS: internal repeat sequence (?)
+TRS: terminal repeat sequence (?) --they are actually the same.
+one needs to be removed for analysis.
 
 AK: will confirm that the first LTR and last STR were removed.
 CB: add virus isolates to reduce ghost lineages in the networks
