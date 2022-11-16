@@ -1,3 +1,58 @@
+# 2022-11-16
+
+Ben & Max presented a draft manuscript (ms on overleaf).
+- title:
+- intro: advantages of doing automatically rather than manually,
+  advantages of explicit networks as opposed to split networks,
+  document pitfalls & best practices for using these methods.
+- multistart with NetRAX.
+  15 starting trees, 15 output networks, picks the best one.
+  removed 3-cycles. Best network (#12) minimized the BIC score.
+  This network is in fact really good: topology we would expect from splitstree;
+  recombination recovered that we put as positive control;
+  extra recombination recovered.
+  comparison with input trees: which have 6 distinct topologies.
+  2.8 distance on average between starting trees
+  larger distance between output networks, but removing 3-cycles
+  removes some of the variation in the output networks.
+  take-away: considerable variation depending on the starting point.
+- RFNet: output embeddings are not necessarily optimal with the second version
+  of the software. Re-run the embedding with the first version. Report on how
+  accurate (or off) the embeddings are.
+
+to do:
+- CB: add more to the intro, e.g. things about recombination,
+  vaccine story.
+- include SNaQ results and compare networks across methods
+- AK: add HSV data? CB: we can get away with this HBV data. CB: counted figures.
+  we already have enough for 1 paper: no need to add data.
+- figures: rethink them, based on the take-aways we want to show.
+  include 1 figure from splitstree (AK?). also from bootscan?
+- intro: we focus on smaller genomes with a lot of recombination, they're a challenge.
+- CB: mention other limitations, like: explain why 40 taxa could not be used
+- genome re-arrangements: they happen on herpesviruses, Aaron looked
+  at that some time ago. None within a species.
+- 1 section per method, then discussion: compare the advantages
+  and disadvantages of each method.
+- section to explain the choice of the 8 taxon sets. it's not automated, but
+  it's pretty standard (we can cite many papers doing similar choices:
+  sub-sample to get to a scale that methods can handle, have at least 1 rep
+  from each large group, and keep only 1 rep from groups that have very similar
+  species.) e.g. paper that AK sent the group on cichlid fishes:
+  [Astudillo-Clavijo et al. 2022](https://doi.org/10.1093/sysbio/syac051)
+
+cite: paper about bacterial species: bacteria are not clonal, they recombine a lot.
+"Gene flow and introgression are pervasive forces shaping the evolution of bacterial species"
+[Diop et al. 2022](https://doi.org/10.1186/s13059-022-02809-5)
+
+- which journal? virology journals are focused on the virology: this paper
+  is too quantitative / methodology.
+  BMC genomics
+  PLOS Genetics or some other PLOS journal?
+  What journals in systematic biology?
+  Genome Biology & Evolution
+  suggest a good list of reviewers!
+
 # 2022-10-12
 
 to do: draft outline for next month
