@@ -1,0 +1,15 @@
+((((B589,SP1777),K22),(216_II,(((C46,Titanium_IBR_MLV_vaccine),C33),Cooper))),BHV5);
+((((B589,SP1777),K22),(216_II,(((C46,Cooper),Titanium_IBR_MLV_vaccine),C33))),BHV5);
+((((B589,K22),SP1777),(216_II,(((C46,Cooper),Titanium_IBR_MLV_vaccine),C33))),BHV5);
+((((B589,SP1777),K22),(216_II,(((C46,Titanium_IBR_MLV_vaccine),C33),Cooper))),BHV5);
+(((B589,(SP1777,K22)),(216_II,(((C46,Cooper),Titanium_IBR_MLV_vaccine),C33))),BHV5);
+((((B589,SP1777),K22),(216_II,(((C46,Cooper),Titanium_IBR_MLV_vaccine),C33))),BHV5);
+(((((B589,SP1777),K22),(((C46,Titanium_IBR_MLV_vaccine),Cooper),C33)),216_II),BHV5);
+((((B589,K22),SP1777),(216_II,((C46,(Cooper,Titanium_IBR_MLV_vaccine)),C33))),BHV5);
+((((B589,(216_II,(((C46,Cooper),Titanium_IBR_MLV_vaccine),C33))),SP1777),K22),BHV5);
+((((B589,K22),SP1777),(216_II,((C46,(Cooper,Titanium_IBR_MLV_vaccine)),C33))),BHV5);
+((((B589,K22),SP1777),(216_II,(((C46,Titanium_IBR_MLV_vaccine),Cooper),C33))),BHV5);
+((((B589,SP1777),K22),(216_II,(((C46,Cooper),Titanium_IBR_MLV_vaccine),C33))),BHV5);
+((((B589,(216_II,(((C46,Cooper),Titanium_IBR_MLV_vaccine),C33))),SP1777),K22),BHV5);
+(((B589,(SP1777,K22)),(216_II,((C46,(Cooper,Titanium_IBR_MLV_vaccine)),C33))),BHV5);
+((((B589,SP1777),K22),(216_II,(((C46,Cooper),Titanium_IBR_MLV_vaccine),C33))),BHV5);
