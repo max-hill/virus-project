@@ -38,7 +38,7 @@ clust2int(r2l_6ret_hcmat)
 # output from `hardwiredClusters`
 function rfDist(clust1::Matrix{Int64},clust2::Matrix{Int64})
     # Count the no. of unique clusters represented in one but not the other
-    length(setdiff(unique(clust2int(clust1)),unique(clust2int(clust2))))
+    length(symdiff(unique(clust2int(clust1)),unique(clust2int(clust2))))
 end
 
 # Applies `rfDist` above to two ::HybridNetwork values with the same tips.
@@ -48,4 +48,4 @@ function rfDist(net1::HybridNetwork,net2::HybridNetwork)
            hardwiredClusters(net2,taxon_labels))
 end
 
-rfDist(l2r_7ret,r2l_6ret) # 4
+rfDist(l2r_7ret,r2l_6ret) # 8
