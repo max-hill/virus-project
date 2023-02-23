@@ -25,7 +25,7 @@ rotate!(l2r_7ret,-5);
 l2r_7ret.node[13].name = "Ti"; # abbreviate
 R"pdf(file='../../figures/l2r_7ret.pdf',width=8,height=8)"
 plot(l2r_7ret,majorhybridedgecolor="red",minorhybridedgecolor="blue",
-     shownodelabel=true)
+     shownodelabel=true,edgewidth=2)
 R"dev.off()"
 
 # r2l, 6-reticulation net
@@ -36,5 +36,5 @@ rotate!(r2l_6ret,-12);
 r2l_6ret.node[12].name = "Ti"; # abbreviate
 R"pdf(file='../../figures/r2l_6ret.pdf',width=8,height=8)"
 plot(r2l_6ret,majorhybridedgecolor="red",minorhybridedgecolor="blue",
-     shownodelabel=true)
+     shownodelabel=true,edgewidth=2)
 R"dev.off()"
