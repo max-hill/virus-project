@@ -19,43 +19,46 @@ embeddingcostProfile <- function(file){
   return(profile)
 }
 
+partition_sizes <- c("15genes_blksize10000","97genes_blksize1500")
+partition_size <- partition_sizes[2]
+
 # Save embedding cost profiles
 # L2R, regular mode
 write.table(
-  embeddingcostProfile("results/bhv/rfnet/15genes_blksize10000_set1c_ogrooted.newick"),
-  "results/bhv/rfnet/embedding cost/15genes_blksize10000_set1c_ogrooted",quote=F)
+  embeddingcostProfile(sprintf("results/bhv/rfnet/%s_set1c_ogrooted.newick",partition_size)),
+  sprintf("results/bhv/rfnet/embedding cost/%s_set1c_ogrooted",partition_size),quote=F)
 
 # L2R, regular mode, fast heuristic
 write.table(
-  embeddingcostProfile("results/bhv/rfnet/15genes_blksize10000_set1c_ogrooted_f.newick"),
-  "results/bhv/rfnet/embedding cost/15genes_blksize10000_set1c_ogrooted_f",quote=F)
+  embeddingcostProfile(sprintf("results/bhv/rfnet/%s_set1c_ogrooted_f.newick",partition_size)),
+  sprintf("results/bhv/rfnet/embedding cost/%s_set1c_ogrooted_f",partition_size),quote=F)
 
 # L2R, tree-child mode
 write.table(
-  embeddingcostProfile("results/bhv/rfnet/15genes_blksize10000_set1c_ogrooted_tc.newick"),
-  "results/bhv/rfnet/embedding cost/15genes_blksize10000_set1c_ogrooted_tc",quote=F)
+  embeddingcostProfile(sprintf("results/bhv/rfnet/%s_set1c_ogrooted_tc.newick",partition_size)),
+  sprintf("results/bhv/rfnet/embedding cost/%s_set1c_ogrooted_tc",partition_size),quote=F)
 
 # L2R, tree-child mode, fast heuristic
 write.table(
-  embeddingcostProfile("results/bhv/rfnet/15genes_blksize10000_set1c_ogrooted_tc_f.newick"),
-  "results/bhv/rfnet/embedding cost/15genes_blksize10000_set1c_ogrooted_tc_f",quote=F)
+  embeddingcostProfile(sprintf("results/bhv/rfnet/%s_set1c_ogrooted_tc_f.newick",partition_size)),
+  sprintf("results/bhv/rfnet/embedding cost/%s_set1c_ogrooted_tc_f",partition_size),quote=F)
 
 # R2L, regular mode
 write.table(
-  embeddingcostProfile("results/bhv/rfnet/15genes_blksize10000_rev_set1c_ogrooted.newick"),
-  "results/bhv/rfnet/embedding cost/15genes_blksize10000_rev_set1c_ogrooted",quote=F)
+  embeddingcostProfile(sprintf("results/bhv/rfnet/%s_rev_set1c_ogrooted.newick",partition_size)),
+  sprintf("results/bhv/rfnet/embedding cost/%s_rev_set1c_ogrooted",partition_size),quote=F)
 
 # R2L, regular mode, fast heuristic
 write.table(
-  embeddingcostProfile("results/bhv/rfnet/15genes_blksize10000_rev_set1c_ogrooted_f.newick"),
-  "results/bhv/rfnet/15genes_blksize10000_rev_set1c_ogrooted_f",quote=F)
+  embeddingcostProfile(sprintf("results/bhv/rfnet/%s_rev_set1c_ogrooted_f.newick",partition_size)),
+  sprintf("results/bhv/rfnet/embedding cost/%s_rev_set1c_ogrooted_f",partition_size),quote=F)
 
 # R2L, tree-child mode
 write.table(
-  embeddingcostProfile("results/bhv/rfnet/15genes_blksize10000_rev_set1c_ogrooted_tc.newick"),
-  "results/bhv/rfnet/15genes_blksize10000_rev_set1c_ogrooted_tc",quote=F)
+  embeddingcostProfile(sprintf("results/bhv/rfnet/%s_rev_set1c_ogrooted_tc.newick",partition_size)),
+  sprintf("results/bhv/rfnet/embedding cost/%s_rev_set1c_ogrooted_tc",partition_size),quote=F)
 
 # R2L, tree-child mode, fast heuristic
 write.table(
-  embeddingcostProfile("results/bhv/rfnet/15genes_blksize10000_rev_set1c_ogrooted_tc_f.newick"),
-  "results/bhv/rfnet/15genes_blksize10000_rev_set1c_ogrooted_tc_f",quote=F)
+  embeddingcostProfile(sprintf("results/bhv/rfnet/%s_rev_set1c_ogrooted_tc_f.newick",partition_size)),
+  sprintf("results/bhv/rfnet/embedding cost/%s_rev_set1c_ogrooted_tc_f",partition_size),quote=F)
