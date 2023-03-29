@@ -1,0 +1,9 @@
+First we make the directories
+
+```
+/analysis/netrax/multistart-set1cL2R15genes/
+/analysis/netrax/multistart-set1cR2L15genes/
+/analysis/netrax/multistart-set1cL2R97genes/
+```
+
+First we copy the partition files to the analysis folder directories
