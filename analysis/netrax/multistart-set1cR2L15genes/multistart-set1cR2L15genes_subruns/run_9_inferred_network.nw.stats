@@ -1,0 +1,5 @@
+Statistics on which moves were taken:
+RSPRMove: 28
+RNNIMove: 18
+ArcRemovalMove: 1
+ArcInsertionMove: 10
