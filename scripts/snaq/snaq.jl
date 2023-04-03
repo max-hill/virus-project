@@ -51,9 +51,9 @@ Python 3.9.8
 =#
 
 using PhyloNetworks, CSV, Random, RCall, PhyloPlots
-# change the following variables to the appropriate (absolute) path on your machine
-outdir_root = "/home/zergling/.emacs.d/virus-project/analysis/snaq" # change this
-indir_root = "/home/zergling/.emacs.d/osf/" # change this
+gitrepo = "/home/zergling/.emacs.d/virus-project" # change this to the absolute path of your git repo
+outdir_root = "$gitrepo/analysis/snaq"
+indir_root = "$gitrepo/../osf/"
 
 #---- from 15 (unrooted) gene trees (10_000 sites/block), taxon sets 1b and 1c
 # run on 2022-08-15 for set1b & set1c
@@ -274,7 +274,7 @@ below: code to concatenate the 100 bootstrap reps and summarize them.
 
 using PhyloNetworks, CSV, DataFrames
 using PhyloPlots, RCall
-outdir_root = "/home/zergling/.emacs.d/virus-project/analysis/snaq" # change this to your directory
+outdir_root = "$gitrepo/analysis/snaq"
 
 function rootaboveoutgroup!(net::HybridNetwork, outgroup)
   good = true
