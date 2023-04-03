@@ -51,19 +51,20 @@ Python 3.9.8
 =#
 
 using PhyloNetworks, CSV, Random, RCall, PhyloPlots
-outdir_root = "gitrepo/analysis/snaq"
-indir_root = "osf/"
+# change the following variables to the appropriate (absolute) path on your machine
+outdir_root = "/home/zergling/.emacs.d/virus-project/analysis/snaq" # change this
+indir_root = "/home/zergling/.emacs.d/osf/" # change this
 
 #---- from 15 (unrooted) gene trees (10_000 sites/block), taxon sets 1b and 1c
 # run on 2022-08-15 for set1b & set1c
 
 # taxonset = "set1b"
-taxonset = "set1c" # then re-run interactively (copy-paste) what's below.
+taxonset = "set1b" # then re-run interactively (copy-paste) what's below.
 indir = joinpath(indir_root, "genetrees")
 outdir = joinpath(outdir_root, "fromIQtrees", taxonset)
 isdir(outdir) || mkpath(outdir)
-iqtrees = readMultiTopology("$indir/15genes_blksize10000_$taxonset.treefile");
-
+iqtrees = readMultiTopology("$indir/15genes_blksize10000/15genes_blksize10000_$taxonset.treefile");
+iqtrees
 q,t = redirect_stdio(stdout=devnull) do
     countquartetsintrees(iqtrees)
 end;
@@ -77,6 +78,20 @@ starttree = readTopology(joinpath(indir_root, "rfnet/networks/15genes_blksize100
 writeTopology(starttree)
 # set1b: "((((((C46,Cooper),Titanium_IBR_MLV_vaccine),C33),216_II),(B589,SP1777)),BHV5);"
 # set1c: "((((((C46,Cooper),Titanium_IBR_MLV_vaccine),C33),216_II),((SP1777,B589),K22)),BHV5);"
+
+# To plot the starting trees, run the above and then run the following commented out code:
+# starttree1b = starttree
+# R"pdf"("$outdir_root/snaq-starting-tree-1b.pdf", height=3.8, width=4);
+# R"par"(mar=[.1,.1,.1,.1]); R"layout"([1])
+# PhyloPlots.plot(starttree1b,tipcex=.7, xlim=[0.2,9])
+# R"dev.off"()
+# OR:
+# starttree1c = starttree
+# R"pdf"("$outdir_root/snaq-starting-tree-1c.pdf", height=3.8, width=4);
+# R"par"(mar=[.1,.1,.1,.1]); R"layout"([1])
+# PhyloPlots.plot(starttree1c,tipcex=.7, xlim=[0.2,11])
+# R"dev.off"()
+
 net = Vector{HybridNetwork}(undef,4)
 if taxonset == "set1b"
     Random.seed!(765331)
@@ -91,13 +106,25 @@ seeds = round.(Int, 1_000_000 .* rand(4))
     startT = (hmax==0 ? starttree : net[i-1])
     net[i] = snaq!(startT, iqtreeCF, hmax=hmax, filename=fileroot, runs=20, seed=seeds[i])
 end
+
 # timing, using single-processor, cecile-mac-2018 used for many other processes:
 # set1b: 2.30 hours (from `grep "time" .../*.out`)
 # set1c: 10.66h (from @time)
 # see how the scores improve from 0 to 3 reticulations:
 print([n.loglik for n in net])
 # set1b: [365.1587301188808, 153.94391099485654, 77.30057399899863, 77.3005739986875]
-# set1b: [513.0663771591117, 312.7311634534902, 187.5802997215012, 187.5802997214814]
+# set1c: [513.0663771591117, 312.7311634534902, 187.5802997215012, 187.5802997214814]
+
+# To plot these likelihoods, uncomment and run the following code:
+# b=[365.1587301188808, 153.94391099485654, 77.30057399899863, 77.3005739986875]
+# c=[513.0663771591117, 312.7311634534902, 187.5802997215012, 187.5802997214814]
+# x=[0,1,2,3]
+# import Plots
+# Plots.plot(x,[b,c], label=["Set 1b" "Set 1c"], title="",linewidth=3,marker=[:hex :d])
+# Plots.xlabel!("h: maximum number of reticulations")
+# Plots.ylabel!("-log likelihood")
+# Plots.savefig("$outdir_root/snaq-likelihoods.png")
+
 # combine h=0:3 into 1 file:
 bestnet_firstline = [readline(joinpath(outdir, "net$h.out")) for h in 0:3]
 bestnet_file = joinpath(outdir,"snaq_net_0123.out")
@@ -247,14 +274,14 @@ below: code to concatenate the 100 bootstrap reps and summarize them.
 
 using PhyloNetworks, CSV, DataFrames
 using PhyloPlots, RCall
-outdir_root = "gitrepo/analysis/snaq"
+outdir_root = "/home/zergling/.emacs.d/virus-project/analysis/snaq" # change this to your directory
 
 function rootaboveoutgroup!(net::HybridNetwork, outgroup)
   good = true
   # direct rooting at the outgroup is possible, or
   # the direct parent of the outgroup is a hybrid
   try
-    rootatnode!(net, outgroup, verbose=false)
+    rootatnode!(net, outgroup)
   catch e1
     isa(e1, PhyloNetworks.RootMismatch) || rethrow(e1)
     directEdges!(net)
@@ -268,7 +295,7 @@ function rootaboveoutgroup!(net::HybridNetwork, outgroup)
     end
     pae = PhyloNetworks.getMajorParentEdge(pa)
     try
-      rootonedge!(net, pae, verbose=false)
+      rootonedge!(net, pae)
     catch e2
       isa(e2, PhyloNetworks.RootMismatch) || rethrow(e2)
       directEdges!(net)
