@@ -162,13 +162,14 @@ R"dev.off"()
 
 #---- from SNPs, taxon sets 1b and 1c, using SNPs2CF
 # run on on 2022-08-16 for set1b, 2022-08-17 for set1c
+###
 taxonset = "set1b"
-taxonset = "set1c" # then re-run interactively (copy-paste) what's below.
+#taxonset = "set1c" # then re-run interactively (copy-paste) what's below.
 indir = joinpath(indir_root, "msa")
 msafile_root = joinpath(indir, "$taxonset")
 msafile = msafile_root * ".phylip"
 if !isfile(msafile)
-  run(`python3 gitrepo/scripts/fasta2phylip.py -f $msafile_root.fasta`)
+  run(`python3 $gitrepo/scripts/fasta2phylip.py -f $msafile_root.fasta`)
   # WARNING: had tabs separating taxon names from sequences.
   # manually changed to a single space. Tabs caused SNPs2CF to fail.
 end
@@ -177,7 +178,7 @@ outdir = joinpath(outdir_root, "fromSNPs", taxonset)
 isdir(outdir) || mkpath(outdir)
 cffile = joinpath(outdir, "tableCF.csv")
 if !isfile(cffile)
-  R"source"("gitrepo/scripts/SNPs2CF.R")
+  R"source"("$gitrepo/scripts/SNPs2CF.R")
   @time R"SNPs2CF"(seqMatrix=msafile, outputName=cffile)
   # 7.8 (set1b) and 12.5 (set1c) minutes. 1 single core
 end
@@ -249,6 +250,7 @@ if taxonset == "set1c"
 end
 R"dev.off"()
 
+###
 #= -------- bootstrap with h=1 ------------------
 - not h=2 because of rooting issues, and for simplicity of interpretation
 - on franklin03 to paralellize the runs, using tmux & stashticket to log out:
