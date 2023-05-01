@@ -5,7 +5,7 @@
 # This is for running the experiment named below. Run this script from the directory scripts/NetRAX/
 
 # To run this on a server, run the commands (from scripts/NetRAX):
-# chmod u+rwx run R2L97.sh
+# chmod u+rwx runR2L97.sh
 # nohup bash runR2L97.sh &
 # echo $! > PID_for_R2L97.txt
 

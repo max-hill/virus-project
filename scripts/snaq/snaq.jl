@@ -123,7 +123,7 @@ print([n.loglik for n in net])
 # Plots.plot(x,[b,c], label=["Set 1b" "Set 1c"], title="",linewidth=3,marker=[:hex :d])
 # Plots.xlabel!("h: maximum number of reticulations")
 # Plots.ylabel!("-log likelihood")
-# Plots.savefig("$outdir_root/snaq-likelihoods.png")
+# Plots.savefig("$outdir_root/snaq-fromIQtree-likelihoods.pdf")
 
 # combine h=0:3 into 1 file:
 bestnet_firstline = [readline(joinpath(outdir, "net$h.out")) for h in 0:3]
@@ -163,8 +163,8 @@ R"dev.off"()
 #---- from SNPs, taxon sets 1b and 1c, using SNPs2CF
 # run on on 2022-08-16 for set1b, 2022-08-17 for set1c
 ###
-taxonset = "set1b"
-#taxonset = "set1c" # then re-run interactively (copy-paste) what's below.
+#taxonset = "set1b"
+taxonset = "set1c" # then re-run interactively (copy-paste) what's below.
 indir = joinpath(indir_root, "msa")
 msafile_root = joinpath(indir, "$taxonset")
 msafile = msafile_root * ".phylip"
@@ -203,7 +203,18 @@ end
 # see how the scores improve from 0 to 3 reticulations:
 print([n.loglik for n in net])
 # set1b: [501.7797654686652, 295.145876646058, 233.87695612845857, 233.87695612806655]
-# set1b: [660.7009851999568, 400.83826191436407, 315.80346871955686, 312.09545236068]
+# set1c: [660.7009851999568, 400.83826191436407, 315.80346871955686, 312.09545236068]
+
+# To plot these likelihoods, uncomment and run the following code:
+# b=[501.7797654686652, 295.145876646058, 233.87695612845857, 233.87695612806655]
+# c=[660.7009851999568, 400.83826191436407, 315.80346871955686, 312.09545236068]
+# x=[0,1,2,3]
+# import Plots
+# Plots.plot(x,[b,c], label=["Set 1b" "Set 1c"], title="",linewidth=3,marker=[:hex :d])
+# Plots.xlabel!("h: maximum number of reticulations")
+# Plots.ylabel!("-log likelihood")
+# Plots.savefig("$outdir_root/snaq-fromSNPs-likelihoods.pdf")
+
 # combine h=0:3 into 1 file:
 bestnet_firstline = [readline(joinpath(outdir, "net$h.out")) for h in 0:3]
 bestnet_file = joinpath(outdir,"snaq_net_0123.out")
@@ -249,6 +260,19 @@ if taxonset == "set1c"
   plot(net[4], showedgelength=true, showgamma=true, xlim=[0.2,13])
 end
 R"dev.off"()
+
+# To plot set1c in a 2x2 matrix, uncomment and run the following:
+# R"pdf"("$outdir_root/snaq_fromSNPs_$(taxonset)_2by2.pdf", height=7.6,
+#        width=16);
+# R"par"(mar=[.1,.1,.1,.1]);
+# R"layout(matrix(1:4,nrow=2,ncol=2,byrow=TRUE))"
+# plot(net[1], showedgelength=true, showgamma=true, xlim=[0.2,11])
+# plot(net[2], showedgelength=true, showgamma=true, xlim=[0.2,13])
+# plot(net[3], showedgelength=true, showgamma=true, xlim=[0.2,12])
+# plot(net[4], showedgelength=true, showgamma=true, xlim=[0.2,13])
+# R"dev.off"()
+
+
 
 ###
 #= -------- bootstrap with h=1 ------------------
