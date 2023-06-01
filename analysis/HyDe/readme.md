@@ -5,5 +5,3 @@ This analysis was run using the command
 
 
 HyDe is well-documented and I just followed the  instructions [here](https://hybridization-detection.readthedocs.io/analyze.html).
-
-The file `results.txt` was made by copying the file hyde-out
