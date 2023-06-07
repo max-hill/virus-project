@@ -52,3 +52,7 @@ These options are:
 ```
 
 Then the gene-trees which were rooted using TreeTime.
+
+
+## Plotting
+The code used to plot the results is found in the file `plot-netrax-results.jl`.

@@ -51,6 +51,8 @@ grep -A1 -E '>C33$|>C46$|>Titanium_IBR_MLV_vaccine$|>Cooper$|>SP1777$|>B589$|>BH
 
 Then copy the MSA file `set1c.fasta` to the experiment directories by running the following commands from the `/data/` directory:
 
+cp set1c.fasta ../analysis/netrax/multistart-set1cL2R15genes-replicate/set1c.fasta
+cp set1c.fasta ../analysis/netrax/multistart-set1cR2L15genes-replicate/set1c.fasta
 ```
 cp set1c.fasta ../analysis/netrax/multistart-set1cL2R15genes/set1c.fasta
 cp set1c.fasta ../analysis/netrax/multistart-set1cR2L15genes/set1c.fasta

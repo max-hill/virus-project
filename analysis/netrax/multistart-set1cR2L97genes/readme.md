@@ -1,3 +1,11 @@
+# NOTE
+
+This experiment was never performed. I killed this process early on in the run
+when it became clear that the 97 gene case was going to take a long time. For 97
+genese I only kept the L2R case running (but will probably kill that run early
+as well). 2023-06-04 max hill
+
+
 # Instructions for setting up this experiment
 
 ## Install NetRAX correctly
