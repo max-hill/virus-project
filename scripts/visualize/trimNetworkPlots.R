@@ -37,3 +37,13 @@ r2l_15g_no3cyc_fig <- image_read_pdf("figures/netrax/multistart-set1c-R2L-15gene
 image_write(
   image_border(image_trim(r2l_15g_no3cyc_fig),"white","100x100"),
   "figures/netrax/multistart-set1c-R2L-15genes-no3cyc_trim.pdf",format="pdf",density=600)
+
+l2r_1b_15g_3cyc_fig <- image_read_pdf("figures/netrax/multistart-set1b-L2R-15genes-with3cyc.pdf")
+image_write(
+  image_border(image_trim(l2r_1b_15g_3cyc_fig),"white","100x100"),
+  "figures/netrax/multistart-set1b-L2R-15genes-with3cyc_trim.pdf",format="pdf",density=600)
+
+l2r_1b_15g_no3cyc_fig <- image_read_pdf("figures/netrax/multistart-set1b-L2R-15genes-no3cyc.pdf")
+image_write(
+  image_border(image_trim(l2r_1b_15g_no3cyc_fig),"white","100x100"),
+  "figures/netrax/multistart-set1b-L2R-15genes-no3cyc_trim.pdf",format="pdf",density=600)
