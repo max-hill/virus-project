@@ -1,4 +1,5 @@
 [deps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 PhyloNetworks = "33ad39ac-ed31-50eb-9b15-43d0656eaa72"
 PhyloPlots = "c0d5b6db-e3fc-52bc-a87d-1d050989ed3b"
 RCall = "6f49c342-dc21-5d91-9882-a32aef131414"
