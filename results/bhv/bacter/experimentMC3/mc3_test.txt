@@ -1,0 +1,185 @@
+java.lang.NullPointerException: Cannot invoke "java.io.OutputStream.close()" because "<local3>" is null
+	at beast.pkgmgmt.launcher.BeastLauncher.copyFileUsingStream(Unknown Source)
+	at beast.pkgmgmt.launcher.BeastLauncher.createBeastPackage(Unknown Source)
+	at beast.pkgmgmt.launcher.BeastLauncher.installBEASTPackage(Unknown Source)
+	at beast.pkgmgmt.launcher.BeastLauncher.getPath(Unknown Source)
+	at beast.pkgmgmt.launcher.BeastLauncher.main(Unknown Source)
+saveBeautiProperty java.io.IOException Permission denied
+Setting number of threads to 8
+File: mc3_test.xml seed: 133 threads: 8
+Loading package BDSKY v1.5.0 CoupledMCMC v1.2.0 ORC v1.1.1 bModelTest v1.3.3 BEAST.app v2.7.4 BEAST.base v2.7.4 SA v2.1.1 bacter v3.0.1 BEASTLabs v2.0.0 starbeast3 v1.1.7 feast v9.4.0     
+
+                                    C33=2013
+
+
+C46=1979
+
+
+Titanium_IBR_MLV_vaccine=1998
+
+
+Cooper=1966
+
+
+SP1777=2009
+
+
+B589=2001
+
+
+BHV5=1999
+
+
+216_II=1976
+
+
+K22=1958                
+                    
+                
+Warning: removing transform class beast.base.inference.operator.kernel.Transform$NoTransform because it should have at least 1 dimensions but it has 0
+Loading package BDSKY v1.5.0
+Loading package CoupledMCMC v1.2.0
+Loading package ORC v1.1.1
+Loading package bModelTest v1.3.3
+Loading package BEAST.app v2.7.4
+Loading package BEAST.base v2.7.4
+Loading package SA v2.1.1
+Loading package bacter v3.0.1
+Loading package BEASTLabs v2.0.0
+Loading package starbeast3 v1.1.7
+Loading package feast v9.4.0
+
+                                    C33=2013
+
+
+C46=1979
+
+
+Titanium_IBR_MLV_vaccine=1998
+
+
+Cooper=1966
+
+
+SP1777=2009
+
+
+B589=2001
+
+
+BHV5=1999
+
+
+216_II=1976
+
+
+K22=1958                
+                                
+                            
+Warning: removing transform class beast.base.inference.operator.kernel.Transform$NoTransform because it should have at least 1 dimensions but it has 0
+Start likelihood: -1295879.623855131 
+WARNING: If nothing seems to be happening on screen this is because none of the loggers give feedback to screen.
+Writing file mc3_test.log
+Writing file mc3_test.set1c.trees
+
+                                    C33=2013
+
+
+C46=1979
+
+
+Titanium_IBR_MLV_vaccine=1998
+
+
+Cooper=1966
+
+
+SP1777=2009
+
+
+B589=2001
+
+
+BHV5=1999
+
+
+216_II=1976
+
+
+K22=1958                
+                                
+                            
+Warning: removing transform class beast.base.inference.operator.kernel.Transform$NoTransform because it should have at least 1 dimensions but it has 0
+Start likelihood: -1267413.0848495436 
+WARNING: If nothing seems to be happening on screen this is because none of the loggers give feedback to screen.
+Writing file chain1mc3_test.log
+Writing file chain1mc3_test.set1c.trees
+
+                                    C33=2013
+
+
+C46=1979
+
+
+Titanium_IBR_MLV_vaccine=1998
+
+
+Cooper=1966
+
+
+SP1777=2009
+
+
+B589=2001
+
+
+BHV5=1999
+
+
+216_II=1976
+
+
+K22=1958                
+                                
+                            
+Warning: removing transform class beast.base.inference.operator.kernel.Transform$NoTransform because it should have at least 1 dimensions but it has 0
+Start likelihood: -1278788.3186931142 
+WARNING: If nothing seems to be happening on screen this is because none of the loggers give feedback to screen.
+Writing file chain2mc3_test.log
+Writing file chain2mc3_test.set1c.trees
+
+                                    C33=2013
+
+
+C46=1979
+
+
+Titanium_IBR_MLV_vaccine=1998
+
+
+Cooper=1966
+
+
+SP1777=2009
+
+
+B589=2001
+
+
+BHV5=1999
+
+
+216_II=1976
+
+
+K22=1958                
+                                
+                            
+Warning: removing transform class beast.base.inference.operator.kernel.Transform$NoTransform because it should have at least 1 dimensions but it has 0
+Start likelihood: -1343882.052798028 
+WARNING: If nothing seems to be happening on screen this is because none of the loggers give feedback to screen.
+Writing file chain3mc3_test.log
+Writing file chain3mc3_test.set1c.trees
+#Swap attemps = 10000
+#Successfull swaps = 2353
+#Successfull swaps with cold chain = 948

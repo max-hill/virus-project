@@ -9,6 +9,14 @@ function readTopology_nwstr(nw_str)
     return(readTopology(nw_str_3))
 end
 
+# experimentMC3
+net = readTopology_nwstr(readline("../results/bhv/bacter/experimentMC3/tree.newick",keep=false));
+R"pdf(file='../figures/bacter/experimentMC3_50.pdf',width=8,height=8)"
+plot(net,majorhybridedgecolor="red",minorhybridedgecolor="blue",style=:fulltree,
+    edgelabel=DataFrame(edgenum=[12],edgelab=["[11364,15577]"]),
+    shownodelabel=true,
+    edgecex=0.7,edgelabelcolor="blue")
+R"dev.off()"
 
 # experimentMC3, rep2
 net = readTopology_nwstr(readline("../results/bhv/bacter/experimentMC3_rep2/tree.newick",keep=false));

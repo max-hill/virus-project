@@ -1,0 +1,64 @@
+## rep 1
+- posterior: -2.723E5, ESS: 5
+- CFheight: 123.764, ESS: 6
+- CFlength: 313.571, ESS: 6
+- nUselessConvs: 5.549E-4, ESS: 3604
+- meanEdgeLength: 42.646, ESS: 7
+- meanDepartureHeight: 56.771, ESS: 6
+- meanTractLength: 10137.691, ESS: 5
+- meanRegionLength: 6235.737, ESS: 5
+- clockRate: 3.336E-4, ESS: 5
+- kappa: 5.32, ESS: 5
+- gammaShape: 1.644, 5
+
+## rep 2
+- posterior: -2.739E5, ESS: 7
+- CFheight: 139.072, ESS: 18
+- CFlength: 341.728, ESS: 22
+- nUselessConvs: 2.775E-4, ESS: 3604
+- meanEdgeLength: 31.135, ESS: 7
+- meanDepartureHeight: 61.956, ESS: 31
+- meanTractLength: 5862.389, ESS: 8 
+- meanRegionLength: 4657.093, ESS: 29
+- clockRate: 4.113E-4, ESS: 18
+- kappa: 4.97, ESS: 14
+- gammaShape: 2.291, ESS: 15
+
+## rep 3
+- posterior: -2.759E5, ESS: 13
+- CFheight: 128.5, ESS: 16
+- CFlength: 310.904, ESS: 14
+- nUselessConvs: 1.11E-3, ESS: 3604
+- meanEdgeLength: 3.784, ESS: 25
+- meanDepartureHeight: 43.771, ESS: 34
+- meanTractLength: 6851.092, ESS: 21
+- meanRegionLength: 5130.532, ESS: 18
+- clockRate: 5.14E-4, ESS: 12
+- kappa: 4.893, ESS: 16
+- gammaShape: 2.37, ESS: 33
+
+## rep 4
+- posterior: -2.748E5, ESS: 7
+- CFheight: 125.215, ESS: 18
+- CFlength: 307.154, ESS: 20
+- nUselessConvs: 8.324E-4, ESS: 3604
+- meanEdgeLength: 11.917, ESS: 5
+- meanDepartureHeight: 51.732, ESS: 5
+- meanTractLength: 8502.483, ESS: 5
+- meanRegionLength: 5169.251, ESS: 5
+- clockRate: 4.71E-4, ESS: 11
+- kappa: 5.063, ESS: 6
+- gammaShape: 2.419, ESS: 18 
+
+## rep 5
+- posterior: -2.724E5, ESS: 7
+- CFheight: 104.45, ESS: 8
+- CFlength: 276.492, ESS: 7
+- nUselessConvs: 0E0, ESS: -
+- meanEdgeLength: 42.77, ESS: 6
+- meanDepartureHeight: 54.897, ESS: 34
+- meanTractLength: 22328.917, ESS: 6
+- meanRegionLength: 10073.857, ESS: 18
+- clockRate: 2.822E-4, ESS: 6
+- kappa: 5.591, ESS: 6
+- gammaShape: 0.589, ESS 8
