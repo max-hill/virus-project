@@ -1,0 +1,21 @@
+digraph ../../../../analysis/trilonet/experiment-17/experiment-17--set1b-kappa4
+{
+"n9"[shape=point];"BHV5"[shape=box];"n8"[shape=point];"n7"[shape=point];"B589"[shape=box];"SP1777"[shape=box];"n6"[shape=point];"216_II"[shape=box];"n1"[shape=point];"C46"[shape=box];"Cooper"[shape=box];"C33"[shape=box];"Titanium_IBR_MLV_vaccine"[shape=box];"n2"[shape=point];"n3"[shape=point];"n4"[shape=point];"n5"[shape=point];
+"n9"->"BHV5"
+"n9"->"n8"
+"n8"->"n7"
+"n8"->"n6"
+"n7"->"B589"
+"n7"->"SP1777"
+"n6"->"216_II"
+"n6"->"n1"
+"n1"->"n2"
+"n1"->"n4"
+"n2"->"Cooper"
+"n2"->"n3"
+"n3"->"C33"
+"n3"->"n5"
+"n4"->"Titanium_IBR_MLV_vaccine"
+"n4"->"n5"
+"n5"->"C46"
+}
