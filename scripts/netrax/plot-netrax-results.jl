@@ -43,7 +43,7 @@ starting_trees=[starting_tree_0, starting_tree_1, starting_tree_2, starting_tree
 
 # Remove all three cycles from the networks
 for network in inferred_networks
-    shrink3cycles!(network,false) # why false? I have no idea what that option does.
+    shrink3cycles!(network,false)
 end
 
 # Assign BHV5 the root for all starting trees

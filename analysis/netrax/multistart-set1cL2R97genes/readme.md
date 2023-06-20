@@ -115,5 +115,87 @@ python3 netrax.py --msa_path ${msa_file} --partitions_path ${partition_file} --s
 
 ```
 
-When the run has finished, we copy the output from `scripts/NetRAX/` to the experiment folder manually.
+When the run has finished, we copy the output from `scripts/NetRAX/` to the
+experiment folder manually.
 
+# Output and Plots
+This analysis was run for 71 days, after which it was terminated prior to
+completion of all 97 runs. Only 20 runs had been attempted at that point. Most
+of the runs 0-18 took only a few days each, but the software stalled in run19
+for 31 days.
+
+Since the 97 genes run was terminated before completion, we have only 19
+complete runs (out of 97), so I had to determine the best network manually going
+through the logfiles and comparing the best networks from each of the 19
+complete runs plus the 20th run which was terminated early. The best network and
+its logl and bic score is at the end of the log file for each of the runs
+0,1,...,18. Some of the runs appear to have not terminated correctly, but the
+best network from that run is still recorded as the last entry in the logfile
+(also it is located in the files with names like `run_n_inferred_network.nw`)
+The very last run (the 20th run, called run19) was terminated prior to
+completion; the best network for that last run is at the very end of the 54mb
+file `multistart-set1cL2R97genes-script-output.txt`. It turned out that run19
+was actually the run with the best bic score! 
+
+The networks from each of the 20 runs can be found in plots.jl, which also
+contains the code for plotting the best network.
+
+This analysis was run on a really fast computer (magma2), on which NetRAX maxed
+out 35 cores for the duration of the run. The lscpu results for magma2 are:
+
+```
+
+Architecture:            x86_64
+  CPU op-mode(s):        32-bit, 64-bit
+  Address sizes:         46 bits physical, 48 bits virtual
+  Byte Order:            Little Endian
+CPU(s):                  64
+  On-line CPU(s) list:   0-63
+Vendor ID:               GenuineIntel
+  Model name:            Intel(R) Xeon(R) CPU E5-2698 v3 @ 2.30GHz
+    CPU family:          6
+    Model:               63
+    Thread(s) per core:  2
+    Core(s) per socket:  16
+    Socket(s):           2
+    Stepping:            2
+    CPU max MHz:         3600.0000
+    CPU min MHz:         1200.0000
+    BogoMIPS:            4594.74
+    Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush
+                          dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_
+                         tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf 
+                         pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pd
+                         cm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx 
+                         f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp
+                          tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 sme
+                         p bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts 
+                         md_clear flush_l1d
+Virtualization features: 
+  Virtualization:        VT-x
+Caches (sum of all):     
+  L1d:                   1 MiB (32 instances)
+  L1i:                   1 MiB (32 instances)
+  L2:                    8 MiB (32 instances)
+  L3:                    80 MiB (2 instances)
+NUMA:                    
+  NUMA node(s):          2
+  NUMA node0 CPU(s):     0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,
+                         56,58,60,62
+  NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,
+                         57,59,61,63
+Vulnerabilities:         
+  Itlb multihit:         KVM: Mitigation: VMX disabled
+  L1tf:                  Mitigation; PTE Inversion; VMX conditional cache flushes, SMT vulnerable
+  Mds:                   Mitigation; Clear CPU buffers; SMT vulnerable
+  Meltdown:              Mitigation; PTI
+  Mmio stale data:       Mitigation; Clear CPU buffers; SMT vulnerable
+  Retbleed:              Not affected
+  Spec store bypass:     Mitigation; Speculative Store Bypass disabled via prctl and seccomp
+  Spectre v1:            Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+  Spectre v2:            Mitigation; Retpolines, IBPB conditional, IBRS_FW, STIBP conditional, RSB filli
+                         ng, PBRSB-eIBRS Not affected
+  Srbds:                 Not affected
+  Tsx async abort:       Not affected
+
+```

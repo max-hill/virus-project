@@ -33,8 +33,15 @@ time python3 netrax.py --msa_path ${msa_file} --partitions_path ${partition_file
 
 ```
 
+Note the we have used a different seed from the original run `multistart-set1cL2R15genes`
+
 When the run has finished, we copy the output from `scripts/NetRAX/` to the
 experiment folder (i.e. this folder) manually.
+
+# Plotting the network
+The code to plot the best network is found in the file
+`/analysis/netrax/multistart-set1cL2R15genes-replicate/plot.jl`
+
 
 # Note about specs
 This experiment was run on magma3
