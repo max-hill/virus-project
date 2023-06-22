@@ -119,3 +119,5 @@ python3 netrax.py --msa_path ${msa_file} --partitions_path ${partition_file} --s
 
 When the run has finished, we copy the output from `scripts/NetRAX/` to the experiment folder manually.
 
+# Plotting
+code for plotting the best network is in the file `plot.jl' in this folder. Code for plotting all the output networks from the 15 runs is found in the folder `scripts/netrax/`

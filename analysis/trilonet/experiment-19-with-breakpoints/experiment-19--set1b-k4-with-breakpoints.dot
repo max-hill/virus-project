@@ -1,0 +1,21 @@
+digraph ../../../../analysis/trilonet/experiment-19-with-breakpoints/experiment-19--set1b-k4-with-breakpoints
+{
+"n9"[shape=point];"BHV5"[shape=box];"n8"[shape=point];"n7"[shape=point];"B589"[shape=box];"SP1777"[shape=box];"n6"[shape=point];"216_II"[shape=box];"n2"[shape=point];"Cooper"[shape=box];"C33"[shape=box];"n3"[shape=point];"n4"[shape=point];"n5"[shape=point];"n1"[shape=point];"C46"[shape=box];"Titanium_IBR_MLV_vaccine"[shape=box];
+"n9"->"BHV5"
+"n9"->"n8"
+"n8"->"n7"
+"n8"->"n6"
+"n7"->"B589"
+"n7"->"SP1777"
+"n6"->"216_II"
+"n6"->"n2"
+"n2"->"n3"
+"n2"->"n4"
+"n3"->"Cooper"
+"n3"->"n5"
+"n4"->"C33"
+"n4"->"n5"
+"n5"->"n1"
+"n1"->"C46"
+"n1"->"Titanium_IBR_MLV_vaccine"
+}

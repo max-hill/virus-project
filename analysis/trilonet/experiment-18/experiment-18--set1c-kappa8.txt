@@ -1,0 +1,131 @@
+ORIGINAL SEQUENCES LENGTH =  144551
+
+
+CLEANED SEQUENCES LENGTH = 127979
+Number of taxa: 9
+Vertex 0 = root
+Vertex 1 = BHV5
+Vertex 2 = C33
+Vertex 3 = C46
+Vertex 4 = Titanium_IBR_MLV_vaccine
+Vertex 5 = 216_II
+Vertex 6 = SP1777
+Vertex 7 = K22
+Vertex 8 = B589
+Vertex 9 = Cooper
+
+Leaf Count = 0
+List of Trinets extracted from the Network: 
+Tr0 = Tr{C33, Cooper, C46 : S1}
+Tr1 = Tr{C33, Cooper, Titanium_IBR_MLV_vaccine : S1}
+Tr2 = Tr{SP1777, C33, 216_II : S2}
+Tr3 = Tr{K22, C33, 216_II : S2}
+Tr4 = Tr{B589, C33, 216_II : S2}
+Tr5 = Tr{Titanium_IBR_MLV_vaccine, Cooper, C46 : S1}
+Tr6 = Tr{SP1777, C46, 216_II : S2}
+Tr7 = Tr{K22, C46, 216_II : S2}
+Tr8 = Tr{B589, C46, 216_II : S2}
+Tr9 = Tr{SP1777, Titanium_IBR_MLV_vaccine, 216_II : S2}
+Tr10 = Tr{K22, Titanium_IBR_MLV_vaccine, 216_II : S2}
+Tr11 = Tr{B589, Titanium_IBR_MLV_vaccine, 216_II : S2}
+Tr12 = Tr{SP1777, Cooper, 216_II : S2}
+Tr13 = Tr{B589, Cooper, 216_II : S2}
+Tr14 = Tr{C33, C46, BHV5 : T1}
+Tr15 = Tr{C33, Titanium_IBR_MLV_vaccine, BHV5 : T1}
+Tr16 = Tr{C33, 216_II, BHV5 : T1}
+Tr17 = Tr{C33, SP1777, BHV5 : T1}
+Tr18 = Tr{C33, K22, BHV5 : T1}
+Tr19 = Tr{C33, B589, BHV5 : T1}
+Tr20 = Tr{C33, Cooper, BHV5 : T1}
+Tr21 = Tr{C46, Titanium_IBR_MLV_vaccine, BHV5 : T1}
+Tr22 = Tr{C46, 216_II, BHV5 : T1}
+Tr23 = Tr{C46, SP1777, BHV5 : T1}
+Tr24 = Tr{C46, K22, BHV5 : T1}
+Tr25 = Tr{C46, B589, BHV5 : T1}
+Tr26 = Tr{C46, Cooper, BHV5 : T1}
+Tr27 = Tr{Titanium_IBR_MLV_vaccine, 216_II, BHV5 : T1}
+Tr28 = Tr{Titanium_IBR_MLV_vaccine, SP1777, BHV5 : T1}
+Tr29 = Tr{Titanium_IBR_MLV_vaccine, K22, BHV5 : T1}
+Tr30 = Tr{Titanium_IBR_MLV_vaccine, B589, BHV5 : T1}
+Tr31 = Tr{Titanium_IBR_MLV_vaccine, Cooper, BHV5 : T1}
+Tr32 = Tr{216_II, SP1777, BHV5 : T1}
+Tr33 = Tr{216_II, K22, BHV5 : T1}
+Tr34 = Tr{216_II, B589, BHV5 : T1}
+Tr35 = Tr{216_II, Cooper, BHV5 : T1}
+Tr36 = Tr{SP1777, K22, BHV5 : T1}
+Tr37 = Tr{SP1777, B589, BHV5 : T1}
+Tr38 = Tr{SP1777, Cooper, BHV5 : T1}
+Tr39 = Tr{K22, B589, BHV5 : T1}
+Tr40 = Tr{K22, Cooper, BHV5 : T1}
+Tr41 = Tr{B589, Cooper, BHV5 : T1}
+Tr42 = Tr{C46, Titanium_IBR_MLV_vaccine, C33 : T1}
+Tr43 = Tr{C33, C46, 216_II : T1}
+Tr44 = Tr{C33, C46, SP1777 : T1}
+Tr45 = Tr{C33, C46, K22 : T1}
+Tr46 = Tr{C33, C46, B589 : T1}
+Tr47 = Tr{C33, Titanium_IBR_MLV_vaccine, 216_II : T1}
+Tr48 = Tr{C33, Titanium_IBR_MLV_vaccine, SP1777 : T1}
+Tr49 = Tr{C33, Titanium_IBR_MLV_vaccine, K22 : T1}
+Tr50 = Tr{C33, Titanium_IBR_MLV_vaccine, B589 : T1}
+Tr51 = Tr{C33, Cooper, 216_II : T1}
+Tr52 = Tr{SP1777, K22, C33 : T1}
+Tr53 = Tr{SP1777, B589, C33 : T1}
+Tr54 = Tr{C33, Cooper, SP1777 : T1}
+Tr55 = Tr{K22, B589, C33 : T1}
+Tr56 = Tr{C33, Cooper, K22 : T1}
+Tr57 = Tr{C33, Cooper, B589 : T1}
+Tr58 = Tr{C46, Titanium_IBR_MLV_vaccine, 216_II : T1}
+Tr59 = Tr{C46, Titanium_IBR_MLV_vaccine, SP1777 : T1}
+Tr60 = Tr{C46, Titanium_IBR_MLV_vaccine, K22 : T1}
+Tr61 = Tr{C46, Titanium_IBR_MLV_vaccine, B589 : T1}
+Tr62 = Tr{C46, Cooper, 216_II : T1}
+Tr63 = Tr{SP1777, K22, C46 : T1}
+Tr64 = Tr{SP1777, B589, C46 : T1}
+Tr65 = Tr{C46, Cooper, SP1777 : T1}
+Tr66 = Tr{K22, B589, C46 : T1}
+Tr67 = Tr{C46, Cooper, K22 : T1}
+Tr68 = Tr{C46, Cooper, B589 : T1}
+Tr69 = Tr{Titanium_IBR_MLV_vaccine, Cooper, 216_II : T1}
+Tr70 = Tr{SP1777, K22, Titanium_IBR_MLV_vaccine : T1}
+Tr71 = Tr{SP1777, B589, Titanium_IBR_MLV_vaccine : T1}
+Tr72 = Tr{Titanium_IBR_MLV_vaccine, Cooper, SP1777 : T1}
+Tr73 = Tr{K22, B589, Titanium_IBR_MLV_vaccine : T1}
+Tr74 = Tr{Titanium_IBR_MLV_vaccine, Cooper, K22 : T1}
+Tr75 = Tr{Titanium_IBR_MLV_vaccine, Cooper, B589 : T1}
+Tr76 = Tr{SP1777, K22, 216_II : T1}
+Tr77 = Tr{SP1777, B589, 216_II : T1}
+Tr78 = Tr{K22, B589, 216_II : T1}
+Tr79 = Tr{216_II, Cooper, K22 : T1}
+Tr80 = Tr{SP1777, K22, B589 : T1}
+Tr81 = Tr{SP1777, K22, Cooper : T1}
+Tr82 = Tr{SP1777, B589, Cooper : T1}
+Tr83 = Tr{K22, B589, Cooper : T1}
+List of Trinets: end 
+
+REPORT: (BHV5,((216_II,((Cooper,(C33,(C46)#H1)n5)n4,(Titanium_IBR_MLV_vaccine,#H1)n6)n3)n8,(B589,(SP1777,K22)n1)n2)n9)root;
+REPORT: (BHV5,((216_II,((Cooper,(C33,(C46)#H1)),(Titanium_IBR_MLV_vaccine,#H1))),(B589,(SP1777,K22))))root;
+Extracting trinets from Output network...........
+Output Network eNewick: 
+(BHV5,((216_II,((Cooper,(C33,(C46)#H1)n5)n4,(Titanium_IBR_MLV_vaccine,#H1)n6)n3)n8,(B589,(SP1777,K22)n1)n2)n9)root;
+
+finalNetwork eNewick Short: 
+(BHV5,((216_II,((Cooper,(C33,(C46)#H1)),(Titanium_IBR_MLV_vaccine,#H1))),(B589,(SP1777,K22))))root;
+
+Number of leaves in the output network: 9
+
+
+Reticulations in  output network = 1
+
+
+
+Time to extract Trinets =  0 hours 0 minutes 0 seconds
+Time build our network =  0 hours 0 minutes 0 seconds
+Time to compare results =  0 hours 0 minutes 0 seconds
+Total program time =  0 hours 0 minutes 0 seconds
+
+Results Summary
+Written eNewick String to output.tree
+Output eNewick String Short: 
+(BHV5,((216_II,((Cooper,(C33,(C46)#H1)),(Titanium_IBR_MLV_vaccine,#H1))),(B589,(SP1777,K22))))root;
+
+
