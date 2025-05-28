@@ -205,7 +205,7 @@ This should take a few minutes to run; when it is done, the output files will be
 
 	```
 
-Then move all of the output files to the `data/` directory.
+Then move all of the output files to the `analysis/iqtree` directory.
 
 ### Visualizing the IQ-Tree Output
 Here we show how to visualize the tree made by IQ-TREE, which is located in the
