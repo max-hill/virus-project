@@ -287,6 +287,70 @@ load the file `BHV1-plus-BHV5-outgroup-alignment-EDITED.fasta.treefile` and then
 can play around with the options. Trees produced using this tool are found in
 the directory `analysis/icytree/`.
 
+#### 2025-05: visualize with PhyloPlots
+
+```julia
+using DataFrames # v1.7.0
+using RCall # v0.14.8
+using PhyloNetworks # v1.1.0
+using PhyloPlots # v2.0.1
+iqtreedir = joinpath("analysis", "iqtree")
+iqtreefile = "BHV1-plus-BHV5-outgroup-alignment.fasta.treefile"
+iqtree = readnewick(joinpath(iqtreedir,iqtreefile));
+iqsubtree = deepcopy(iqtree);
+
+deleteleaf!(iqtree, "BHV5") # because edge length is too long
+for i in [-2,-3] rotate!(iqtree, i); end
+
+ninetaxa = ["C46","Cooper","Titanium_IBR_MLV_vaccine","C33", # BHV1.1
+   "216_II", # recombinant, but sister to BHV1.1 in tree
+   "SP1777","K22","B589", # BHV1.2
+   "BHV5",] # outgroup
+fulltaxa = tiplabels(iqtree)
+for t in fulltaxa
+   t in ninetaxa || deleteleaf!(iqsubtree, t)
+end
+rootatnode!(iqsubtree, "BHV5")
+iqsubtree.node[findfirst(n -> n.name == "Titanium_IBR_MLV_vaccine", iqsubtree.node)].name = "Titanium"
+for i in [-2,-47] rotate!(iqsubtree, i); end
+
+full_args = (useedgelength=true, xlim=(1,1.013), tipoffset=0.0002, tipcex=0.8)
+tmp = plot(iqtree; full_args..., showedgenumber=true);
+# stem to BHV1.1 + 216-II: edge 88. stem to BVH1.1: edge 86. to BVH1.2: edge 97
+tmp[:edge_data][[85,87,96],[:num,:x,:y]]
+#  │ num     x        y       
+#  │ String  Float64  Float64 
+# ─┼──────────────────────────
+#  │ 86      1.00551  38.8689
+#  │ 88      1.00254  22.4344
+#  │ 97      1.00122   2.25
+full_ndf = plot(iqtree; full_args...)[:node_data];
+full_ndf.col = [
+   (full_ndf[i,:name] in ninetaxa ? "blue" : "black") for i in 1:nrow(full_ndf)]
+
+sub_args = (xlim=(1,9.7), ylim=(-1,11), tipoffset=0.5, tipcex=0.8)
+sub_ndf = plot(iqsubtree; sub_args...)[:node_data]
+
+R"pdf"(file=joinpath(iqtreedir, "iqtrees.pdf"), width=8, height=6);
+R"layout"([1 2], widths=[2,1]);
+R"par"(mar=[0,0,0,0]);
+plot(iqtree; full_args..., showtiplabel=false);
+for r in eachrow(full_ndf)
+  R"text"(x=r[:x] .+ 0.0002, y=r[:y], labels=r[:name], col=r[:col], adj=0, cex=0.8)
+end
+R"text"( [1.00122, 1.00551 -0.0002], # [1.00122, 1.00254], for edges 97,88
+   [2.25, 38.8689] .+ 0.2, # [2.25, 22.4344] .+ 0.1,
+   ["BHV 1.2", "BHV 1.1"], adj=[0.5,0], cex=0.8);
+plot(iqsubtree; sub_args..., showtiplabel=false);
+for r in eachrow(sub_ndf)
+  R"text"(x=r[:x] .+ 0.1, y=r[:y], labels=r[:name], col="blue", adj=0, cex=0.8)
+end
+R"segments"([9, 9], [1.8, 5.8], [9, 9], [4.2, 9.2]);
+R"text"([9.3, 9.3], [3, 6.5], ["BHV 1.2", "BHV 1.1"], srt=-90);
+R"dev.off"();
+```
+
+
 ## Part 3A. SnappNet
 
 ### Installing SnappNet
