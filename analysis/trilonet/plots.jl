@@ -197,13 +197,14 @@ for i in [-3,-4,-6,-8,-9,11,-11] rotate!(nets[6],i); end # [-3,-4,-6,-8,-9]
 setgamma!(nets[7].edge[2], 0.501)
 rootonedge!(nets[7], 17)
 for i in [-3,-4,-6,-8,-9,11,-11] rotate!(nets[7],i); end # [-3,-4,-6,-8,-9]
+setgamma!(nets[9].edge[8], 0.501)
 for i in [-4,-10,-9]  rotate!(nets[8],i); end # [-4,-10]
 kappa_values = ["0.5","1","2","4","5","6.5","8","10","20"]
 xmin = 0.7; ymin=0.9
 xmax=[9,9,10.4,10.3,10.3,12,12,11.4,13.4]
 ymax=[8.5,8.5,9.5,9.5,9.5,10.5,10.5,9.5,9.8]
-R"cairo_pdf"("trilonet-effect-of-varying-kappa-on-set1b.pdf",
-    height=5, width=5); # height=10, width=10
+#= # commented-out: plot combining both 8-taxon and 9-taxon networks later
+R"cairo_pdf"("trilonet-effect-of-varying-kappa-on-set1b.pdf", height=5, width=5); # height=10, width=10
 R"layout"(transpose(reshape(1:9,3,3)))
 R"par"(mar=[0,0,0,0]); # [1,0,1.4,.1]
 for (i,net) in enumerate(nets)
@@ -212,12 +213,9 @@ for (i,net) in enumerate(nets)
     R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
 R"dev.off"()
-
+=#
 
 # Plot networks for set1c with kappa =  0.5,1,2,4,5,6.5,8,10,20
-R"pdf"("trilonet-effect-of-varying-kappa-on-set1c.pdf", height=10, width=10);
-R"layout(matrix(1:9, nrow=3, ncol=3, byrow=TRUE))"
-R"par"(mar=[1,0,1.4,.1]);
 net_k0_5 = readTopology("(BHV5,((B589,(SP1777,K22)),(216_II,(Cooper,(C33,(C46,Titanium))))))root;")
 net_k1 = readTopology("(BHV5,((B589,(SP1777,K22)),(216_II,(Cooper,(C33,(C46,Titanium))))))root;")
 net_k2 = readTopology("(BHV5,((B589,(SP1777,K22)),(216_II,((Cooper,((C46,Titanium))#H1),(C33,#H1)))))root;")
@@ -227,30 +225,52 @@ net_k6_5 = readTopology("(BHV5,((216_II,((C33,(Titanium,(C46,#H1))),(Cooper)#H1)
 net_k8 = readTopology("(BHV5,((216_II,((Cooper,(C33,(C46)#H1)),(Titanium,#H1))),(B589,(SP1777,K22))))root;")
 net_k10 = readTopology("(BHV5,((B589,((Cooper,(Titanium,(C33,(216_II)#H1))),(SP1777,K22))),(C46,#H1)))root;")
 net_k20 = readTopology("(BHV5,((K22,(B589,(216_II,(SP1777,(C33,(Titanium,(C46,#H1))))))),(Cooper)#H1))root;")
-nets = [net_k0_5, net_k1, net_k2, net_k4, net_k5, net_k6_5, net_k8, net_k10, net_k20]
+nets_9tax = [net_k0_5, net_k1, net_k2, net_k4, net_k5, net_k6_5, net_k8, net_k10, net_k20]
 
-PhyloNetworks.rotate!(nets[3],-7)
-PhyloNetworks.rotate!(nets[4],-11)
-PhyloNetworks.rotate!(nets[5],-11)
-PhyloNetworks.rotate!(nets[6],-5)
-PhyloNetworks.rotate!(nets[6],-7)
-PhyloNetworks.rotate!(nets[6],-8)
-PhyloNetworks.rotate!(nets[6],-3)
-PhyloNetworks.rotate!(nets[7],-3)
-PhyloNetworks.rotate!(nets[7],-9)
-PhyloNetworks.rotate!(nets[8],-5)
-PhyloNetworks.rotate!(nets[8],-11)
-
-kappa_values = [0.5,1,2,4,5,6.5,8,10,20]
-limits=[[0,9],[0,9],[0,9.8],[0,10.2],[0,10.2],[0,11],[0,10.2],[0,11.4],[0,13.4]]
-for i in 1:9
-    net=nets[i]
+for j in [1,2,3,4,5] rotate!(nets_9tax[j],-4); end
+for j in [6,7] rotate!(nets_9tax[j],-10); end
+setgamma!(nets_9tax[4].edge[15], 0.501)
+setgamma!(nets_9tax[5].edge[15], 0.501)
+setgamma!(nets_9tax[7].edge[10], 0.501)
+setgamma!(nets_9tax[9].edge[9], 0.501)
+rotate!(nets_9tax[3],-7)
+rotate!(nets_9tax[4],-11)
+rotate!(nets_9tax[5],-11)
+for i in [-5,-7,-8,-3] rotate!(nets_9tax[6],i); end
+for i in [-3,-9] rotate!(nets_9tax[7],i); end
+for i in [-5,-11]  rotate!(nets_9tax[8],i); end # [-5,-11]
+kappa_values = ["0.5","1","2","4","5","6.5","8","10","20"]
+xmin = 0.7; ymin=0.9
+xmax_9tax=[9,9,10.4,10.3,10.3,12,11.2,12,14.4]
+ymax_9tax=[9.5,9.5,10.5,10.5,10.5,10.5,10.5,10.5,10.8]
+#=
+R"cairo_pdf"("trilonet-effect-of-varying-kappa-on-set1b.pdf", height=5, width=5); # height=10, width=10
+R"layout"(transpose(reshape(1:9,3,3)))
+R"par"(mar=[0,0,0,0]); # [1,0,1.4,.1]
+for (i,net) in enumerate(nets_9tax)
     k = kappa_values[i]
-    PhyloPlots.plot(net, xlim=limits[i], tipcex=1.3, useedgelength=false, showedgenumber=false, shownodenumber=false, showgamma=true)
-    R"mtext"("kappa = $k")
+    plot(net, xlim=[xmin,xmax_9tax[i]], ylim=[ymin,ymax_9tax[i]]) # tipcex=1.3
+    R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
 R"dev.off()"
+=#
 
+# combine the 2 plots above into 1 plot, with 2 x 9 panels
+R"cairo_pdf"("trilonet-effect-of-varying-kappa.pdf", height=5, width=10.5);
+R"layout"([1 2 3 0 10 11 12; 4 5 6 0 13 14 15; 7 8 9 0 16 17 18],
+    widths=[2 2 2 1 2 2 2]);
+R"par"(mar=[0,0,0,0]);
+for (i,net) in enumerate(nets)
+    k = kappa_values[i]
+    plot(net, xlim=[xmin,xmax[i]], ylim=[ymin,ymax[i]]) # tipcex=1.3
+    R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
+end
+for (i,net) in enumerate(nets_9tax)
+    k = kappa_values[i]
+    plot(net, xlim=[xmin,xmax_9tax[i]], ylim=[ymin,ymax_9tax[i]]) # tipcex=1.3
+    R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
+end
+R"dev.off"();
 
 # Plot networks for experiment 19  (k=4,6.5,8, both sets 1b and 1c, with breakpoints)
 R"pdf"("trilonet-with-breakpoints.pdf", height=10, width=10);
