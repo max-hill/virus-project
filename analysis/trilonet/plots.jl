@@ -1,17 +1,14 @@
-###
-using Pkg # to use functions that manage packages
+#=
+using Pkg # install packages, if not done ealier
 Pkg.add("PhyloNetworks")
 Pkg.add("PhyloPlots")
-Pkg.add("Plots")
+Pkg.add("Plots") # not needed here
+Pkg.add("RCall") # Pkg.build("RCall")
+=#
 using PhyloNetworks
 using PhyloPlots
-using Plots
-
-# For plotting networks and trees side-by-side
-# Pkg.build("RCall")
-Pkg.add("RCall")
+# using Plots # not needed, causes to require PhyloPlots.plot() instead of plot()
 using RCall
-# displayedTrees(net0,0.41) |> length
 ###
 
 # Plot experiment 1
@@ -161,6 +158,7 @@ R"dev.off()"
 
 
 # Plot networks for set1c with kappa =  0.5,1,2,4,5,6.5,8,10,20
+# old: re-done below
 R"pdf"("trilonet-effect-of-varying-kappa-on-set1c.pdf", height=10, width=10);
 R"layout(matrix(1:9, nrow=3, ncol=3, byrow=TRUE))"
 R"par"(mar=[1,0,1.4,.1]); 
@@ -179,9 +177,6 @@ R"dev.off()"
 
 
 # Plot networks for set1b with kappa =  0.5,1,2,4,5,6.5,8,10,20
-R"pdf"("trilonet-effect-of-varying-kappa-on-set1b.pdf", height=10, width=10);
-R"layout(matrix(1:9, nrow=3, ncol=3, byrow=TRUE))"
-R"par"(mar=[1,0,1.4,.1]);
 net_k0_5 = readTopology("(BHV5,((B589,SP1777),(216_II,(Cooper,(C33,(C46,Titanium))))))root;")
 net_k1 = readTopology("(BHV5,((B589,SP1777),(216_II,(Cooper,(C33,(C46,Titanium))))))root;")
 net_k2 = readTopology("(BHV5,((B589,SP1777),(216_II,((Cooper,((C46,Titanium))#H1),(C33,#H1)))))root;")
@@ -192,34 +187,31 @@ net_k8 = readTopology("(BHV5,(((#H1,((C33,(Titanium,(C46,#H2))),(Cooper)#H2)),(B
 net_k10 = readTopology("(BHV5,(((Cooper,(Titanium,(C33,(216_II)#H1))),(B589,SP1777)),(C46,#H1)))root;")
 net_k20 = readTopology("(BHV5,((SP1777,(B589,(216_II,(C33,(Titanium,(C46,#H1)))))),(Cooper)#H1))root;")
 nets = [net_k0_5, net_k1, net_k2, net_k4, net_k5, net_k6_5, net_k8, net_k10, net_k20]
-PhyloNetworks.rotate!(nets[3],-6)
-PhyloNetworks.rotate!(nets[4],-10)
-PhyloNetworks.rotate!(nets[5],-3)
-PhyloNetworks.rotate!(nets[5],-9)
-PhyloNetworks.rotate!(nets[6],-3)
-PhyloNetworks.rotate!(nets[6],-4)
-PhyloNetworks.rotate!(nets[6],-6)
-PhyloNetworks.rotate!(nets[6],-8)
-PhyloNetworks.rotate!(nets[6],-9)
-
-PhyloNetworks.rotate!(nets[7],-3)
-PhyloNetworks.rotate!(nets[7],-4)
-PhyloNetworks.rotate!(nets[7],-6)
-PhyloNetworks.rotate!(nets[7],-9)
-PhyloNetworks.rotate!(nets[7],-8)
-
-PhyloNetworks.rotate!(nets[8],-4)
-PhyloNetworks.rotate!(nets[8],-10)
-
-kappa_values = [0.5,1,2,4,5,6.5,8,10,20]
-limits=[[0,9],[0,9],[0,9.8],[0,10.2],[0,10.2],[0,12],[0,12.2],[0,11.4],[0,13.4]]
-for i in 1:9
-    net=nets[i]
+for j in [1,2,3,4] rotate!(nets[j],-4); end
+rotate!(nets[3],-6)
+rotate!(nets[4],-10)
+for i in [-3,-9]  rotate!(nets[5],i); end
+setgamma!(nets[6].edge[2], 0.501) # to make it major: plots 216II in better position
+rootonedge!(nets[6], 17)
+for i in [-3,-4,-6,-8,-9,11,-11] rotate!(nets[6],i); end # [-3,-4,-6,-8,-9]
+setgamma!(nets[7].edge[2], 0.501)
+rootonedge!(nets[7], 17)
+for i in [-3,-4,-6,-8,-9,11,-11] rotate!(nets[7],i); end # [-3,-4,-6,-8,-9]
+for i in [-4,-10,-9]  rotate!(nets[8],i); end # [-4,-10]
+kappa_values = ["0.5","1","2","4","5","6.5","8","10","20"]
+xmin = 0.7; ymin=0.9
+xmax=[9,9,10.4,10.3,10.3,12,12,11.4,13.4]
+ymax=[8.5,8.5,9.5,9.5,9.5,10.5,10.5,9.5,9.8]
+R"cairo_pdf"("trilonet-effect-of-varying-kappa-on-set1b.pdf",
+    height=5, width=5); # height=10, width=10
+R"layout"(transpose(reshape(1:9,3,3)))
+R"par"(mar=[0,0,0,0]); # [1,0,1.4,.1]
+for (i,net) in enumerate(nets)
     k = kappa_values[i]
-    PhyloPlots.plot(net, xlim=limits[i], tipcex=1.3, useedgelength=false, showedgenumber=false, shownodenumber=false, showgamma=true)
-    R"mtext"("kappa = $k")
+    plot(net, xlim=[xmin,xmax[i]], ylim=[ymin,ymax[i]]) # tipcex=1.3
+    R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
-R"dev.off()"
+R"dev.off"()
 
 
 # Plot networks for set1c with kappa =  0.5,1,2,4,5,6.5,8,10,20
