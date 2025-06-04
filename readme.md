@@ -1919,3 +1919,34 @@ java -jar TriLoNet.jar $k22_dataset ${mypath}/k22-set-with-breakpoints-output.tx
 ```
 
 visualizations created with icytree
+
+## Part 5. Bacter
+
+Why is `scripts/bacter` listed in file `.gitignore`?
+
+Shell commands to find out the taxon set used by each bacter analysis.
+```sh
+cd results/bhv/bacter
+for dir in experimentMC3*
+do
+  cd $dir
+  for xmlfile in *.xml
+  do
+    echo -n "$xmlfile in $dir:"
+    grep "taxon=" $xmlfile | wc -l
+  done
+  cd ..
+done
+```
+
+got this, showing 8 runs:
+```
+mc3_test.xml in experimentMC3:       9
+mc3_test.xml in experimentMC3_rep2:       9
+mc3_test.xml in experimentMC3_rep3:       9
+mc3_test.xml in experimentMC3_rep4:       9
+mc3_test.xml in experimentMC3_rep4a:       9
+mc3_test.xml in experimentMC3_rep5:       9
+mc3_test.xml in experimentMC3_rep5a:       9
+mc3_test.xml in experimentMC3_rep5b:       9
+```
