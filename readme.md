@@ -207,6 +207,38 @@ This should take a few minutes to run; when it is done, the output files will be
 
 Then move all of the output files to the `analysis/iqtree` directory.
 
+2025-06-08: ran IQ-Tree version 2.4.0 on the 9-taxon data set (set1c),
+using 200 standard bootstrap replicated, model selection using
+"modelfinder plus" by default, and output files starting as
+`set1c_iqtreeconcat`: (it took < 5 min on laptop `cecile-mac-2018`)
+```shell
+cd analysis/iqtree
+iqtree -T AUTO -s ../../data/set1c.fasta -b 200 --prefix set1c_iqtreeconcat > set1c_iqtreeconcat.screenlog &
+```
+
+important output files:
+`analysis/iqtree/set1c_iqtreeconcat.{treefile,iqtree,bionj}`
+including this and this in the `.iqtree`:
+```
++----------------------------------------------------------BHV5
+|
+|     +--C33
+|  +--| (100)
+|  |  |     +--C46
+|  |  |  +--| (100)
+|  |  |  |  +--Cooper
+|  |  +--| (100)
+|  |     +--Titanium_IBR_MLV_vaccine
++--| (100)
+|  +--216_II
+|
+|  +--SP1777
++--| (99)
+   |  +--K22
+   +--| (91)
+      +--B589
+```
+
 ### Visualizing the IQ-Tree Output
 Here we show how to visualize the tree made by IQ-TREE, which is located in the
 file `BHV1-plus-BHV5-outgroup-alignment.fasta.treefile`. So far we have
