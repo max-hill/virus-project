@@ -330,6 +330,7 @@ iqtreedir = joinpath("analysis", "iqtree")
 iqtreefile = "BHV1-plus-BHV5-outgroup-alignment.fasta.treefile"
 iqtree = readnewick(joinpath(iqtreedir,iqtreefile));
 iqsubtree = deepcopy(iqtree);
+iqtree_9t = readnewick(joinpath(iqtreedir,"set1c_iqtreeconcat.treefile"))
 
 deleteleaf!(iqtree, "BHV5") # because edge length is too long
 for i in [-2,-3] rotate!(iqtree, i); end
@@ -346,6 +347,11 @@ rootatnode!(iqsubtree, "BHV5")
 iqsubtree.node[findfirst(n -> n.name == "Titanium_IBR_MLV_vaccine", iqsubtree.node)].name = "Titanium"
 for i in [-2,-47] rotate!(iqsubtree, i); end
 
+rootatnode!(iqtree_9t, "BHV5")
+iqtree_9t.node[findfirst(n -> n.name == "Titanium_IBR_MLV_vaccine", iqtree_9t.node)].name = "Titanium"
+for i in [-2,10,8,5] rotate!(iqtree_9t, i); end
+plot(iqtree_9t, shownodenumber=true);
+
 full_args = (useedgelength=true, xlim=(1,1.013), tipoffset=0.0002, tipcex=0.8)
 tmp = plot(iqtree; full_args..., showedgenumber=true);
 # stem to BHV1.1 + 216-II: edge 88. stem to BVH1.1: edge 86. to BVH1.2: edge 97
@@ -361,7 +367,18 @@ full_ndf.col = [
    (full_ndf[i,:name] in ninetaxa ? "blue" : "black") for i in 1:nrow(full_ndf)]
 
 sub_args = (xlim=(1,9.7), ylim=(-1,11), tipoffset=0.5, tipcex=0.8)
-sub_ndf = plot(iqsubtree; sub_args...)[:node_data]
+sub_ndf = plot(iqtree_9t; sub_args...)[:node_data]
+sub_edf = plot(iqtree_9t; sub_args...)[:edge_data]
+lowbs_bs = String[]
+lowbs_en = Int[]
+for n in iqtree_9t.node
+   n.leaf && continue
+   n.name in ["100",""] && continue
+   push!(lowbs_bs, n.name * "%") # bootstrap support, not 100%
+   push!(lowbs_en, getparentedge(n).number)
+end
+edf = DataFrame(num = lowbs_en, lab = lowbs_bs,
+                num_safetycheck = sub_edf.num[lowbs_en])
 
 R"pdf"(file=joinpath(iqtreedir, "iqtrees.pdf"), width=8, height=6);
 R"layout"([1 2], widths=[2,1]);
@@ -373,7 +390,7 @@ end
 R"text"( [1.00122, 1.00551 -0.0002], # [1.00122, 1.00254], for edges 97,88
    [2.25, 38.8689] .+ 0.2, # [2.25, 22.4344] .+ 0.1,
    ["BHV 1.2", "BHV 1.1"], adj=[0.5,0], cex=0.8);
-plot(iqsubtree; sub_args..., showtiplabel=false);
+plot(iqtree_9t; sub_args..., showtiplabel=false, edgelabel=edf, edgecex=0.8);
 for r in eachrow(sub_ndf)
   R"text"(x=r[:x] .+ 0.1, y=r[:y], labels=r[:name], col="blue", adj=0, cex=0.8)
 end
