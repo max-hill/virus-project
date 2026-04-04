@@ -9,9 +9,12 @@ Unzip TriLoNet3.zip into the folder `virus-project/scripts/`. If there are any
 questions, follow the instructions in the file manual.pdf. The documentation is
 good and it's easy to run.
 
-For the following experiments, the output files are manually copied to the respective directories.
+Experiments 21, 22, and 23 are used to create the plots in the paper.
+Experiments 1-20 were exploratory; for these experiments, all output files
+were manually copied to their respective directories.
+
 # Experiment 1 - set1c
-Navigate to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+Navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 then run
 
 `java -jar TriLoNet.jar ../../../../analysis/trilonet/set1c.fasta set1c-output.dot set1c-output.txt`
@@ -28,17 +31,17 @@ Default value of kappa is 6.5. In this experiment, we repeat experiment 1 but
 with kappa=4. I do not know what kappa is and am unable to find any
 documentation about it, other than that it affects the inference of trinets from
 the sequence data.
-From  `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet` run
+From  `virus-project/scripts/trilonet3/TriLoNet/TriLoNet` run
 `java -jar TriLoNet.jar ../../../../analysis/trilonet/set1c.fasta --k4.0 set1c-kappa4-output.dot set1c-kappa4-output.txt`
 
 # Experiment 4 - set1b with kappa=4
 Repeat experiment 2 but with kappa=4.
 
-From  `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet` run
+From  `virus-project/scripts/trilonet3/TriLoNet/TriLoNet` run
 `java -jar TriLoNet.jar ../../../../analysis/trilonet/set1b.fasta --k4.0 set1b-kappa4-output.dot set1b-kappa4-output.txt`
 
 # Experiment 5 - set1c with breakpoints
-Navigate to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+Navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 then run
 `taxonset="set1c"`
 and 
@@ -50,7 +53,7 @@ The output files are `set1c-with-breakpoints-output.dot` and `set1c-with-breakpo
 # Experiment 6 - set1c with kappa=1
 Starting with this experiment, we fully automate the process of making the experiment directory and outputting files to that director. 
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -72,7 +75,7 @@ The output files are automatically saved to `outdir`.
     
 # Experiment 7 - set1c with kappa=10
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -95,7 +98,7 @@ The output files are automatically saved to `outdir`
     
 # Experiment 8 - set1c with kappa=20
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -114,7 +117,7 @@ java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --k${K} ${outdir}/${output_nam
     
 # Experiment 9 - set1c with kappa=4 and breakpoints
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -135,7 +138,7 @@ The output files are automatically saved to `outdir`
     
 # Experiment 10 - set1b with kappa=4 and breakpoints
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -157,7 +160,7 @@ The output files are automatically saved to `outdir`
 # Experiment 11 - set1c with kappa=4 and major breakpoints
 Only breakpoints included here are those corresponding to the 1600bp BHV5 -> 216_II reticulation.
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -179,7 +182,7 @@ The output files are automatically saved to `outdir`
 # Experiment 12 - set1c with kappa=6.5 and major breakpoints
 Only breakpoints included here are those corresponding to the 1600bp BHV5 -> 216_II reticulation.
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -201,7 +204,7 @@ The output files are automatically saved to `outdir`
     
 # Experiment 13 - set1c with kappa=2.0
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -219,7 +222,7 @@ java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --k${K} ${outdir}/${output_nam
 ```
 # Experiment 14 - set1c with kappa=8.0
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -238,7 +241,7 @@ java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --k${K} ${outdir}/${output_nam
 
 # Experiment 15 - set1c with kappa=0.5
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -259,7 +262,7 @@ The output files are automatically saved to `outdir`
 
 # Experiment 16 - set1c with kappa=5
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -280,7 +283,7 @@ The output files are automatically saved to `outdir`
 
 # Experiment 17 - set1b with kappa=0.5,1,2,4,5,6.5,8,10,20
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -301,7 +304,7 @@ done
 
 # Experiment 18 - set1c with kappa=0.5,1,2,4,5,6.5,8,10,20
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -323,7 +326,7 @@ done
 
 # Experiment 19 - set1c and set1b with kappa=4,6.5,8 and with breakpoints
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -346,7 +349,7 @@ done
 
 # Experiment 20 - set1c and set1b with kappa=4,6.5,8 with only major breakpoints
 
-First go to `virus-project/scripts/TriLoNet3/TriLoNet/TriLoNet`
+First go to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -362,6 +365,73 @@ do
     do
         output_name="experiment-${N}--${taxonset}-k${K}-with-major-breakpoints"
         java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --b81000,82700 --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt
+    done
+done
+```
+
+
+# Experiment 21 - major breakpoint only
+
+First download trilonet and extract to the `scripts/` directory. Then, in shell,
+navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
+
+Then run the following code:
+
+```
+N="21" # Experiment number
+indir="../../../../analysis/trilonet"
+outdir="../../../../analysis/trilonet/experiment-${N}-with-major-breakpoint-only"
+mkdir ${outdir}
+
+time for taxonset in "set1c" "set1b"
+do
+    for K in {0.5,1,2,4,5,6.5,8,10,20}
+    do
+        output_name="experiment-${N}--${taxonset}-k${K}-with-major-breakpoint-only"
+            java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --b81000,82700 --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt
+    done
+done
+```
+
+
+# Experiment 22 - all known breakpoints
+
+
+First download trilonet and extract to the `scripts/` directory. Then, in shell,
+navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
+
+```
+N="22" # Experiment number
+indir="../../../../analysis/trilonet"
+outdir="../../../../analysis/trilonet/experiment-${N}-with-all-breakpoints"
+mkdir ${outdir}
+
+for taxonset in "set1c" "set1b"
+do
+    for K in {0.5,1,2,4,5,6.5,8,10,20}
+    do
+        output_name="experiment-${N}--${taxonset}-k${K}-with-all-breakpoints"
+        java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --b60800,61000,81000,82700,109900,110300  --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt
+    done
+done
+```
+
+# 127986 is the "cleaned sequences length" for set1c, and 127992 is for set1b. This is why we were getting the out of bounds error. 
+
+# Experiment 23 - no breakpoints supplied
+
+```
+N="23" # Experiment number
+indir="../../../../analysis/trilonet"
+outdir="../../../../analysis/trilonet/experiment-${N}-with-no-breakpoints"
+mkdir ${outdir}
+
+for taxonset in "set1c" "set1b"
+do
+    for K in {0.5,1,2,4,5,6.5,8,10,20}
+    do
+        output_name="experiment-${N}--${taxonset}-k${K}-with-no-breakpoints"
+        java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt
     done
 done
 ```
