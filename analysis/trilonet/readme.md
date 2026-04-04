@@ -466,12 +466,11 @@ done
 
 # Experiments 21 - 24 (combined run)
 Here we run several experiments at once, comparing sets 1b and 1c using (1)
-different breakpoint choices and (2) different values of kappa. The code for
-plotting the results of tehse experiments is found in
-`analysis/trilonet/plots-for-experiments-21-22-23.jl`
+different breakpoint choices and (2) different values of kappa. 
 
-First download trilonet and extract to the `scripts/` directory. Then, in shell,
-navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
+To replicate these experiments, first download trilonet and extract to the
+`scripts/` directory. Then, in shell, navigate to
+`virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 
 Then run the following code:
 
@@ -516,8 +515,11 @@ do
 done
 ```
 
+The above code saves the TriLoNet output files to four separate folders in the
+directory `analysis/trilonet/`. The code for plotting the results of these
+experiments is found in `analysis/trilonet/plots-for-experiments-21-through-24.jl`
 
-Comments: The uniform breakpoints case (experiment 24) only goes up to 127500
-since 127986 is the "cleaned sequences length" for set1c, and 127992 is for
-set1b. (This is why we were getting the out of bounds error in previous
-experiments.)
+Comment: The uniform breakpoints case (experiment 24) only goes up to 127500,
+which is less than the full genome length. This is because 127986 is the
+"cleaned sequences length" for set1c, and 127992 is for set1b. (This is why we
+were getting the out of bounds error in previous experiments.)
