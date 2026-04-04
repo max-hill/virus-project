@@ -1,7 +1,7 @@
 # Trilonet experiments
 These experiments were run using TriLoNet Version 1.2 on Debian Buster (stable).
 
-This folder contains the results of trilonet experiments. The paper for trilonet is https://academic.oup.com/mbe/article/33/8/2151/2578738
+This folder contains the results of trilonet experiments and code for making the plots in the paper. The paper for trilonet is https://academic.oup.com/mbe/article/33/8/2151/2578738
 
 To setup trilonet, first get the software from https://www.uea.ac.uk/groups-and-centres/computational-biology/software/trilonet#2
 
@@ -370,7 +370,105 @@ done
 ```
 
 
-# Experiment 21 - major breakpoint only
+<!-- # Experiment 21 - major breakpoint only -->
+
+<!-- First download trilonet and extract to the `scripts/` directory. Then, in shell, -->
+<!-- navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet` -->
+
+<!-- Then run the following code: -->
+
+<!-- ``` -->
+<!-- N="21" # Experiment number -->
+<!-- suffix="with-major-breakpoint-only" -->
+<!-- indir="../../../../analysis/trilonet" -->
+<!-- outdir="../../../../analysis/trilonet/experiment-${N}-${suffix}" -->
+<!-- mkdir ${outdir} -->
+
+<!-- time for taxonset in "set1c" "set1b" -->
+<!-- do -->
+<!--     for K in {0.5,1,2,4,5,6.5,8,10,20} -->
+<!--     do -->
+<!--         output_name="experiment-${N}--${taxonset}-k${K}-${suffix}" -->
+<!--             java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --b81000,82700 --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt -->
+<!--     done -->
+<!-- done -->
+<!-- ``` -->
+<!-- <\!-- real	13m4.432s -\-> -->
+<!-- <\!-- user	13m28.788s -\-> -->
+<!-- <\!-- sys	0m7.607s -\-> -->
+
+
+<!-- # Experiment 22 - all conjectured breakpoints -->
+
+
+<!-- First download trilonet and extract to the `scripts/` directory. Then, in shell, -->
+<!-- navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet` -->
+
+<!-- ``` -->
+<!-- N="22" # Experiment number -->
+<!-- suffix="with-all-conjectured-breakpoints" -->
+<!-- indir="../../../../analysis/trilonet" -->
+<!-- outdir="../../../../analysis/trilonet/experiment-${N}-${suffix}" -->
+<!-- mkdir ${outdir} -->
+
+<!-- for taxonset in "set1c" "set1b" -->
+<!-- do -->
+<!--     for K in {0.5,1,2,4,5,6.5,8,10,20} -->
+<!--     do -->
+<!--         output_name="experiment-${N}--${taxonset}-k${K}-${suffix}" -->
+<!--         java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --b60800,61000,81000,82700,109900,110300  --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt -->
+<!--     done -->
+<!-- done -->
+<!-- ``` -->
+
+<!-- (Note that 127986 is the "cleaned sequences length" for set1c, and 127992 is -->
+<!-- for set1b. This is why we were getting the out of bounds error in previous experiments.) -->
+
+<!-- # Experiment 23 - no breakpoints supplied -->
+
+<!-- ``` -->
+<!-- N="23" # Experiment number -->
+<!-- suffix="with-no-breakpoints" -->
+<!-- indir="../../../../analysis/trilonet" -->
+<!-- outdir="../../../../analysis/trilonet/experiment-${N}-${suffix}" -->
+<!-- mkdir ${outdir} -->
+
+<!-- for taxonset in "set1c" "set1b" -->
+<!-- do -->
+<!--     for K in {0.5,1,2,4,5,6.5,8,10,20} -->
+<!--     do -->
+<!--         output_name="experiment-${N}--${taxonset}-k${K}-${suffix}" -->
+<!--         java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt -->
+<!--     done -->
+<!-- done -->
+<!-- ``` -->
+
+<!-- # Experiment 24 - uniform 1500 bp mesh -->
+
+<!-- ``` -->
+<!-- N="24" # Experiment number -->
+<!-- suffix="with-uniform-1500-bp-mesh" -->
+<!-- indir="../../../../analysis/trilonet" -->
+<!-- outdir="../../../../analysis/trilonet/experiment-${N}-${suffix}" -->
+<!-- mkdir ${outdir} -->
+
+<!-- for taxonset in "set1c" "set1b" -->
+<!-- do -->
+<!--     for K in {0.5,1,2,4,5,6.5,8,10,20} -->
+<!--     do -->
+<!--         output_name="experiment-${N}--${taxonset}-k${K}-${suffix}" -->
+<!--         java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --b1500,3000,4500,6000,7500,9000,10500,12000,13500,15000,16500,18000,19500,21000,22500,24000,25500,27000,28500,30000,31500,33000,34500,36000,37500,39000,40500,42000,43500,45000,46500,48000,49500,51000,52500,54000,55500,57000,58500,60000,61500,63000,64500,66000,67500,69000,70500,72000,73500,75000,76500,78000,79500,81000,82500,84000,85500,87000,88500,90000,91500,93000,94500,96000,97500,99000,100500,102000,103500,105000,106500,108000,109500,111000,112500,114000,115500,117000,118500,120000,121500,123000,124500,126000,127500 --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt -->
+<!--     done -->
+<!-- done -->
+<!-- ``` -->
+
+
+
+# Experiments 21 - 24 (combined run)
+Here we run several experiments at once, comparing sets 1b and 1c using (1)
+different breakpoint choices and (2) different values of kappa. The code for
+plotting the results of tehse experiments is found in
+`analysis/trilonet/plots-for-experiments-21-22-23.jl`
 
 First download trilonet and extract to the `scripts/` directory. Then, in shell,
 navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
@@ -378,67 +476,48 @@ navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
 Then run the following code:
 
 ```
-N="21" # Experiment number
 indir="../../../../analysis/trilonet"
-outdir="../../../../analysis/trilonet/experiment-${N}-with-major-breakpoint-only"
-mkdir ${outdir}
 
-time for taxonset in "set1c" "set1b"
+for N in 21 22 23 24
 do
-    for K in {0.5,1,2,4,5,6.5,8,10,20}
+    case "$N" in
+        21)
+            suffix="with-major-breakpoint-only"
+            breakpoints="--b81000,82700"
+            ;;
+        22)
+            suffix="with-all-conjectured-breakpoints"
+            breakpoints="--b60800,61000,81000,82700,109900,110300"
+            ;;
+        23)
+            suffix="with-no-breakpoints"
+            breakpoints=""
+            ;;
+        24)
+            suffix="with-uniform-1500-bp-mesh"
+            breakpoints="--b1500,3000,4500,6000,7500,9000,10500,12000,13500,15000,16500,18000,19500,21000,22500,24000,25500,27000,28500,30000,31500,33000,34500,36000,37500,39000,40500,42000,43500,45000,46500,48000,49500,51000,52500,54000,55500,57000,58500,60000,61500,63000,64500,66000,67500,69000,70500,72000,73500,75000,76500,78000,79500,81000,82500,84000,85500,87000,88500,90000,91500,93000,94500,96000,97500,99000,100500,102000,103500,105000,106500,108000,109500,111000,112500,114000,115500,117000,118500,120000,121500,123000,124500,126000,127500"
+            ;;
+    esac
+    outdir="../../../../analysis/trilonet/experiment-${N}-${suffix}"
+    mkdir -p "$outdir"
+    for taxonset in set1c set1b
     do
-        output_name="experiment-${N}--${taxonset}-k${K}-with-major-breakpoint-only"
-            java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --b81000,82700 --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt
+        for K in 0.5 1 2 4 5 6.5 8 10 20
+        do
+            output_name="experiment-${N}--${taxonset}-k${K}-${suffix}"
+            java -jar TriLoNet.jar \
+                "${indir}/${taxonset}.fasta" \
+                $breakpoints \
+                "--k${K}" \
+                "${outdir}/${output_name}.dot" \
+                "${outdir}/${output_name}.txt"
+        done
     done
 done
 ```
 
 
-# Experiment 22 - all known breakpoints
-
-
-First download trilonet and extract to the `scripts/` directory. Then, in shell,
-navigate to `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
-
-```
-N="22" # Experiment number
-indir="../../../../analysis/trilonet"
-outdir="../../../../analysis/trilonet/experiment-${N}-with-all-breakpoints"
-mkdir ${outdir}
-
-for taxonset in "set1c" "set1b"
-do
-    for K in {0.5,1,2,4,5,6.5,8,10,20}
-    do
-        output_name="experiment-${N}--${taxonset}-k${K}-with-all-breakpoints"
-        java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --b60800,61000,81000,82700,109900,110300  --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt
-    done
-done
-```
-
-(Note that 127986 is the "cleaned sequences length" for set1c, and 127992 is
-for set1b. This is why we were getting the out of bounds error in previous experiments.)
-
-# Experiment 23 - no breakpoints supplied
-
-```
-N="23" # Experiment number
-indir="../../../../analysis/trilonet"
-outdir="../../../../analysis/trilonet/experiment-${N}-with-no-breakpoints"
-mkdir ${outdir}
-
-for taxonset in "set1c" "set1b"
-do
-    for K in {0.5,1,2,4,5,6.5,8,10,20}
-    do
-        output_name="experiment-${N}--${taxonset}-k${K}-with-no-breakpoints"
-        java -jar TriLoNet.jar ${indir}/${taxonset}.fasta --k${K} ${outdir}/${output_name}.dot ${outdir}/${output_name}.txt
-    done
-done
-```
-
-
-
-
-# Plots
-Code for creating the plots is found in plot.jl
+Comments: The uniform breakpoints case (experiment 24) only goes up to 127500
+since 127986 is the "cleaned sequences length" for set1c, and 127992 is for
+set1b. (This is why we were getting the out of bounds error in previous
+experiments.)

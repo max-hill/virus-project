@@ -20,20 +20,14 @@ using RCall
 function get_networks(taxonset, dir)
     pattern = "finalNetwork eNewick Short:"
     println("\n\n# Networks for ", taxonset, " from directory ", dir)
-
     results = []  # will store (kvalue, ksnippet, network)
-
     for file in readdir(dir)
         if occursin(taxonset, file) && endswith(file, ".txt")
-
             m = match(r"-k([0-9]+(?:\.[0-9]+)?)\-", file)
             m === nothing && continue
-
             kvalue = parse(Float64, m.captures[1])
             ksnippet = "net_k" * replace(m.captures[1], "." => "_")
-
             path = joinpath(dir, file)
-
             open(path) do io
                 lines = readlines(io)
                 for i in 1:length(lines)-1
@@ -47,9 +41,7 @@ function get_networks(taxonset, dir)
             end
         end
     end
-
     sort!(results, by = x -> x[1])
-
     for (_, ksnippet, network) in results
         println(ksnippet, "_",taxonset," = readTopology(\"", network, "\")")
     end
@@ -102,7 +94,7 @@ ymax_set1c = [11,11,11,12,12,12,12,12,12] # [9.5,9.5,10.5,10.5,10.5,10.5,10.5,10
 xpad = 0
 kappa_values = ["0.5","1","2","4","5","6.5","8","10","20"]
 
-# Rotate networks to make them pretty
+# Untangle the networks (for visualization purposes)
 for i in [1,2,3] rotate!(ex21_nets_set1b[i],-10); end
 for i in [1,2,3] rotate!(ex21_nets_set1b[i],-3); end
 for k in [-4,-5,-10] rotate!(ex21_nets_set1b[4],k); end
@@ -119,7 +111,6 @@ for k in [-4,-5,-10,-14] rotate!(ex21_nets_set1c[6],k); end
 for k in [-4,-5,-10] rotate!(ex21_nets_set1c[7],k); end
 for k in [-7,-8,-9,-10,-11] rotate!(ex21_nets_set1c[8],k); end
 for k in [-7,-8,-9,-10,-11] rotate!(ex21_nets_set1c[9],k); end
-# good
 for k in [-3,-4,-5] rotate!(ex21_nets_set1c[4],k); end
 for k in [-3,-4,-5] rotate!(ex21_nets_set1c[5],k); end
 for k in [-3,-4,-5] rotate!(ex21_nets_set1c[6],k); end
@@ -133,8 +124,19 @@ for k in [-3,-4,-5] rotate!(ex21_nets_set1b[6],k); end
 for k in [-3,-4,-5] rotate!(ex21_nets_set1b[7],k); end
 for k in [-3,-4,-5] rotate!(ex21_nets_set1b[8],k); end
 for k in [-3,-4,-5] rotate!(ex21_nets_set1b[9],k); end
-# better
 
+# For displaying reticulations, we may choose which edge is major and which is
+# minor, since TriLoNet doesn't determine this. For reticulations involving
+# 216_II, the evidence suggests that the major reticulation edge should be the
+# one closest to BHV1.1, since the genome of 216_II is overwhelmingly more
+# simiar to strains in that clade, so we set a value for the reticulation
+# parameter value greater than .5 to reflect that fact. For other
+# reticulations, we don't have clear evidence one way or the other, so the
+# minor/major assigment is arbitrary in accordance with the default convention
+# in PhyloPlot.
+for i in [4,5,6,7,8,9] setgamma!(ex21_nets_set1b[i].edge[2], 0.989); end
+for i in [4,5,6,7] setgamma!(ex21_nets_set1c[i].edge[2], 0.989); end
+for i in [8,9] setgamma!(ex21_nets_set1c[i].edge[5], 0.989); end
 
 # Plot the networks in two 9x9 panels
 R"cairo_pdf"("trilonet-major-breakpoint-only.pdf", height=5, width=12);
@@ -145,12 +147,16 @@ R"layout"([1 2 3 0 10 11 12;
 R"par"(mar=[0,.5,0,.5]);
 for (i,net) in enumerate(ex21_nets_set1b)
     k = kappa_values[i]
-    plot(net, xlim=[xmin_set1b-xpad,xmax_set1b[i]+xpad], ylim=[ymin_set1b,ymax_set1b[i]],shownodenumber=false,tipcex=.8) # tipcex=1.3
+    plot(net, xlim=[xmin_set1b-xpad,xmax_set1b[i]+xpad], ylim=[ymin_set1b,ymax_set1b[i]],
+         showedgenumber=false, shownodenumber=false, minorlinetype="solid", arrowlen=0,
+         majorhybridedgecolor="deepskyblue", minorhybridedgecolor="deepskyblue", tipcex=.8)
     R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
 for (i,net) in enumerate(ex21_nets_set1c)
     k = kappa_values[i]
-    plot(net, xlim=[xmin_set1c-xpad,xmax_set1c[i]+xpad], ylim=[ymin_set1c,ymax_set1c[i]],shownodenumber=false,tipcex=.8) # tipcex=1.3
+    plot(net, xlim=[xmin_set1c-xpad, xmax_set1c[i]+xpad], ylim=[ymin_set1c,ymax_set1c[i]],
+         showedgenumber=false, shownodenumber=false, minorlinetype="solid", arrowlen=0,
+         majorhybridedgecolor="deepskyblue", minorhybridedgecolor="deepskyblue", tipcex=.8)
     R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
 R"dev.off"();
@@ -184,30 +190,27 @@ ex22_net_k8_set1c = readTopology("(BHV5,(((B589,(SP1777)#H1),(K22,#H1)),(216_II,
 ex22_net_k10_set1c = readTopology("(BHV5,(((B589,(SP1777)#H1),(K22,#H1)),(216_II,((C33,(Titanium,(C46,#H2))),(Cooper)#H2))))root;")
 ex22_net_k20_set1c = readTopology("(BHV5,(((B589,(SP1777)#H1),(K22,#H1)),(216_II,((Cooper,(C33,(C46)#H2)),(Titanium,#H2)))))root;")
 
-# Todo: rotate and re-root the networks to make them pretty
-
 # Save lists of the networks
 ex22_nets_set1b = [ex22_net_k0_5_set1b, ex22_net_k1_set1b, ex22_net_k2_set1b, ex22_net_k4_set1b, ex22_net_k5_set1b, ex22_net_k6_5_set1b, ex22_net_k8_set1b, ex22_net_k10_set1b, ex22_net_k20_set1b]
 ex22_nets_set1c = [ex22_net_k0_5_set1c, ex22_net_k1_set1c, ex22_net_k2_set1c, ex22_net_k4_set1c, ex22_net_k5_set1c, ex22_net_k6_5_set1c, ex22_net_k8_set1c, ex22_net_k10_set1c, ex22_net_k20_set1c]
 
-# rotate the networks
+# Untangle the networks
 rotate!(ex22_nets_set1b[2],-10)
 rotate!(ex22_nets_set1b[3],-10)
 rotate!(ex22_nets_set1b[4],-10)
 rotate!(ex22_nets_set1b[4],-7)
+rotate!(ex22_nets_set1b[4],-6)
+rotate!(ex22_nets_set1b[4],-10)
 rotate!(ex22_nets_set1b[9],-10)
 rotate!(ex22_nets_set1c[2],-11)
 rotate!(ex22_nets_set1c[3],-11)
-for k in [-9,-10] rotate!(ex22_nets_set1c[4],k); end
+for k in [-9,-10,-7] rotate!(ex22_nets_set1c[4],k); end
 rotate!(ex22_nets_set1c[5],-7)
 rotate!(ex22_nets_set1c[6],-7)
 rotate!(ex22_nets_set1c[7],-7)
 rotate!(ex22_nets_set1c[8],-7)
 rotate!(ex22_nets_set1c[9],-7)
 rotate!(ex22_nets_set1c[9],-13)
-
-
-
 
 # Make dimensions for the plotting
 xmin_set1b = 0.7
@@ -230,12 +233,16 @@ R"layout"([1 2 3 0 10 11 12;
 R"par"(mar=[0,.5,0,.5]);
 for (i,net) in enumerate(ex22_nets_set1b)
     k = kappa_values[i]
-    plot(net, xlim=[xmin_set1b-xpad,xmax_set1b[i]+xpad], ylim=[ymin_set1b,ymax_set1b[i]],shownodenumber=false,tipcex=.8) # tipcex=1.3
+    plot(net, xlim=[xmin_set1b-xpad, xmax_set1b[i]+xpad], ylim=[ymin_set1b,ymax_set1b[i]],
+         showedgenumber=false, shownodenumber=false, minorlinetype="solid", arrowlen=0,
+         majorhybridedgecolor="deepskyblue", minorhybridedgecolor="deepskyblue",tipcex=.8) # tipcex=1.3
     R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
 for (i,net) in enumerate(ex22_nets_set1c)
     k = kappa_values[i]
-    plot(net, xlim=[xmin_set1c-xpad,xmax_set1c[i]+xpad], ylim=[ymin_set1c,ymax_set1c[i]],shownodenumber=false,tipcex=.8) # tipcex=1.3
+    plot(net, xlim=[xmin_set1c-xpad,xmax_set1c[i]+xpad], ylim=[ymin_set1c,ymax_set1c[i]],
+         showedgenumber=false, shownodenumber=false, minorlinetype="solid", arrowlen=0,
+         majorhybridedgecolor="deepskyblue", minorhybridedgecolor="deepskyblue",tipcex=.8) # tipcex=1.3
     R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
 R"dev.off"();
@@ -274,7 +281,7 @@ ex23_net_k20_set1c = readTopology("(BHV5,((K22,(B589,(216_II,(SP1777,(C33,(Titan
 ex23_nets_set1b = [ex23_net_k0_5_set1b, ex23_net_k1_set1b, ex23_net_k2_set1b, ex23_net_k4_set1b, ex23_net_k5_set1b, ex23_net_k6_5_set1b, ex23_net_k8_set1b, ex23_net_k10_set1b, ex23_net_k20_set1b]
 ex23_nets_set1c = [ex23_net_k0_5_set1c, ex23_net_k1_set1c, ex23_net_k2_set1c, ex23_net_k4_set1c, ex23_net_k5_set1c, ex23_net_k6_5_set1c, ex23_net_k8_set1c, ex23_net_k10_set1c, ex23_net_k20_set1c]
 
-# Rotate the networks
+# Untangle the networks
 rotate!(ex23_nets_set1b[3],-10)
 rotate!(ex23_nets_set1b[4],-10)
 rotate!(ex23_nets_set1b[5],-9)
@@ -288,6 +295,7 @@ rotate!(ex23_nets_set1c[7],-3)
 rotate!(ex23_nets_set1c[7],-9)
 rotate!(ex23_nets_set1c[8],-11)
 rotate!(ex23_nets_set1c[8],-5)
+for i in [6,7] setgamma!(ex23_nets_set1b[i].edge[2], 0.989); end
 
 # Make dimensions for the plotting
 xmin_set1b = 0.7
@@ -312,12 +320,17 @@ R"layout"([1 2 3 0 10 11 12;
 R"par"(mar=[0,.5,0,.5]);
 for (i,net) in enumerate(ex23_nets_set1b)
     k = kappa_values[i]
-    plot(net, xlim=[xmin_set1b-xpad,xmax_set1b[i]+xpad], ylim=[ymin_set1b,ymax_set1b[i]],shownodenumber=false,tipcex=.8) # tipcex=1.3
+    plot(net, xlim=[xmin_set1b-xpad,xmax_set1b[i]+xpad],
+         ylim=[ymin_set1b,ymax_set1b[i]],
+         showedgenumber=false, shownodenumber=false, minorlinetype="solid", arrowlen=0,
+         majorhybridedgecolor="deepskyblue", minorhybridedgecolor="deepskyblue", tipcex=.8) # tipcex=1.3
     R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
 for (i,net) in enumerate(ex23_nets_set1c)
     k = kappa_values[i]
-    plot(net, xlim=[xmin_set1c-xpad,xmax_set1c[i]+xpad], ylim=[ymin_set1c,ymax_set1c[i]],shownodenumber=false,tipcex=.8)# tipcex=1.3
+    plot(net, xlim=[xmin_set1c-xpad,xmax_set1c[i]+xpad], ylim=[ymin_set1c,ymax_set1c[i]],
+         showedgenumber=false, shownodenumber=false, minorlinetype="solid", arrowlen=0,
+         majorhybridedgecolor="deepskyblue", minorhybridedgecolor="deepskyblue", tipcex=.8)# tipcex=1.3
     R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
 R"dev.off"();
