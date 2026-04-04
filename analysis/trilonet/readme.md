@@ -416,7 +416,8 @@ do
 done
 ```
 
-# 127986 is the "cleaned sequences length" for set1c, and 127992 is for set1b. This is why we were getting the out of bounds error. 
+(Note that 127986 is the "cleaned sequences length" for set1c, and 127992 is
+for set1b. This is why we were getting the out of bounds error in previous experiments.)
 
 # Experiment 23 - no breakpoints supplied
 
