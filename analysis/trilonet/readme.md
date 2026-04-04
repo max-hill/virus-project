@@ -516,8 +516,9 @@ done
 ```
 
 The above code saves the TriLoNet output files to four separate folders in the
-directory `analysis/trilonet/`. The code for plotting the results of these
-experiments is found in `analysis/trilonet/plots-for-experiments-21-through-24.jl`
+directory `analysis/trilonet/`. Total runtime is about 45 minutes (my
+desktop). The code for plotting the results of these experiments is found in
+`analysis/trilonet/plots-for-experiments-21-through-24.jl`
 
 Comment: The uniform breakpoints case (experiment 24) only goes up to 127500,
 which is less than the full genome length. This is because 127986 is the
