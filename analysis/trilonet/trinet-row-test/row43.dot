@@ -1,0 +1,13 @@
+digraph ../../../../analysis/trilonet/trinet-row-test/row43
+{
+"n1"[shape=point];"3"[shape=box];"4"[shape=box];"1"[shape=box];"2"[shape=box];"n2"[shape=point];"n3"[shape=point];"n4"[shape=point];"n5"[shape=point];
+"n1"->"n2"
+"n1"->"n4"
+"n2"->"n3"
+"n2"->"4"
+"n3"->"n5"
+"n3"->"1"
+"n4"->"n5"
+"n4"->"2"
+"n5"->"3"
+}

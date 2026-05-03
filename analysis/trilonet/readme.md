@@ -524,3 +524,72 @@ Comment: The uniform breakpoints case (experiment 24) only goes up to 127500,
 which is less than the full genome length. This is because 127986 is the
 "cleaned sequences length" for set1c, and 127992 is for set1b. (This is why we
 were getting the out of bounds error in previous experiments.)
+
+
+# Dependence of TriLoNet on row order of MSA
+This experiment uses a toy example to show that the output network of TriLoNet
+depends on the order that species are listed in the MSA.
+
+First, run the following from `virus-project/scripts/trilonet3/TriLoNet/TriLoNet`
+
+```
+dir="../../../../analysis/trilonet/trinet-row-test"
+mkdir -p $dir
+cat > $dir/row34.fasta <<'EOF'
+>1
+AAAAC
+>2
+CAAAC
+>3
+GAACA
+>4
+TAACA
+EOF
+
+cat > $dir/row43.fasta <<'EOF'
+>1
+AAAAC
+>2
+CAAAC
+>4
+TAACA
+>3
+GAACA
+EOF
+
+for name in row34 row43; do
+    java -jar TriLoNet.jar "${dir}/${name}.fasta" --k6 "${dir}/${name}.dot" "${dir}/${name}.txt"
+done
+
+```
+
+This gives two different networks, for row 34 and row43 respectively:
+
+```
+((((4)#H1,1),3),(#H1,2))root;
+((((3)#H1,1),4),(#H1,2))root;
+```
+
+To visualize them, run the following Julia code from `$dir`:
+
+```
+using PhyloPlots, RCall, PhyloNetworks
+net34 = PhyloPlots.readTopology("((((4)#H1,1),3),(#H1,2))root;")
+net43 = PhyloPlots.readTopology("((((3)#H1,1),4),(#H1,2))root;")
+
+PhyloNetworks.rotate!(net34,-3)
+PhyloNetworks.rotate!(net34,-4)
+PhyloNetworks.rotate!(net43,-3)
+PhyloNetworks.rotate!(net43,-4)
+
+R"png(filename='row34vsrow43.png', width=36, height=18, units='cm', res=300)"
+R"par(mfrow=c(1,2), mar=c(1,1,3,1))"
+PhyloPlots.plot(net34, tipcex=1.5, useedgelength=false, showedgenumber=false,
+    shownodenumber=false, showgamma=true, arrowlen=0.1, style=:fulltree)
+R"title('net34')"
+PhyloPlots.plot(net43, tipcex=1.5, useedgelength=false, showedgenumber=false,
+    shownodenumber=false, showgamma=true, arrowlen=0.1, style=:fulltree)
+R"title('net43')"
+R"dev.off()"
+
+```

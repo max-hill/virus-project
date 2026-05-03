@@ -1,0 +1,46 @@
+ORIGINAL SEQUENCES LENGTH =  5
+
+
+CLEANED SEQUENCES LENGTH = 5
+Number of taxa: 4
+Vertex 0 = root
+Vertex 1 = 1
+Vertex 2 = 2
+Vertex 3 = 4
+Vertex 4 = 3
+
+Leaf Count = 0
+List of Trinets extracted from the Network: 
+Tr0 = Tr{1, 4, 2 : S1}
+Tr1 = Tr{1, 3, 2 : S1}
+Tr2 = Tr{1, 4, 3 : S1}
+Tr3 = Tr{2, 4, 3 : S1}
+List of Trinets: end 
+
+REPORT: ((((3)#H1,1)n3,4)n2,(#H1,2)n4)root;
+REPORT: ((((3)#H1,1),4),(#H1,2))root;
+Extracting trinets from Output network...........
+Output Network eNewick: 
+((((3)#H1,1)n3,4)n2,(#H1,2)n4)root;
+
+finalNetwork eNewick Short: 
+((((3)#H1,1),4),(#H1,2))root;
+
+Number of leaves in the output network: 4
+
+
+Reticulations in  output network = 1
+
+
+
+Time to extract Trinets =  0 hours 0 minutes 0 seconds
+Time build our network =  0 hours 0 minutes 0 seconds
+Time to compare results =  0 hours 0 minutes 0 seconds
+Total program time =  0 hours 0 minutes 0 seconds
+
+Results Summary
+Written eNewick String to output.tree
+Output eNewick String Short: 
+((((3)#H1,1),4),(#H1,2))root;
+
+
