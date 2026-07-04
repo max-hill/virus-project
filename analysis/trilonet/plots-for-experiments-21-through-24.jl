@@ -13,7 +13,7 @@ using RCall
 
 #_______________________________________________________________________________
 #
-# Trilonet experiments 21, 22, and 23
+# Trilonet experiments 21, 22, 23, and 24
 #________________________________________________________________________________
 
 # The following function extracts networks from the output files of Trilonet
@@ -165,8 +165,8 @@ R"dev.off"();
 # EXPERIMENT 22 NETWORKS (all breakpoints)
 
 # we run the following, which gives the code for the networks listed below
-get_networks("set1b","experiment-22-with-all-breakpoints",22)
-get_networks("set1c","experiment-22-with-all-breakpoints",22)
+get_networks("set1b","experiment-22-with-all-conjectured-breakpoints",22)
+get_networks("set1c","experiment-22-with-all-conjectured-breakpoints",22)
 
 # Networks for set1b from directory experiment-22-with-all-breakpoints
 ex22_net_k0_5_set1b = readTopology("(BHV5,((B589,SP1777),(216_II,(Cooper,(C33,(C46,Titanium))))))root;")
@@ -416,3 +416,48 @@ for (i,net) in enumerate(ex24_nets_set1c)
     R"mtext"("κ=$k", side=3, line=-1.5, adj=0.1, cex=0.8)
 end
 R"dev.off"();
+
+
+
+
+#_______________________________________________________________________________
+#
+# Trilonet experiments 24
+#________________________________________________________________________________
+
+# The following function extracts networks from the output files of Trilonet
+function get_networks(taxonset, dir, experiment_number)
+    pattern = "finalNetwork eNewick Short:"
+    println("\n\n# Networks for ", taxonset, " from directory ", dir)
+    results = []  # will store (kvalue, ksnippet, network)
+    for file in readdir(dir)
+        if occursin(taxonset, file) && endswith(file, ".txt")
+            m = match(r"-k([0-9]+(?:\.[0-9]+)?)\-", file)
+            m === nothing && continue
+            kvalue = parse(Float64, m.captures[1])
+            ksnippet = "ex" * string(experiment_number) * "_net_k" * replace(m.captures[1], "." => "_")
+            path = joinpath(dir, file)
+            open(path) do io
+                lines = readlines(io)
+                for i in 1:length(lines)-1
+                    if strip(lines[i]) == pattern
+                        network = strip(lines[i+1])
+                        network = replace(network, "Titanium_IBR_MLV_vaccine" => "Titanium")
+                        push!(results, (kvalue, ksnippet, network))
+                        break
+                    end
+                end
+            end
+        end
+    end
+    sort!(results, by = x -> x[1])
+    for (_, ksnippet, network) in results
+        println(ksnippet, "_",taxonset," = readTopology(\"", network, "\")")
+    end
+end
+get_networks
+get_networks("set1b","experiment-25-with-permuted-rows-no-breakpoints",25)
+
+ex25_net_k5_set1b = readTopology("(BHV5,((216_II,((Cooper,(C33,(C46)#H1)),(Titanium,#H1))),(SP1777,B589)))root;")
+ex25_net_k6_5_set1b = readTopology("(BHV5,(((#H1,((C33,(Titanium,(C46,#H2))),(Cooper)#H2)),(B589,SP1777)),(216_II)#H1))root;")
+ex25_net_k8_set1b = readTopology("(BHV5,(((#H1,((C33,(Titanium,(C46,#H2))),(Cooper)#H2)),(B589,SP1777)),(216_II)#H1))root;")
